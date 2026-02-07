@@ -183,3 +183,137 @@ class HUD:
         # Text
         text_surf = self.font.render(text, True, color)
         screen.blit(text_surf, pos)
+
+
+class CameraLetterDisplay:
+    """
+    UI component to show camera-detected letter and hold progress.
+    
+    Displays:
+    - Currently detected letter
+    - Hold progress bar (filling up as letter is held)
+    - "No Target" feedback when letter doesn't match any enemy
+    """
+    
+    def __init__(self):
+        # Position (bottom-center of screen)
+        self.x = SCREEN_WIDTH // 2
+        self.y = SCREEN_HEIGHT - 80
+        
+        # Dimensions
+        self.letter_size = 48
+        self.progress_bar_width = 80
+        self.progress_bar_height = 8
+        
+        # Colors
+        self.bg_color = (30, 30, 40, 200)
+        self.letter_color = (255, 255, 255)
+        self.letter_holding_color = (255, 220, 100)
+        self.letter_confirmed_color = (100, 255, 100)
+        self.progress_bg_color = (60, 60, 70)
+        self.progress_fill_color = (100, 200, 255)
+        self.no_target_color = (255, 100, 100)
+        
+        # Fonts
+        try:
+            font_path = os.path.join(FONTS_DIR, 'Alkhemikal.ttf')
+            self.letter_font = pygame.font.Font(font_path, self.letter_size)
+            self.label_font = pygame.font.Font(font_path, 16)
+        except:
+            self.letter_font = pygame.font.Font(None, self.letter_size)
+            self.label_font = pygame.font.Font(None, 18)
+    
+    def draw(self, screen: pygame.Surface, detected_letter: str | None, 
+             hold_progress: float, state: str, 
+             no_target_letter: str | None = None, show_no_target: bool = False):
+        """
+        Draw the camera letter display.
+        
+        Args:
+            screen: Surface to draw on
+            detected_letter: Currently detected letter (or None)
+            hold_progress: 0.0 to 1.0 progress of hold time
+            state: Current state ('waiting', 'holding', 'debouncing')
+            no_target_letter: Letter that had no matching target
+            show_no_target: Whether to show "No Target" feedback
+        """
+        # Don't draw anything if no letter and no feedback needed
+        if detected_letter is None and not show_no_target:
+            return
+        
+        # Background panel
+        panel_width = 120
+        panel_height = 90
+        panel_rect = pygame.Rect(
+            self.x - panel_width // 2,
+            self.y - panel_height // 2,
+            panel_width,
+            panel_height
+        )
+        
+        # Draw semi-transparent background
+        bg_surface = pygame.Surface((panel_width, panel_height), pygame.SRCALPHA)
+        bg_surface.fill(self.bg_color)
+        screen.blit(bg_surface, panel_rect.topleft)
+        
+        # Draw border
+        pygame.draw.rect(screen, (80, 80, 100), panel_rect, 2)
+        
+        # Determine letter color based on state
+        if state == 'debouncing':
+            letter_color = self.letter_confirmed_color
+        elif state == 'holding':
+            letter_color = self.letter_holding_color
+        else:
+            letter_color = self.letter_color
+        
+        # Draw letter
+        display_letter = detected_letter if detected_letter else "?"
+        letter_surf = self.letter_font.render(display_letter, True, letter_color)
+        letter_rect = letter_surf.get_rect(centerx=self.x, centery=self.y - 15)
+        screen.blit(letter_surf, letter_rect)
+        
+        # Draw progress bar (only when holding)
+        if state == 'holding' and hold_progress > 0:
+            bar_x = self.x - self.progress_bar_width // 2
+            bar_y = self.y + 15
+            
+            # Background
+            pygame.draw.rect(screen, self.progress_bg_color,
+                           (bar_x, bar_y, self.progress_bar_width, self.progress_bar_height))
+            
+            # Fill
+            fill_width = int(self.progress_bar_width * hold_progress)
+            if fill_width > 0:
+                pygame.draw.rect(screen, self.progress_fill_color,
+                               (bar_x, bar_y, fill_width, self.progress_bar_height))
+            
+            # Border
+            pygame.draw.rect(screen, (100, 100, 120),
+                           (bar_x, bar_y, self.progress_bar_width, self.progress_bar_height), 1)
+        
+        # Draw "No Target" feedback
+        if show_no_target and no_target_letter:
+            no_target_text = f"No target for '{no_target_letter}'"
+            no_target_surf = self.label_font.render(no_target_text, True, self.no_target_color)
+            no_target_rect = no_target_surf.get_rect(centerx=self.x, top=self.y + 30)
+            screen.blit(no_target_surf, no_target_rect)
+        
+        # Draw state label
+        if state == 'debouncing':
+            label = "Release hand..."
+            label_color = self.letter_confirmed_color
+        elif state == 'holding':
+            label = "Hold..."
+            label_color = self.letter_holding_color
+        elif detected_letter:
+            label = "Detected"
+            label_color = (150, 150, 150)
+        else:
+            label = ""
+            label_color = (150, 150, 150)
+        
+        if label and not show_no_target:
+            label_surf = self.label_font.render(label, True, label_color)
+            label_rect = label_surf.get_rect(centerx=self.x, top=self.y + 30)
+            screen.blit(label_surf, label_rect)

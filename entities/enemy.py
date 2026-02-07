@@ -61,8 +61,8 @@ class Enemy(AnimatedSprite):
     def __init__(self, x: float, y: float, sprite_config: dict):
         super().__init__(x, y, sprite_config)
         
-        # Assign random letter (A-Z)
-        self.letter = random.choice(string.ascii_uppercase)
+        # Assign random letter (A-E for testing)
+        self.letter = random.choice(['A', 'B', 'C', 'D', 'E'])
         self._letter_surface = None  # Pre-rendered letter surface
         self._render_letter_surface()
         
@@ -329,3 +329,47 @@ class Skeleton(Enemy):
         # Larger collision for skeleton
         self.collision_radius = 10
         self.hitbox_radius = 16
+
+
+def find_enemies_by_letter(enemies, letter: str) -> list:
+    """
+    Find all alive enemies with the matching letter.
+    
+    Args:
+        enemies: Iterable of Enemy objects (can be sprite group or list)
+        letter: The letter to match (case-insensitive)
+    
+    Returns:
+        List of Enemy objects with matching letter that are alive
+    """
+    letter = letter.upper()
+    return [e for e in enemies if e.is_alive and e.letter == letter]
+
+
+def find_closest_enemy_by_letter(enemies, letter: str, from_pos: pygame.Vector2) -> 'Enemy | None':
+    """
+    Find the closest alive enemy with the matching letter.
+    
+    Args:
+        enemies: Iterable of Enemy objects
+        letter: The letter to match (case-insensitive)
+        from_pos: Position to measure distance from (usually player position)
+    
+    Returns:
+        The closest Enemy with matching letter, or None if no match
+    """
+    matching = find_enemies_by_letter(enemies, letter)
+    if not matching:
+        return None
+    
+    # Find closest
+    closest = None
+    closest_dist = float('inf')
+    
+    for enemy in matching:
+        dist = from_pos.distance_to(enemy.pos)
+        if dist < closest_dist:
+            closest_dist = dist
+            closest = enemy
+    
+    return closest

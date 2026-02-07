@@ -3,18 +3,19 @@ import pygame
 import os
 from core.scene import Scene
 from core.game_state import game_state
-from core.ui import HUD, DeathPanel, HealthBar
+from core.ui import HUD, DeathPanel, HealthBar, CameraLetterDisplay
 from core.camera import Camera
 from core.map_loader import load_map_data, create_tilemap_from_data, get_spawn_points, get_transitions
 from entities.player import Player
-from entities.enemy import Slime, Skeleton
+from entities.enemy import Slime, Skeleton, find_closest_enemy_by_letter
 from entities.undine import UndineManager
 from entities.spell import SpellProjectile
 from config.settings import (
     SCREEN_WIDTH, SCREEN_HEIGHT, SPRITES_DIR,
     TILE_SIZE, SCALE, WORLD_WIDTH, WORLD_HEIGHT,
     WORLD_WIDTH_TILES, WORLD_HEIGHT_TILES, CAMERA_DRAG_MARGIN,
-    SPELL_DAMAGE
+    SPELL_DAMAGE, CAMERA_ENABLED, CAMERA_HOLD_TIME, CAMERA_CONFIDENCE,
+    CAMERA_DEFAULT_SPELL, CAMERA_SHOW_PREVIEW
 )
 
 
@@ -109,6 +110,25 @@ class WorldScene(Scene):
         self.death_panel = DeathPanel()
         self.show_death_dialog = False
         
+        # Camera input (ASL detection)
+        self.camera_input = None
+        self.camera_letter_display = CameraLetterDisplay()
+        self._no_target_timer = 0.0  # Timer for "No Target" feedback
+        self._no_target_letter = None  # Letter that had no target
+        
+        if CAMERA_ENABLED:
+            try:
+                from vision.camera_input import CameraInput
+                self.camera_input = CameraInput(
+                    hold_time=CAMERA_HOLD_TIME,
+                    confidence_threshold=CAMERA_CONFIDENCE,
+                    show_preview=CAMERA_SHOW_PREVIEW
+                )
+                self.camera_input.start()
+            except Exception as e:
+                print(f"Camera input not available: {e}")
+                self.camera_input = None
+        
         # Font for extra UI
         self.font = pygame.font.Font(None, 24)
     
@@ -196,6 +216,9 @@ class WorldScene(Scene):
         # Get input
         keys = pygame.key.get_pressed()
         self.player.handle_input(keys)
+        
+        # Process camera input (ASL letter detection)
+        self._process_camera_input(dt)
         
         # Store old position for collision resolution
         old_pos = pygame.Vector2(self.player.pos)
@@ -328,6 +351,10 @@ class WorldScene(Scene):
                 if enemy.is_alive:
                     enemy_hitbox = enemy.get_hitbox()
                     if spell_hitbox.colliderect(enemy_hitbox):
+                        # Check if spell can hit this target (letter restriction)
+                        if not spell.can_hit_target(enemy.letter):
+                            continue  # Spell passes through - wrong letter
+                        
                         # Spell hits enemy
                         enemy.take_damage(spell.damage)
                         spell.destroy()
@@ -349,6 +376,10 @@ class WorldScene(Scene):
             for undine in self.undine_manager.undines:
                 if undine.alive:
                     if spell_hitbox.colliderect(undine.rect):
+                        # Check if spell can hit this target (letter restriction)
+                        if not spell.can_hit_target(undine.letter):
+                            continue  # Spell passes through - wrong letter
+                        
                         # Spell hits undine
                         undine.take_damage(spell.damage)
                         spell.destroy()
@@ -366,6 +397,91 @@ class WorldScene(Scene):
         if player_rect.colliderect(self.exit_to_camp):
             game_state.player_exit_pos = (SCREEN_WIDTH - 50, self.player.pos.y)
             self.next_scene = 'camp'
+    
+    def _process_camera_input(self, dt: float):
+        """Process camera input for ASL letter detection."""
+        # Update no-target feedback timer
+        if self._no_target_timer > 0:
+            self._no_target_timer -= dt
+            if self._no_target_timer <= 0:
+                self._no_target_letter = None
+        
+        if self.camera_input is None or not self.camera_input.is_available():
+            return
+        
+        # Get pending confirmed letters
+        pending_letters = self.camera_input.get_pending_letters()
+        
+        for letter in pending_letters:
+            self._handle_camera_letter(letter)
+    
+    def _handle_camera_letter(self, letter: str):
+        """
+        Handle a confirmed letter from camera input.
+        
+        Finds the closest enemy with matching letter and fires a spell at it.
+        """
+        if not self.player.is_alive:
+            return
+        
+        # Find closest enemy with matching letter
+        target = find_closest_enemy_by_letter(self.enemies, letter, self.player.pos)
+        
+        # Also check undines
+        target_undine = self._find_closest_undine_by_letter(letter)
+        
+        # Compare distances if both found
+        if target and target_undine:
+            dist_enemy = self.player.pos.distance_to(target.pos)
+            dist_undine = self.player.pos.distance_to(target_undine.pos)
+            if dist_undine < dist_enemy:
+                target = None  # Use undine instead
+            else:
+                target_undine = None  # Use enemy instead
+        
+        # Fire at target
+        if target:
+            spell = SpellProjectile.create_targeted(
+                self.player.pos,
+                target.pos,
+                CAMERA_DEFAULT_SPELL,
+                letter
+            )
+            self.spells.add(spell)
+            self.all_sprites.add(spell)
+        elif target_undine:
+            spell = SpellProjectile.create_targeted(
+                self.player.pos,
+                target_undine.pos,
+                CAMERA_DEFAULT_SPELL,
+                letter
+            )
+            self.spells.add(spell)
+            self.all_sprites.add(spell)
+        else:
+            # No target found - show feedback
+            self._no_target_timer = 1.5  # Show "No Target" for 1.5 seconds
+            self._no_target_letter = letter
+    
+    def _find_closest_undine_by_letter(self, letter: str):
+        """Find the closest alive undine with matching letter."""
+        letter = letter.upper()
+        matching = [u for u in self.undine_manager.undines 
+                   if u.alive and u.letter == letter]
+        
+        if not matching:
+            return None
+        
+        closest = None
+        closest_dist = float('inf')
+        
+        for undine in matching:
+            dist = self.player.pos.distance_to(undine.pos)
+            if dist < closest_dist:
+                closest_dist = dist
+                closest = undine
+        
+        return closest
     
     def draw(self, screen: pygame.Surface):
         # Clear screen
@@ -447,6 +563,19 @@ class WorldScene(Scene):
         undine_count = self.undine_manager.get_alive_count()
         count_text = self.font.render(f"Enemies: {enemy_count} | Undines: {undine_count}", True, (200, 200, 200))
         screen.blit(count_text, (SCREEN_WIDTH - 220, SCREEN_HEIGHT - 25))
+        
+        # Camera letter display (ASL detection feedback)
+        if self.camera_input is not None:
+            detected_letter, hold_progress = self.camera_input.get_current_detection()
+            state = self.camera_input.get_state()
+            self.camera_letter_display.draw(
+                screen, 
+                detected_letter, 
+                hold_progress,
+                state,
+                self._no_target_letter,
+                self._no_target_timer > 0
+            )
         
         # Death panel
         self.death_panel.draw(screen)
