@@ -1,9 +1,11 @@
 """World scene - main gameplay area with tilemap and camera."""
 import pygame
 import os
+import json
+import random
 from core.scene import Scene
 from core.game_state import game_state
-from core.ui import HUD, DeathPanel, HealthBar, CameraLetterDisplay
+from core.ui import HUD, DeathPanel, HealthBar, CameraLetterDisplay, WaveDisplay
 from core.camera import Camera
 from core.map_loader import load_map_data, create_tilemap_from_data, get_spawn_points, get_transitions
 from entities.player import Player
@@ -62,34 +64,29 @@ class WorldScene(Scene):
         self.camera.set_target(self.player.pos)
         self.camera.center_on(self.player.pos.x, self.player.pos.y)
         
-        # Create enemies at spawn points
+        # Initialize enemy groups (populated by wave system)
         self.enemies = pygame.sprite.Group()
-        enemy_spawns = spawn_points.get('enemies', [])
-        for spawn in enemy_spawns:
-            x = spawn['x'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
-            y = spawn['y'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
-            enemy_type = spawn.get('type', 'slime')
-            
-            if enemy_type == 'skeleton':
-                enemy = Skeleton(x, y)
-            else:
-                enemy = Slime(x, y)
-            
-            enemy.set_target(self.player)
-            self.enemies.add(enemy)
         
         # Mushrooms disabled - sprite removed
         self.mushrooms = []
         
-        # Create Undine manager and spawn undines
+        # Create Undine manager (populated by wave system)
         self.undine_manager = UndineManager(self.world_pixel_width, self.world_pixel_height)
-        self.undine_manager.spawn_random(5)  # Spawn 5 undines at random positions
         
         # All sprites for rendering
         self.all_sprites = pygame.sprite.Group()
         self.all_sprites.add(self.player)
-        for enemy in self.enemies:
-            self.all_sprites.add(enemy)
+        
+        # Wave system
+        self.wave_config = self._load_wave_config()
+        self.current_wave_index = 0
+        self.wave_transition_timer = 0.0
+        self.wave_in_transition = False
+        self.time_between_waves = self.wave_config.get('time_between_waves_seconds', 5.0)
+        self.wave_display = WaveDisplay()
+        
+        # Spawn first wave
+        self._spawn_wave(0)
         
         # Spell projectiles
         self.spells = pygame.sprite.Group()
@@ -177,6 +174,135 @@ class WorldScene(Scene):
                 rect.height * SCALE
             )
             self.decoration_collision_rects.append(scaled_rect)
+    
+    def _load_wave_config(self) -> dict:
+        """Load wave configuration from JSON file."""
+        try:
+            waves_path = os.path.join('data', 'waves.json')
+            with open(waves_path, 'r') as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            print(f"Error loading waves.json: {e}")
+            # Return default config
+            return {
+                'waves': [
+                    {
+                        'wave_number': 1,
+                        'letters': ['A', 'B', 'C', 'D', 'E'],
+                        'enemies': {'slime': 2, 'skeleton': 1, 'undine': 1}
+                    }
+                ],
+                'time_between_waves_seconds': 5
+            }
+    
+    def _get_wave_data(self, wave_index: int) -> dict:
+        """
+        Get wave data for a specific index.
+        
+        If index exceeds available waves, returns the last wave.
+        """
+        waves = self.wave_config.get('waves', [])
+        if not waves:
+            return {'letters': ['A'], 'enemies': {'slime': 1, 'skeleton': 0, 'undine': 0}}
+        
+        # Clamp index to last wave if beyond available waves
+        actual_index = min(wave_index, len(waves) - 1)
+        return waves[actual_index]
+    
+    def _get_random_spawn_position(self, min_distance_from_player: float = 150) -> tuple[float, float]:
+        """
+        Get a random valid spawn position.
+        
+        Args:
+            min_distance_from_player: Minimum distance from player position
+            
+        Returns:
+            (x, y) tuple of world coordinates
+        """
+        margin = 80  # Stay away from world edges
+        max_attempts = 50
+        
+        for _ in range(max_attempts):
+            x = random.randint(margin, self.world_pixel_width - margin)
+            y = random.randint(margin, self.world_pixel_height - margin)
+            
+            # Check distance from player
+            player_dist = ((x - self.player.pos.x) ** 2 + (y - self.player.pos.y) ** 2) ** 0.5
+            if player_dist < min_distance_from_player:
+                continue
+            
+            # Create a temporary test entity to check collision
+            class TempEntity:
+                def __init__(self, px, py):
+                    self.pos = pygame.Vector2(px, py)
+            
+            temp = TempEntity(x, y)
+            if not self._check_tile_collision(temp):
+                return (x, y)
+        
+        # Fallback: return a position far from player, even if it might collide
+        # This ensures we always get a position
+        angle = random.uniform(0, 2 * 3.14159)
+        dist = min_distance_from_player + 50
+        x = self.player.pos.x + dist * (angle % 1)
+        y = self.player.pos.y + dist * ((angle + 0.5) % 1)
+        x = max(margin, min(self.world_pixel_width - margin, x))
+        y = max(margin, min(self.world_pixel_height - margin, y))
+        return (x, y)
+    
+    def _spawn_wave(self, wave_index: int):
+        """
+        Spawn enemies for a specific wave.
+        
+        Args:
+            wave_index: 0-based wave index
+        """
+        wave_data = self._get_wave_data(wave_index)
+        letters = wave_data.get('letters', ['A', 'B', 'C', 'D', 'E'])
+        enemies_config = wave_data.get('enemies', {})
+        
+        # Spawn slimes
+        slime_count = enemies_config.get('slime', 0)
+        for _ in range(slime_count):
+            x, y = self._get_random_spawn_position()
+            letter = random.choice(letters)
+            enemy = Slime(x, y, letter=letter)
+            enemy.set_target(self.player)
+            self.enemies.add(enemy)
+            self.all_sprites.add(enemy)
+        
+        # Spawn skeletons
+        skeleton_count = enemies_config.get('skeleton', 0)
+        for _ in range(skeleton_count):
+            x, y = self._get_random_spawn_position()
+            letter = random.choice(letters)
+            enemy = Skeleton(x, y, letter=letter)
+            enemy.set_target(self.player)
+            self.enemies.add(enemy)
+            self.all_sprites.add(enemy)
+        
+        # Spawn undines
+        undine_count = enemies_config.get('undine', 0)
+        self.undine_manager.spawn_random(undine_count, margin=80, letters=letters)
+        
+        # Reset transition state
+        self.wave_in_transition = False
+        self.wave_transition_timer = 0.0
+    
+    def _check_wave_completion(self) -> bool:
+        """Check if all enemies in the current wave are defeated."""
+        alive_enemies = len([e for e in self.enemies if e.is_alive])
+        alive_undines = self.undine_manager.get_alive_count()
+        return alive_enemies == 0 and alive_undines == 0
+    
+    def _start_next_wave(self):
+        """Start the next wave after transition period."""
+        self.current_wave_index += 1
+        self._spawn_wave(self.current_wave_index)
+    
+    def _get_current_wave_number(self) -> int:
+        """Get the current wave number (1-indexed for display)."""
+        return self.current_wave_index + 1
     
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -293,6 +419,18 @@ class WorldScene(Scene):
                 game_state.player_exp += enemy.xp_value
                 self.enemies.remove(enemy)
                 self.all_sprites.remove(enemy)
+        
+        # Wave system: check for wave completion and handle transitions
+        if self.wave_in_transition:
+            # Count down timer
+            self.wave_transition_timer -= dt
+            if self.wave_transition_timer <= 0:
+                self._start_next_wave()
+        else:
+            # Check if wave is complete
+            if self._check_wave_completion():
+                self.wave_in_transition = True
+                self.wave_transition_timer = self.time_between_waves
         
         # Check scene transitions
         self._check_transitions()
@@ -552,6 +690,14 @@ class WorldScene(Scene):
         
         # Draw HUD (fixed to screen, not affected by camera)
         self.hud.draw(screen, self.player, game_state)
+        
+        # Draw wave display (top center)
+        self.wave_display.draw(
+            screen,
+            self._get_current_wave_number(),
+            self.wave_in_transition,
+            self.wave_transition_timer
+        )
         
         # Scene label
         scene_text = self.font.render("WORLD", True, (200, 200, 100))
