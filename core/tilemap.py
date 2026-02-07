@@ -1,7 +1,7 @@
 """TileMap classes for rendering layered tile-based worlds."""
 import pygame
 from typing import Dict, List, Tuple, Optional, Set
-from core.tileset import TileSetManager
+from core.tileset import TileSetManager, OBJECTS_REGIONS
 
 
 class TileMapLayer:
@@ -137,15 +137,14 @@ class TileMap:
     A complete tilemap consisting of multiple layers.
     
     Manages rendering order and provides collision detection.
-    Layer order (bottom to top):
-    1. ground - Base terrain (grass)
-    2. cliffs - Terrain edges with collision
-    3. water - Water tiles with collision
-    4. paths - Walkable paths/roads (no collision)
-    5. decorations - Objects that y-sort with entities
+    Layer order (bottom to top) - matching Godot die-insel tutorial:
+    1. ground - Base terrain (grass) with terrain edge overlays
+    2. lvl1 - Cliff fill/lower level (below walking surface)
+    3. cliffs - Cliff edge tiles with collision
+    4. ysort - Objects that y-sort with entities (trees, rocks, bushes)
     """
     
-    LAYER_ORDER = ['ground', 'cliffs', 'water', 'paths', 'decorations']
+    LAYER_ORDER = ['ground', 'lvl1', 'cliffs', 'ysort']
     
     def __init__(self, width: int, height: int, tile_size: int = 16):
         """
@@ -168,9 +167,9 @@ class TileMap:
             layer = TileMapLayer(width, height, tile_size)
             
             # Set layer properties
-            if layer_name in ('cliffs', 'water'):
+            if layer_name == 'cliffs':
                 layer.has_collision = True
-            if layer_name == 'decorations':
+            if layer_name == 'ysort':
                 layer.y_sort = True
             
             self.layers[layer_name] = layer
@@ -186,6 +185,8 @@ class TileMap:
         """Load all required tilesets."""
         self.tileset_manager.load_tileset('grass', 'grass.png', 16)
         self.tileset_manager.load_tileset('plains', 'plains.png', 16)
+        # Load objects with multi-tile region definitions
+        self.tileset_manager.load_tileset('objects', 'objects.png', 16, OBJECTS_REGIONS)
         self.tileset_manager.load_tileset('water', 'water-sheet.png', 16)
         self.tileset_manager.load_tileset('decor16', 'decor_16x16.png', 16)
         self.tileset_manager.load_tileset('decor8', 'decor_8x8.png', 8)
@@ -211,7 +212,7 @@ class TileMap:
             List of pygame.Rect objects for collision detection
         """
         rects = []
-        for layer_name in ('cliffs', 'water'):
+        for layer_name in ('cliffs',):
             layer = self.layers.get(layer_name)
             if layer and layer.has_collision:
                 for (x, y) in layer.get_collision_tiles():
@@ -240,7 +241,7 @@ class TileMap:
         grid_y = int(pixel_y // self.tile_size)
         
         # Check collision layers
-        for layer_name in ('cliffs', 'water'):
+        for layer_name in ('cliffs',):
             layer = self.layers.get(layer_name)
             if layer and layer.has_collision:
                 tile = layer.get_tile(grid_x, grid_y)
@@ -266,7 +267,7 @@ class TileMap:
         end_y = int((rect.bottom - 1) // self.tile_size) + 1
         
         # Check all tiles in the range
-        for layer_name in ('cliffs', 'water'):
+        for layer_name in ('cliffs',):
             layer = self.layers.get(layer_name)
             if layer and layer.has_collision:
                 for y in range(start_y, end_y):
@@ -281,7 +282,7 @@ class TileMap:
         Render all non-y-sorted layers to a combined surface.
         
         Returns:
-            Surface containing ground, cliffs, water, and paths layers
+            Surface containing ground, lvl1, and cliffs layers
         """
         if not self._combined_dirty and self._combined_surface is not None:
             return self._combined_surface
@@ -292,9 +293,9 @@ class TileMap:
             pygame.SRCALPHA
         )
         
-        # Render layers in order (skip decorations for now)
+        # Render layers in order (skip ysort - that's rendered with entities)
         for layer_name in self.LAYER_ORDER:
-            if layer_name == 'decorations':
+            if layer_name == 'ysort':
                 continue
             layer = self.layers.get(layer_name)
             if layer:
@@ -306,15 +307,16 @@ class TileMap:
         
         return surface
     
-    def get_decoration_tiles(self) -> List[Tuple[pygame.Surface, int, int]]:
+    def get_decoration_tiles(self) -> List[Tuple[pygame.Surface, int, int, int]]:
         """
-        Get decoration tiles for y-sorted rendering.
+        Get ysort layer tiles for y-sorted rendering with entities.
         
         Returns:
-            List of (surface, pixel_x, pixel_y) tuples for each decoration
+            List of (surface, pixel_x, pixel_y, sort_y) tuples for each object.
+            sort_y is the y-coordinate used for depth sorting (includes y_sort_origin).
         """
         decorations = []
-        layer = self.layers.get('decorations')
+        layer = self.layers.get('ysort')
         if not layer:
             return decorations
         
@@ -323,10 +325,15 @@ class TileMap:
                 tile_data = layer.grid[y][x]
                 if tile_data:
                     tileset_name, tile_col, tile_row = tile_data
-                    tile = self.tileset_manager.get_tile(tileset_name, tile_col, tile_row)
-                    if tile:
+                    
+                    # Get multi-tile region with y_sort_origin
+                    region_data = self.tileset_manager.get_region(tileset_name, tile_col, tile_row)
+                    if region_data:
+                        surface, y_sort_origin = region_data
                         pixel_x = x * self.tile_size
                         pixel_y = y * self.tile_size
-                        decorations.append((tile, pixel_x, pixel_y))
+                        # sort_y is where the object's "feet" are for depth sorting
+                        sort_y = pixel_y + y_sort_origin
+                        decorations.append((surface, pixel_x, pixel_y, sort_y))
         
         return decorations
