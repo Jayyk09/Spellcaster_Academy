@@ -3,7 +3,8 @@ import os
 import math
 import random
 import string
-from config.settings import FONTS_DIR, ENEMY_LETTER_OFFSET_Y, ENEMY_LETTER_BACKDROP_PATH
+from config.settings import FONTS_DIR, ENEMY_LETTER_OFFSET_Y, ENEMY_LETTER_BACKDROP_PATH, SPELL_SPEED, SPELL_DAMAGE
+from entities.spell import SpellProjectile
 
 
 class Undine:
@@ -95,6 +96,17 @@ class Undine:
         self.detection_range = 250  # Larger detection range since it flies
         self.is_chasing = False
         
+        # Distance keeping behavior
+        self.ideal_distance = 150  # Keep this distance from player
+        self.distance_tolerance = 25  # Tolerance for distance keeping
+        
+        # Spell casting
+        self.cast_cooldown = 0.0
+        self.cast_interval = 3.0  # Cast every 3 seconds
+        self.spell_damage = int(SPELL_DAMAGE * 0.5)  # 50% of player spell damage (75)
+        self.spell_type = 'air'  # Use air spells
+        self.spells_cast = []  # List of spells cast by this undine
+        
         # Health
         self.max_health = 30  # Less health than slime
         self.health = self.max_health
@@ -117,6 +129,7 @@ class Undine:
         """
         Update undine position and behavior.
         Flies through obstacles but cannot overlap with other undines.
+        Keeps distance from player and casts spells.
         
         Args:
             dt: Delta time in seconds
@@ -133,13 +146,34 @@ class Undine:
             self.current_frame = (self.current_frame + 1) % self.frame_count
             self.image = self.frames[self.current_frame]
         
-        # AI behavior: chase player if in range, otherwise wander
+        # Update spell cooldown
+        if self.cast_cooldown > 0:
+            self.cast_cooldown -= dt
+        
+        # AI behavior: keep distance and cast spells
         if player is not None:
             player_pos = pygame.Vector2(player.rect.center)
-            distance_to_player = self._move_toward_target(player_pos)
+            distance_to_player = self.pos.distance_to(player_pos)
             
             if distance_to_player <= self.detection_range:
                 self.is_chasing = True
+                
+                # Distance keeping behavior
+                if distance_to_player < self.ideal_distance - self.distance_tolerance:
+                    # Too close - move away from player
+                    direction_away = self.pos - player_pos
+                    if direction_away.length() > 0:
+                        self.direction = direction_away.normalize()
+                elif distance_to_player > self.ideal_distance + self.distance_tolerance:
+                    # Too far - move toward player
+                    self._move_toward_target(player_pos)
+                else:
+                    # At ideal distance - stop moving
+                    self.direction = pygame.Vector2(0, 0)
+                    
+                # Try to cast spell at player
+                if self.cast_cooldown <= 0:
+                    self._cast_spell_at_player(player_pos)
             else:
                 self.is_chasing = False
                 # Wander behavior
@@ -189,6 +223,28 @@ class Undine:
                     push_strength = 2.0
                     self.pos += push_dir * push_strength
                     self.rect.center = self.pos
+    
+    def _cast_spell_at_player(self, player_pos: pygame.Vector2):
+        """Cast a spell at the player."""
+        # Calculate direction from undine to player
+        direction = player_pos - self.pos
+        if direction.length() > 0:
+            direction = direction.normalize()
+        else:
+            direction = pygame.Vector2(1, 0)  # Default to right if same position
+        
+        # Create spell projectile at undine's position
+        spell = SpellProjectile(
+            self.pos.x, self.pos.y,
+            self.spell_type,
+            direction,
+            None  # No letter restriction - can hit player
+        )
+        # Override damage for undine spells (50% of player spell damage)
+        spell.damage = self.spell_damage
+        
+        self.spells_cast.append(spell)
+        self.cast_cooldown = self.cast_interval
     
     def take_damage(self, amount):
         """Apply damage to the undine."""
@@ -259,6 +315,7 @@ class UndineManager:
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.undines = []
+        self.spells = []  # Spells cast by all undines
     
     def spawn_undine(self, x, y, letter: str | None = None):
         """Spawn a new undine at the specified position."""
@@ -307,15 +364,34 @@ class UndineManager:
             self.spawn_undine(x, y, letter=letter)
     
     def update(self, dt, player=None):
-        """Update all undines. They collide with each other but fly through obstacles."""
+        """Update all undines and their spells. They collide with each other but fly through obstacles."""
+        # Update undines
         for undine in self.undines:
             undine.update(dt, player, self.undines)
+            
+            # Collect any new spells cast by undines
+            if undine.alive and undine.spells_cast:
+                for spell in undine.spells_cast:
+                    self.spells.append(spell)
+                undine.spells_cast.clear()
+        
+        # Update undine spells
+        for spell in list(self.spells):
+            spell.update(dt)
+            if not spell.is_alive:
+                self.spells.remove(spell)
         
         # Remove dead undines
         self.undines = [u for u in self.undines if u.alive]
     
     def draw(self, surface):
-        """Draw all undines."""
+        """Draw all undines and their spells."""
+        # Draw spells first (so they appear behind undines)
+        for spell in self.spells:
+            if spell.is_alive:
+                surface.blit(spell.image, spell.rect)
+        
+        # Draw undines
         for undine in self.undines:
             undine.draw(surface)
     
