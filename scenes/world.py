@@ -2,6 +2,7 @@
 import pygame
 from core.scene import Scene
 from core.game_state import game_state
+from core.ui import HUD, DeathPanel, HealthBar
 from entities.player import Player
 from entities.enemy import Slime
 from entities.collectibles import Mushroom
@@ -37,7 +38,12 @@ class WorldScene(Scene):
         # Scene exit area (to camp)
         self.exit_to_camp = pygame.Rect(0, 100, 20, 100)  # Left edge
         
-        # Font for UI
+        # UI
+        self.hud = HUD()
+        self.death_panel = DeathPanel()
+        self.show_death_dialog = False
+        
+        # Font for extra UI
         self.font = pygame.font.Font(None, 24)
     
     def _spawn_enemies(self):
@@ -68,6 +74,17 @@ class WorldScene(Scene):
     
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
+            # Handle death dialog input
+            if self.show_death_dialog:
+                if event.key == pygame.K_y and game_state.game_has_savegame:
+                    # Load save and go to camp
+                    game_state.load_game()
+                    self.next_scene = 'camp'
+                elif event.key == pygame.K_n:
+                    # Quit to menu
+                    self.next_scene = 'menu'
+                return
+            
             self.player.handle_attack_input(event.key)
             
             if event.key == pygame.K_ESCAPE:
@@ -76,6 +93,8 @@ class WorldScene(Scene):
             # Debug: respawn
             if event.key == pygame.K_r:
                 self.player.respawn(*game_state.player_start_pos)
+                self.show_death_dialog = False
+                self.death_panel.hide()
     
     def update(self, dt: float):
         # Get input
@@ -122,8 +141,9 @@ class WorldScene(Scene):
         
         # Check for player death
         if not self.player.is_alive and self.player.is_animation_finished():
-            # Go back to menu or show death screen
-            pass  # We'll handle this later with a death dialog
+            if not self.show_death_dialog:
+                self.show_death_dialog = True
+                self.death_panel.show_death(game_state.game_has_savegame)
     
     def _check_combat(self):
         """Check for combat interactions."""
@@ -147,43 +167,27 @@ class WorldScene(Scene):
         # Background
         screen.fill((45, 65, 45))  # Grass green
         
-        # Draw exit area (debug)
-        pygame.draw.rect(screen, (100, 100, 255, 100), self.exit_to_camp, 2)
+        # Draw exit area indicator
+        pygame.draw.rect(screen, (100, 150, 255), self.exit_to_camp, 2)
+        exit_font = pygame.font.Font(None, 18)
+        exit_text = exit_font.render("Camp", True, (150, 200, 255))
+        screen.blit(exit_text, (2, self.exit_to_camp.centery - 8))
         
         # Y-sort and draw sprites
         sorted_sprites = sorted(self.all_sprites, key=lambda s: s.pos.y)
         for sprite in sorted_sprites:
             screen.blit(sprite.image, sprite.rect)
         
-        # Draw attack hitbox
+        # Draw attack hitbox (debug - can be removed)
         hitbox = self.player.get_attack_hitbox()
         if hitbox:
-            pygame.draw.rect(screen, (255, 100, 100), hitbox, 2)
+            pygame.draw.rect(screen, (255, 100, 100, 128), hitbox, 1)
         
-        # Draw health bars
-        self._draw_health_bar(screen, self.player.pos.x, self.player.pos.y - 35, 
-                              self.player.health, self.player.max_health)
+        # Draw entity health bars
+        self._draw_entity_health_bars(screen)
         
-        for enemy in self.enemies:
-            if enemy.is_alive:
-                self._draw_health_bar(screen, enemy.pos.x, enemy.pos.y - 25,
-                                     enemy.health, enemy.max_health, width=30, height=4)
-        
-        # UI
-        self._draw_ui(screen)
-    
-    def _draw_health_bar(self, surface, x, y, health, max_health, width=50, height=5):
-        health_ratio = max(0, health / max_health)
-        pygame.draw.rect(surface, (100, 0, 0), (x - width/2, y, width, height))
-        pygame.draw.rect(surface, (0, 200, 0), (x - width/2, y, width * health_ratio, height))
-    
-    def _draw_ui(self, screen):
-        # State info
-        state_text = self.font.render(
-            f"HP: {self.player.health}/{self.player.max_health} | EXP: {game_state.player_exp} | Shrooms: {game_state.shroom_chunks}", 
-            True, (255, 255, 255)
-        )
-        screen.blit(state_text, (10, 10))
+        # Draw HUD
+        self.hud.draw(screen, self.player, game_state)
         
         # Scene label
         scene_text = self.font.render("WORLD", True, (200, 200, 100))
@@ -193,8 +197,29 @@ class WorldScene(Scene):
         controls = self.font.render("WASD: Move | Space: Attack | ESC: Menu", True, (180, 180, 180))
         screen.blit(controls, (10, SCREEN_HEIGHT - 25))
         
-        # Enemy count
+        # Enemy/mushroom count
         enemy_count = len([e for e in self.enemies if e.is_alive])
         mushroom_count = len([m for m in self.mushrooms if not m.collected])
-        enemy_text = self.font.render(f"Enemies: {enemy_count} | Mushrooms: {mushroom_count}", True, (255, 255, 255))
-        screen.blit(enemy_text, (10, 35))
+        count_text = self.font.render(f"Enemies: {enemy_count} | Mushrooms: {mushroom_count}", True, (200, 200, 200))
+        screen.blit(count_text, (SCREEN_WIDTH - 250, SCREEN_HEIGHT - 25))
+        
+        # Death panel
+        self.death_panel.draw(screen)
+    
+    def _draw_entity_health_bars(self, screen):
+        """Draw health bars above entities."""
+        # Player health bar above sprite
+        self._draw_health_bar(screen, self.player.pos.x, self.player.pos.y - 35,
+                              self.player.health, self.player.max_health)
+        
+        # Enemy health bars
+        for enemy in self.enemies:
+            if enemy.is_alive:
+                self._draw_health_bar(screen, enemy.pos.x, enemy.pos.y - 25,
+                                     enemy.health, enemy.max_health, width=30, height=4)
+    
+    def _draw_health_bar(self, surface, x, y, health, max_health, width=50, height=5):
+        health_ratio = max(0, health / max_health)
+        pygame.draw.rect(surface, (80, 20, 20), (x - width/2, y, width, height))
+        pygame.draw.rect(surface, (50, 180, 50), (x - width/2, y, width * health_ratio, height))
+        pygame.draw.rect(surface, (40, 40, 40), (x - width/2, y, width, height), 1)
