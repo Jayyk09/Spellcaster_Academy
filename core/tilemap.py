@@ -137,14 +137,17 @@ class TileMap:
     A complete tilemap consisting of multiple layers.
     
     Manages rendering order and provides collision detection.
-    Layer order (bottom to top) - matching Godot die-insel tutorial:
+    Layer order (bottom to top):
     1. ground - Base terrain (grass) with terrain edge overlays
-    2. lvl1 - Cliff fill/lower level (below walking surface)
-    3. cliffs - Cliff edge tiles with collision
-    4. ysort - Objects that y-sort with entities (trees, rocks, bushes)
+    2. water - Water tiles (ponds, streams) - rendered above ground
+    3. lvl1 - Cliff fill/lower level (below walking surface)
+    4. decorations - Small detail tiles (flowers, pebbles, grass tufts)
+    5. cliffs - Cliff edge tiles with collision
+    6. fences - Fence boundaries (guides player movement)
+    7. ysort - Objects that y-sort with entities (trees, rocks, bushes)
     """
     
-    LAYER_ORDER = ['ground', 'lvl1', 'cliffs', 'ysort']
+    LAYER_ORDER = ['ground', 'water', 'lvl1', 'decorations', 'cliffs', 'fences', 'ysort']
     
     def __init__(self, width: int, height: int, tile_size: int = 16):
         """
@@ -191,6 +194,7 @@ class TileMap:
         self.tileset_manager.load_tileset('decor16', 'decor_16x16.png', 16)
         self.tileset_manager.load_tileset('decor8', 'decor_8x8.png', 8)
         self.tileset_manager.load_tileset('flooring', 'floors/flooring.png', 16)
+        self.tileset_manager.load_tileset('fences', 'fences.png', 16)
     
     def get_layer(self, name: str) -> Optional[TileMapLayer]:
         """Get a layer by name."""

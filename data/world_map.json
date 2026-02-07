@@ -6,3032 +6,653 @@
   "layers": {
     "ground": {
       "tiles": [
-        {
-          "x": 0,
-          "y": 0,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 1,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 2,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 3,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 4,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 5,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 6,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 7,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 8,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 9,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 10,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 11,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 12,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 13,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 14,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 15,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 16,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 17,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 18,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 19,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 20,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 21,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 22,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 23,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 0,
-          "y": 24,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 24,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 24,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 24,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 24,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 5,
-          "y": 24,
-          "tileset": "plains",
-          "col": 4,
-          "row": 0
-        },
-        {
-          "x": 6,
-          "y": 24,
-          "tileset": "plains",
-          "col": 3,
-          "row": 2
-        },
-        {
-          "x": 7,
-          "y": 24,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 8,
-          "y": 24,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 24,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 24,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 24,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 24,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 24,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 23,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 22,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 21,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 20,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 19,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 18,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 17,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 16,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 15,
-          "tileset": "plains",
-          "col": 3,
-          "row": 1
-        },
-        {
-          "x": 13,
-          "y": 14,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 13,
-          "y": 13,
-          "tileset": "plains",
-          "col": 1,
-          "row": 1
-        },
-        {
-          "x": 13,
-          "y": 12,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 11,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 10,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 9,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 8,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 7,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 6,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 5,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 4,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 3,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 2,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 1,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 13,
-          "y": 0,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 0,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 0,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 0,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 0,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 8,
-          "y": 0,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 7,
-          "y": 0,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 6,
-          "y": 0,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 5,
-          "y": 0,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 4,
-          "y": 0,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 3,
-          "y": 0,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 0,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 0,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 1,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 1,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 1,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 1,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 5,
-          "y": 1,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 1,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 7,
-          "y": 1,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 8,
-          "y": 1,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 1,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 1,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 1,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 1,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 2,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 2,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 2,
-          "tileset": "plains",
-          "col": 3,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 2,
-          "tileset": "plains",
-          "col": 4,
-          "row": 1
-        },
-        {
-          "x": 5,
-          "y": 2,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 2,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 7,
-          "y": 2,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 8,
-          "y": 2,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 2,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 2,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 2,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 2,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 3,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 3,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 3,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 3,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 5,
-          "y": 3,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 3,
-          "tileset": "plains",
-          "col": 5,
-          "row": 0
-        },
-        {
-          "x": 7,
-          "y": 3,
-          "tileset": "plains",
-          "col": 1,
-          "row": 2
-        },
-        {
-          "x": 8,
-          "y": 3,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 3,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 3,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 3,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 3,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 4,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 4,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 4,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 4,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 5,
-          "y": 4,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 4,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 7,
-          "y": 4,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 8,
-          "y": 4,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 4,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 4,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 4,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 4,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 5,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 5,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 5,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 5,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 5,
-          "y": 5,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 5,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 7,
-          "y": 5,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 8,
-          "y": 5,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 5,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 5,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 5,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 5,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 6,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 6,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 6,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 6,
-          "tileset": "plains",
-          "col": 3,
-          "row": 0
-        },
-        {
-          "x": 5,
-          "y": 6,
-          "tileset": "plains",
-          "col": 4,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 6,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 7,
-          "y": 6,
-          "tileset": "plains",
-          "col": 5,
-          "row": 0
-        },
-        {
-          "x": 8,
-          "y": 6,
-          "tileset": "plains",
-          "col": 1,
-          "row": 2
-        },
-        {
-          "x": 9,
-          "y": 6,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 6,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 6,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 6,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 7,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 7,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 7,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 7,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 5,
-          "y": 7,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 6,
-          "y": 7,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 7,
-          "y": 7,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 8,
-          "y": 7,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 9,
-          "y": 7,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 7,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 7,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 7,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 8,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 8,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 8,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 8,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 5,
-          "y": 8,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 6,
-          "y": 8,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 7,
-          "y": 8,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 8,
-          "y": 8,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 9,
-          "y": 8,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 8,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 8,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 8,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 9,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 9,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 9,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 9,
-          "tileset": "plains",
-          "col": 1,
-          "row": 0
-        },
-        {
-          "x": 5,
-          "y": 9,
-          "tileset": "plains",
-          "col": 5,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 9,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 7,
-          "y": 9,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 8,
-          "y": 9,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 9,
-          "y": 9,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 9,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 9,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 9,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 10,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 10,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 10,
-          "tileset": "plains",
-          "col": 1,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 10,
-          "tileset": "plains",
-          "col": 5,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 10,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 7,
-          "y": 10,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 8,
-          "y": 10,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 9,
-          "y": 10,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 10,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 10,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 10,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 11,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 11,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 11,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 11,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 11,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 7,
-          "y": 11,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 8,
-          "y": 11,
-          "tileset": "plains",
-          "col": 5,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 11,
-          "tileset": "plains",
-          "col": 1,
-          "row": 1
-        },
-        {
-          "x": 10,
-          "y": 11,
-          "tileset": "plains",
-          "col": 1,
-          "row": 2
-        },
-        {
-          "x": 11,
-          "y": 11,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 11,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 12,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 12,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 12,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 7,
-          "y": 12,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 8,
-          "y": 12,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 9,
-          "y": 12,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 10,
-          "y": 12,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 11,
-          "y": 12,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 12,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 13,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 13,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 13,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 7,
-          "y": 13,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 8,
-          "y": 13,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 9,
-          "y": 13,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 10,
-          "y": 13,
-          "tileset": "plains",
-          "col": 5,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 13,
-          "tileset": "plains",
-          "col": 1,
-          "row": 1
-        },
-        {
-          "x": 12,
-          "y": 13,
-          "tileset": "plains",
-          "col": 1,
-          "row": 1
-        },
-        {
-          "x": 1,
-          "y": 14,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 14,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 14,
-          "tileset": "plains",
-          "col": 3,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 14,
-          "tileset": "plains",
-          "col": 3,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 14,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 7,
-          "y": 14,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 8,
-          "y": 14,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 9,
-          "y": 14,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 10,
-          "y": 14,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 11,
-          "y": 14,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 12,
-          "y": 14,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 1,
-          "y": 15,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 15,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 15,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 15,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 5,
-          "y": 15,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 6,
-          "y": 15,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 7,
-          "y": 15,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 8,
-          "y": 15,
-          "tileset": "plains",
-          "col": 4,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 15,
-          "tileset": "plains",
-          "col": 3,
-          "row": 1
-        },
-        {
-          "x": 10,
-          "y": 15,
-          "tileset": "plains",
-          "col": 3,
-          "row": 1
-        },
-        {
-          "x": 11,
-          "y": 15,
-          "tileset": "plains",
-          "col": 3,
-          "row": 1
-        },
-        {
-          "x": 12,
-          "y": 15,
-          "tileset": "plains",
-          "col": 3,
-          "row": 1
-        },
-        {
-          "x": 1,
-          "y": 16,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 16,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 16,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 16,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 5,
-          "y": 16,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 6,
-          "y": 16,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 7,
-          "y": 16,
-          "tileset": "plains",
-          "col": 4,
-          "row": 0
-        },
-        {
-          "x": 8,
-          "y": 16,
-          "tileset": "plains",
-          "col": 3,
-          "row": 2
-        },
-        {
-          "x": 9,
-          "y": 16,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 16,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 16,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 16,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 17,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 17,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 17,
-          "tileset": "plains",
-          "col": 1,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 17,
-          "tileset": "plains",
-          "col": 1,
-          "row": 1
-        },
-        {
-          "x": 5,
-          "y": 17,
-          "tileset": "plains",
-          "col": 5,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 17,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 7,
-          "y": 17,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 8,
-          "y": 17,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 17,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 17,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 17,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 17,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 18,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 18,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 18,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 18,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 5,
-          "y": 18,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 18,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 7,
-          "y": 18,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 8,
-          "y": 18,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 18,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 18,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 18,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 18,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 19,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 19,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 19,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 19,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 5,
-          "y": 19,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 19,
-          "tileset": "plains",
-          "col": 4,
-          "row": 0
-        },
-        {
-          "x": 7,
-          "y": 19,
-          "tileset": "plains",
-          "col": 3,
-          "row": 2
-        },
-        {
-          "x": 8,
-          "y": 19,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 19,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 19,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 19,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 19,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 20,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 20,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 20,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 20,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 5,
-          "y": 20,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 20,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 7,
-          "y": 20,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 8,
-          "y": 20,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 20,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 20,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 20,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 20,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 21,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 21,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 21,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 21,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 5,
-          "y": 21,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 21,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 7,
-          "y": 21,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 8,
-          "y": 21,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 21,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 21,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 21,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 21,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 22,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 22,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 22,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 22,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 5,
-          "y": 22,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 22,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 7,
-          "y": 22,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 8,
-          "y": 22,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 22,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 22,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 22,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 22,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 1,
-          "y": 23,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 2,
-          "y": 23,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 3,
-          "y": 23,
-          "tileset": "plains",
-          "col": 2,
-          "row": 0
-        },
-        {
-          "x": 4,
-          "y": 23,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 5,
-          "y": 23,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 23,
-          "tileset": "plains",
-          "col": 2,
-          "row": 2
-        },
-        {
-          "x": 7,
-          "y": 23,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 8,
-          "y": 23,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 9,
-          "y": 23,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 10,
-          "y": 23,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 11,
-          "y": 23,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 12,
-          "y": 23,
-          "tileset": "grass",
-          "col": 0,
-          "row": 0
-        },
-        {
-          "x": 5,
-          "y": 12,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 5,
-          "y": 11,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 5,
-          "y": 10,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 4,
-          "y": 12,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 4,
-          "y": 13,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 5,
-          "y": 14,
-          "tileset": "plains",
-          "col": 4,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 13,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 6,
-          "y": 12,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        },
-        {
-          "x": 5,
-          "y": 13,
-          "tileset": "plains",
-          "col": 2,
-          "row": 1
-        }
+        {"comment": "=== FULL GRASS BASE LAYER (14x25) ==="},
+        {"x": 0, "y": 0, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 0, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 0, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 0, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 0, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 0, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 0, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 0, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 0, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 0, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 0, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 0, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 0, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 0, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 1, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 1, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 1, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 1, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 1, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 1, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 1, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 1, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 1, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 1, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 1, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 1, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 1, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 1, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 2, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 2, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 2, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 2, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 2, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 2, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 2, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 2, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 2, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 2, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 2, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 2, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 2, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 2, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 3, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 3, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 3, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 3, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 3, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 3, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 3, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 3, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 3, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 3, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 3, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 3, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 3, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 3, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 4, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 4, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 4, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 4, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 4, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 4, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 4, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 4, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 4, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 4, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 4, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 4, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 4, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 4, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 5, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 5, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 5, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 5, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 5, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 5, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 5, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 5, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 5, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 5, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 5, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 5, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 5, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 5, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 6, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 6, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 6, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 6, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 6, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 6, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 6, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 6, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 6, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 6, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 6, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 6, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 6, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 6, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 7, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 7, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 7, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 7, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 7, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 7, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 7, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 7, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 7, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 7, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 7, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 7, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 7, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 7, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 8, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 8, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 8, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 8, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 8, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 8, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 8, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 8, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 8, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 8, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 8, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 8, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 8, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 8, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 9, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 9, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 9, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 9, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 9, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 9, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 9, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 9, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 9, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 9, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 9, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 9, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 9, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 9, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 10, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 10, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 10, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 10, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 10, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 10, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 10, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 10, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 10, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 10, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 10, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 10, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 10, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 10, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 11, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 11, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 11, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 11, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 11, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 11, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 11, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 11, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 11, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 11, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 11, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 11, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 11, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 11, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 12, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 12, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 12, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 12, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 12, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 12, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 12, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 12, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 12, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 12, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 12, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 12, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 12, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 12, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 13, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 13, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 13, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 13, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 13, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 13, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 13, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 13, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 13, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 13, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 13, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 13, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 13, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 13, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 14, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 14, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 14, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 14, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 14, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 14, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 14, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 14, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 14, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 14, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 14, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 14, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 14, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 14, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 15, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 15, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 15, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 15, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 15, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 15, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 15, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 15, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 15, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 15, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 15, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 15, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 15, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 15, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 16, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 16, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 16, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 16, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 16, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 16, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 16, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 16, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 16, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 16, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 16, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 16, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 16, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 16, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 17, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 17, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 17, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 17, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 17, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 17, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 17, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 17, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 17, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 17, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 17, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 17, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 17, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 17, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 18, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 18, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 18, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 18, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 18, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 18, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 18, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 18, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 18, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 18, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 18, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 18, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 18, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 18, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 19, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 19, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 19, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 19, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 19, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 19, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 19, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 19, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 19, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 19, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 19, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 19, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 19, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 19, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 20, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 20, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 20, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 20, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 20, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 20, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 20, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 20, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 20, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 20, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 20, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 20, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 20, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 20, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 21, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 21, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 21, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 21, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 21, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 21, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 21, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 21, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 21, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 21, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 21, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 21, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 21, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 21, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 22, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 22, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 22, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 22, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 22, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 22, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 22, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 22, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 22, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 22, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 22, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 22, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 22, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 22, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 23, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 23, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 23, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 23, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 23, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 23, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 23, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 23, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 23, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 23, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 23, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 23, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 23, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 23, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 0, "y": 24, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 1, "y": 24, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 2, "y": 24, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 3, "y": 24, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 4, "y": 24, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 5, "y": 24, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 6, "y": 24, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 7, "y": 24, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 8, "y": 24, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 9, "y": 24, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 10, "y": 24, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 11, "y": 24, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 12, "y": 24, "tileset": "grass", "col": 0, "row": 0},
+        {"x": 13, "y": 24, "tileset": "grass", "col": 0, "row": 0},
+
+        {"comment": "=== S-CURVE PATH with diagonal transitions ==="},
+        {"comment": "--- Spawn area widened path (player starts at 12,9) ---"},
+        {"x": 10, "y": 8, "tileset": "plains", "col": 0, "row": 0},
+        {"x": 11, "y": 8, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 12, "y": 8, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 10, "y": 9, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 11, "y": 9, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 12, "y": 9, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 10, "y": 10, "tileset": "plains", "col": 0, "row": 2},
+        {"x": 11, "y": 10, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 12, "y": 10, "tileset": "plains", "col": 2, "row": 2},
+
+        {"comment": "--- Path curves left toward center (diagonal) ---"},
+        {"x": 9, "y": 10, "tileset": "plains", "col": 3, "row": 0},
+        {"x": 9, "y": 11, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 10, "y": 11, "tileset": "plains", "col": 5, "row": 0},
+        {"x": 8, "y": 11, "tileset": "plains", "col": 0, "row": 0},
+        {"x": 8, "y": 12, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 9, "y": 12, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 10, "y": 12, "tileset": "plains", "col": 2, "row": 2},
+
+        {"comment": "--- Continue diagonal southwest ---"},
+        {"x": 7, "y": 12, "tileset": "plains", "col": 3, "row": 0},
+        {"x": 7, "y": 13, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 8, "y": 13, "tileset": "plains", "col": 5, "row": 0},
+        {"x": 6, "y": 13, "tileset": "plains", "col": 0, "row": 0},
+        {"x": 6, "y": 14, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 7, "y": 14, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 8, "y": 14, "tileset": "plains", "col": 2, "row": 2},
+
+        {"comment": "--- Widened interest point near center ---"},
+        {"x": 5, "y": 14, "tileset": "plains", "col": 3, "row": 0},
+        {"x": 5, "y": 15, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 6, "y": 15, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 7, "y": 15, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 8, "y": 15, "tileset": "plains", "col": 2, "row": 2},
+        {"x": 5, "y": 16, "tileset": "plains", "col": 0, "row": 2},
+        {"x": 6, "y": 16, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 7, "y": 16, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 8, "y": 16, "tileset": "plains", "col": 4, "row": 2},
+
+        {"comment": "--- Path curves back right and down ---"},
+        {"x": 4, "y": 16, "tileset": "plains", "col": 3, "row": 0},
+        {"x": 4, "y": 17, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 5, "y": 17, "tileset": "plains", "col": 5, "row": 0},
+        {"x": 4, "y": 18, "tileset": "plains", "col": 0, "row": 2},
+        {"x": 5, "y": 18, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 6, "y": 18, "tileset": "plains", "col": 2, "row": 2},
+
+        {"comment": "--- Continues south toward bottom ---"},
+        {"x": 4, "y": 19, "tileset": "plains", "col": 0, "row": 0},
+        {"x": 5, "y": 19, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 6, "y": 19, "tileset": "plains", "col": 2, "row": 2},
+        {"x": 4, "y": 20, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 5, "y": 20, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 6, "y": 20, "tileset": "plains", "col": 2, "row": 2},
+        {"x": 4, "y": 21, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 5, "y": 21, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 6, "y": 21, "tileset": "plains", "col": 2, "row": 2},
+        {"x": 4, "y": 22, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 5, "y": 22, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 6, "y": 22, "tileset": "plains", "col": 2, "row": 2},
+        {"x": 4, "y": 23, "tileset": "plains", "col": 0, "row": 2},
+        {"x": 5, "y": 23, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 6, "y": 23, "tileset": "plains", "col": 4, "row": 2},
+
+        {"comment": "--- Northern branch toward top exit ---"},
+        {"x": 9, "y": 8, "tileset": "plains", "col": 3, "row": 0},
+        {"x": 9, "y": 7, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 10, "y": 7, "tileset": "plains", "col": 2, "row": 2},
+        {"x": 8, "y": 7, "tileset": "plains", "col": 0, "row": 0},
+        {"x": 8, "y": 6, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 9, "y": 6, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 10, "y": 6, "tileset": "plains", "col": 5, "row": 0},
+        {"x": 8, "y": 5, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 9, "y": 5, "tileset": "plains", "col": 2, "row": 2},
+        {"x": 7, "y": 5, "tileset": "plains", "col": 3, "row": 0},
+        {"x": 7, "y": 4, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 8, "y": 4, "tileset": "plains", "col": 5, "row": 0},
+        {"x": 6, "y": 4, "tileset": "plains", "col": 0, "row": 0},
+        {"x": 6, "y": 3, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 7, "y": 3, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 8, "y": 3, "tileset": "plains", "col": 2, "row": 2},
+        {"x": 6, "y": 2, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 7, "y": 2, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 8, "y": 2, "tileset": "plains", "col": 2, "row": 2},
+        {"x": 6, "y": 1, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 7, "y": 1, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 8, "y": 1, "tileset": "plains", "col": 2, "row": 2},
+        {"x": 6, "y": 0, "tileset": "plains", "col": 0, "row": 2},
+        {"x": 7, "y": 0, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 8, "y": 0, "tileset": "plains", "col": 2, "row": 2}
       ]
     },
-    "cliffs": {
+    "water": {
       "tiles": [
-        {
-          "x": 0,
-          "y": 14,
-          "tileset": "plains",
-          "col": 5,
-          "row": 4
-        },
-        {
-          "x": 0,
-          "y": 24,
-          "tileset": "plains",
-          "col": 4,
-          "row": 4
-        },
-        {
-          "x": 1,
-          "y": 24,
-          "tileset": "plains",
-          "col": 3,
-          "row": 5
-        },
-        {
-          "x": 2,
-          "y": 24,
-          "tileset": "plains",
-          "col": 3,
-          "row": 6
-        },
-        {
-          "x": 10,
-          "y": 24,
-          "tileset": "plains",
-          "col": 2,
-          "row": 4
-        },
-        {
-          "x": 13,
-          "y": 21,
-          "tileset": "plains",
-          "col": 1,
-          "row": 5
-        },
-        {
-          "x": 13,
-          "y": 8,
-          "tileset": "plains",
-          "col": 3,
-          "row": 4
-        },
-        {
-          "x": 13,
-          "y": 7,
-          "tileset": "plains",
-          "col": 2,
-          "row": 4
-        },
-        {
-          "x": 13,
-          "y": 6,
-          "tileset": "plains",
-          "col": 4,
-          "row": 5
-        },
-        {
-          "x": 11,
-          "y": 0,
-          "tileset": "plains",
-          "col": 2,
-          "row": 4
-        },
-        {
-          "x": 11,
-          "y": 1,
-          "tileset": "plains",
-          "col": 2,
-          "row": 4
-        },
-        {
-          "x": 11,
-          "y": 2,
-          "tileset": "plains",
-          "col": 2,
-          "row": 4
-        },
-        {
-          "x": 11,
-          "y": 3,
-          "tileset": "plains",
-          "col": 2,
-          "row": 4
-        },
-        {
-          "x": 11,
-          "y": 4,
-          "tileset": "plains",
-          "col": 3,
-          "row": 4
-        },
-        {
-          "x": 12,
-          "y": 4,
-          "tileset": "plains",
-          "col": 4,
-          "row": 5
-        },
-        {
-          "x": 12,
-          "y": 5,
-          "tileset": "plains",
-          "col": 2,
-          "row": 4
-        },
-        {
-          "x": 12,
-          "y": 6,
-          "tileset": "plains",
-          "col": 3,
-          "row": 4
-        },
-        {
-          "x": 1,
-          "y": 14,
-          "tileset": "plains",
-          "col": 1,
-          "row": 6
-        },
-        {
-          "x": 1,
-          "y": 17,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 1,
-          "y": 18,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 1,
-          "y": 19,
-          "tileset": "plains",
-          "col": 5,
-          "row": 4
-        },
-        {
-          "x": 2,
-          "y": 19,
-          "tileset": "plains",
-          "col": 1,
-          "row": 6
-        },
-        {
-          "x": 2,
-          "y": 20,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 2,
-          "y": 21,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 12,
-          "y": 21,
-          "tileset": "plains",
-          "col": 1,
-          "row": 4
-        },
-        {
-          "x": 2,
-          "y": 22,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 11,
-          "y": 22,
-          "tileset": "plains",
-          "col": 1,
-          "row": 4
-        },
-        {
-          "x": 12,
-          "y": 22,
-          "tileset": "plains",
-          "col": 5,
-          "row": 5
-        },
-        {
-          "x": 2,
-          "y": 23,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 10,
-          "y": 23,
-          "tileset": "plains",
-          "col": 1,
-          "row": 4
-        },
-        {
-          "x": 11,
-          "y": 23,
-          "tileset": "plains",
-          "col": 5,
-          "row": 5
-        },
-        {
-          "x": 1,
-          "y": 15,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 1,
-          "y": 16,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 0,
-          "y": 13,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 0,
-          "y": 12,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 0,
-          "y": 11,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 0,
-          "y": 10,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 0,
-          "y": 9,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 0,
-          "y": 8,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 0,
-          "y": 7,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 0,
-          "y": 6,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 0,
-          "y": 5,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 0,
-          "y": 4,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 0,
-          "y": 3,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 0,
-          "y": 2,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 0,
-          "y": 1,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        },
-        {
-          "x": 0,
-          "y": 0,
-          "tileset": "plains",
-          "col": 2,
-          "row": 6
-        }
+        {"comment": "=== POND in upper-left quadrant (3x4) with shore transitions ==="},
+        {"comment": "Water uses animated tiles - col 0-2 for shores, col 3+ for deep water"},
+        {"x": 2, "y": 3, "tileset": "water", "col": 0, "row": 0},
+        {"x": 3, "y": 3, "tileset": "water", "col": 1, "row": 0},
+        {"x": 4, "y": 3, "tileset": "water", "col": 2, "row": 0},
+        {"x": 2, "y": 4, "tileset": "water", "col": 0, "row": 1},
+        {"x": 3, "y": 4, "tileset": "water", "col": 1, "row": 1},
+        {"x": 4, "y": 4, "tileset": "water", "col": 2, "row": 1},
+        {"x": 2, "y": 5, "tileset": "water", "col": 0, "row": 1},
+        {"x": 3, "y": 5, "tileset": "water", "col": 1, "row": 1},
+        {"x": 4, "y": 5, "tileset": "water", "col": 2, "row": 1},
+        {"x": 2, "y": 6, "tileset": "water", "col": 0, "row": 2},
+        {"x": 3, "y": 6, "tileset": "water", "col": 1, "row": 2},
+        {"x": 4, "y": 6, "tileset": "water", "col": 2, "row": 2}
       ]
     },
     "lvl1": {
       "tiles": [
-        {
-          "x": 0,
-          "y": 15,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 0,
-          "y": 16,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 0,
-          "y": 17,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 0,
-          "y": 18,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 0,
-          "y": 19,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 0,
-          "y": 20,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 0,
-          "y": 21,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 0,
-          "y": 22,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 0,
-          "y": 23,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 11,
-          "y": 24,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 12,
-          "y": 24,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 13,
-          "y": 24,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 13,
-          "y": 23,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 13,
-          "y": 22,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 13,
-          "y": 5,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 13,
-          "y": 4,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 13,
-          "y": 3,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 13,
-          "y": 2,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 13,
-          "y": 1,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 13,
-          "y": 0,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 12,
-          "y": 0,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 12,
-          "y": 1,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 12,
-          "y": 2,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 12,
-          "y": 3,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 1,
-          "y": 20,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 1,
-          "y": 21,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 1,
-          "y": 22,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 1,
-          "y": 23,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        },
-        {
-          "x": 12,
-          "y": 23,
-          "tileset": "plains",
-          "col": 2,
-          "row": 5
-        }
+        {"comment": "=== CLIFF FILL - below walking surface on edges ==="},
+        {"x": 0, "y": 15, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 0, "y": 16, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 0, "y": 17, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 0, "y": 18, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 0, "y": 19, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 0, "y": 20, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 0, "y": 21, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 0, "y": 22, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 0, "y": 23, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 1, "y": 20, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 1, "y": 21, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 1, "y": 22, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 1, "y": 23, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 11, "y": 24, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 12, "y": 24, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 13, "y": 24, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 13, "y": 23, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 13, "y": 22, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 13, "y": 5, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 13, "y": 4, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 13, "y": 3, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 13, "y": 2, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 13, "y": 1, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 13, "y": 0, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 12, "y": 0, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 12, "y": 1, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 12, "y": 2, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 12, "y": 3, "tileset": "plains", "col": 2, "row": 5},
+        {"x": 12, "y": 23, "tileset": "plains", "col": 2, "row": 5}
+      ]
+    },
+    "decorations": {
+      "tiles": [
+        {"comment": "=== FLOWER CLUSTER near pond (environmental storytelling) ==="},
+        {"x": 1, "y": 2, "tileset": "decor16", "col": 0, "row": 0},
+        {"x": 2, "y": 2, "tileset": "decor16", "col": 1, "row": 0},
+        {"x": 1, "y": 7, "tileset": "decor16", "col": 0, "row": 0},
+        {"x": 5, "y": 6, "tileset": "decor16", "col": 1, "row": 0},
+        {"x": 5, "y": 7, "tileset": "decor16", "col": 0, "row": 0},
+        {"x": 4, "y": 7, "tileset": "decor16", "col": 2, "row": 0},
+
+        {"comment": "=== MUSHROOM GROVE near tree at (1,8) ==="},
+        {"x": 3, "y": 10, "tileset": "decor16", "col": 0, "row": 1},
+        {"x": 4, "y": 10, "tileset": "decor16", "col": 1, "row": 1},
+        {"x": 3, "y": 11, "tileset": "decor16", "col": 2, "row": 1},
+        {"x": 2, "y": 12, "tileset": "decor16", "col": 0, "row": 1},
+
+        {"comment": "=== SCATTERED FLOWERS in meadow areas ==="},
+        {"x": 9, "y": 15, "tileset": "decor16", "col": 0, "row": 0},
+        {"x": 10, "y": 16, "tileset": "decor16", "col": 1, "row": 0},
+        {"x": 11, "y": 16, "tileset": "decor16", "col": 2, "row": 0},
+        {"x": 10, "y": 17, "tileset": "decor16", "col": 0, "row": 0},
+
+        {"comment": "=== SOUTHERN MEADOW flowers ==="},
+        {"x": 8, "y": 20, "tileset": "decor16", "col": 1, "row": 0},
+        {"x": 9, "y": 21, "tileset": "decor16", "col": 0, "row": 0},
+        {"x": 7, "y": 22, "tileset": "decor16", "col": 2, "row": 0},
+
+        {"comment": "=== MUSHROOMS near southern trees ==="},
+        {"x": 10, "y": 19, "tileset": "decor16", "col": 1, "row": 1},
+        {"x": 11, "y": 19, "tileset": "decor16", "col": 0, "row": 1}
+      ]
+    },
+    "cliffs": {
+      "tiles": [
+        {"comment": "=== LEFT BORDER CLIFFS ==="},
+        {"x": 0, "y": 0, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 0, "y": 1, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 0, "y": 2, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 0, "y": 3, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 0, "y": 4, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 0, "y": 5, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 0, "y": 6, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 0, "y": 7, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 0, "y": 8, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 0, "y": 9, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 0, "y": 10, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 0, "y": 11, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 0, "y": 12, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 0, "y": 13, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 0, "y": 14, "tileset": "plains", "col": 5, "row": 4},
+        {"x": 1, "y": 14, "tileset": "plains", "col": 1, "row": 6},
+        {"x": 1, "y": 15, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 1, "y": 16, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 1, "y": 17, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 1, "y": 18, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 1, "y": 19, "tileset": "plains", "col": 5, "row": 4},
+        {"x": 2, "y": 19, "tileset": "plains", "col": 1, "row": 6},
+        {"x": 2, "y": 20, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 2, "y": 21, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 2, "y": 22, "tileset": "plains", "col": 2, "row": 6},
+        {"x": 2, "y": 23, "tileset": "plains", "col": 2, "row": 6},
+
+        {"comment": "=== BOTTOM-LEFT CORNER ==="},
+        {"x": 0, "y": 24, "tileset": "plains", "col": 4, "row": 4},
+        {"x": 1, "y": 24, "tileset": "plains", "col": 3, "row": 5},
+        {"x": 2, "y": 24, "tileset": "plains", "col": 3, "row": 6},
+
+        {"comment": "=== BOTTOM-RIGHT CORNER cliffs ==="},
+        {"x": 10, "y": 24, "tileset": "plains", "col": 2, "row": 4},
+        {"x": 10, "y": 23, "tileset": "plains", "col": 1, "row": 4},
+        {"x": 11, "y": 23, "tileset": "plains", "col": 5, "row": 5},
+        {"x": 11, "y": 22, "tileset": "plains", "col": 1, "row": 4},
+        {"x": 12, "y": 22, "tileset": "plains", "col": 5, "row": 5},
+        {"x": 12, "y": 21, "tileset": "plains", "col": 1, "row": 4},
+        {"x": 13, "y": 21, "tileset": "plains", "col": 1, "row": 5},
+
+        {"comment": "=== TOP-RIGHT CORNER cliffs ==="},
+        {"x": 11, "y": 0, "tileset": "plains", "col": 2, "row": 4},
+        {"x": 11, "y": 1, "tileset": "plains", "col": 2, "row": 4},
+        {"x": 11, "y": 2, "tileset": "plains", "col": 2, "row": 4},
+        {"x": 11, "y": 3, "tileset": "plains", "col": 2, "row": 4},
+        {"x": 11, "y": 4, "tileset": "plains", "col": 3, "row": 4},
+        {"x": 12, "y": 4, "tileset": "plains", "col": 4, "row": 5},
+        {"x": 12, "y": 5, "tileset": "plains", "col": 2, "row": 4},
+        {"x": 12, "y": 6, "tileset": "plains", "col": 3, "row": 4},
+        {"x": 13, "y": 6, "tileset": "plains", "col": 4, "row": 5},
+        {"x": 13, "y": 7, "tileset": "plains", "col": 2, "row": 4},
+        {"x": 13, "y": 8, "tileset": "plains", "col": 3, "row": 4}
+      ]
+    },
+    "fences": {
+      "tiles": [
+        {"comment": "=== FENCE near pond for player guidance ==="},
+        {"x": 5, "y": 3, "tileset": "fences", "col": 0, "row": 0},
+        {"x": 5, "y": 4, "tileset": "fences", "col": 0, "row": 1},
+        {"x": 5, "y": 5, "tileset": "fences", "col": 0, "row": 1},
+
+        {"comment": "=== FENCE near spawn guiding toward path ==="},
+        {"x": 12, "y": 11, "tileset": "fences", "col": 1, "row": 0},
+        {"x": 11, "y": 11, "tileset": "fences", "col": 1, "row": 0},
+
+        {"comment": "=== PARTIAL FENCE near southern area ==="},
+        {"x": 7, "y": 24, "tileset": "fences", "col": 1, "row": 0},
+        {"x": 8, "y": 24, "tileset": "fences", "col": 1, "row": 0},
+        {"x": 9, "y": 24, "tileset": "fences", "col": 1, "row": 0}
       ]
     },
     "ysort": {
       "tiles": [
-        {"comment": "Green trees (3x3) at col 0, row 5"},
-        {"x": 7, "y": 2, "tileset": "objects", "col": 0, "row": 5},
+        {"comment": "=== CLUSTERED TREES (Rule of Three - groups of trees) ==="},
+        {"comment": "--- Tree cluster 1: Near pond area ---"},
         {"x": 1, "y": 8, "tileset": "objects", "col": 0, "row": 5},
-        {"x": 9, "y": 18, "tileset": "objects", "col": 0, "row": 5},
-        
-        {"comment": "Apple trees (3x3) at col 3, row 5"},
-        {"x": 0, "y": 5, "tileset": "objects", "col": 3, "row": 5},
+
+        {"comment": "--- Tree cluster 2: Upper right with overlapping canopies ---"},
+        {"x": 9, "y": 0, "tileset": "objects", "col": 0, "row": 5},
         {"x": 11, "y": 3, "tileset": "objects", "col": 3, "row": 5},
-        {"x": 5, "y": 11, "tileset": "objects", "col": 3, "row": 5},
+
+        {"comment": "--- Tree cluster 3: Southern grove ---"},
+        {"x": 9, "y": 17, "tileset": "objects", "col": 0, "row": 5},
+        {"x": 11, "y": 18, "tileset": "objects", "col": 3, "row": 5},
+
+        {"comment": "=== CLUSTERED BUSHES (groups of 2-3) ==="},
+        {"comment": "--- Bush cluster near spawn ---"},
+        {"x": 9, "y": 9, "tileset": "objects", "col": 6, "row": 7},
         
-        {"comment": "Large bushes (2x2) at col 6, row 7"},
+        {"comment": "--- Bush cluster mid-map ---"},
+        {"x": 2, "y": 14, "tileset": "objects", "col": 6, "row": 7},
+        {"x": 3, "y": 15, "tileset": "objects", "col": 6, "row": 7},
+
+        {"comment": "--- Bush cluster southern area ---"},
         {"x": 8, "y": 21, "tileset": "objects", "col": 6, "row": 7},
         {"x": 10, "y": 20, "tileset": "objects", "col": 6, "row": 7},
-        {"x": 9, "y": 9, "tileset": "objects", "col": 6, "row": 7},
-        {"x": 7, "y": 13, "tileset": "objects", "col": 6, "row": 7},
-        {"x": 2, "y": 16, "tileset": "objects", "col": 6, "row": 7},
         {"x": 0, "y": 21, "tileset": "objects", "col": 6, "row": 7},
-        
-        {"comment": "Medium rocks at col 0, row 1"},
+
+        {"comment": "=== ROCK FORMATIONS (clustered by size) ==="},
+        {"comment": "--- Large + medium rocks together ---"},
         {"x": 9, "y": 4, "tileset": "objects", "col": 0, "row": 1},
-        {"x": 12, "y": 8, "tileset": "objects", "col": 0, "row": 1},
-        
-        {"comment": "Small rocks at col 1-2, row 1"},
-        {"x": 10, "y": 6, "tileset": "objects", "col": 1, "row": 1},
+        {"x": 10, "y": 5, "tileset": "objects", "col": 1, "row": 1},
+
+        {"comment": "--- Small rock cluster ---"},
         {"x": 2, "y": 4, "tileset": "objects", "col": 2, "row": 1},
         {"x": 8, "y": 16, "tileset": "objects", "col": 1, "row": 1},
-        
-        {"comment": "Logs (walkable) - mushroom log at col 6, row 5"},
+        {"x": 12, "y": 8, "tileset": "objects", "col": 0, "row": 1},
+
+        {"comment": "=== LOGS (environmental storytelling) ==="},
         {"x": 3, "y": 3, "tileset": "objects", "col": 6, "row": 5},
         {"x": 11, "y": 15, "tileset": "objects", "col": 6, "row": 6},
-        
-        {"comment": "Signpost at col 0, row 0"},
+
+        {"comment": "=== SIGNPOST for player guidance ==="},
         {"x": 8, "y": 10, "tileset": "objects", "col": 0, "row": 0}
       ]
     }
