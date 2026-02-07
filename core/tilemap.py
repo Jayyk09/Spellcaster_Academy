@@ -138,16 +138,12 @@ class TileMap:
     
     Manages rendering order and provides collision detection.
     Layer order (bottom to top):
-    1. ground - Base terrain (grass) with terrain edge overlays
-    2. water - Water tiles (ponds, streams) - rendered above ground
-    3. lvl1 - Cliff fill/lower level (below walking surface)
-    4. decorations - Small detail tiles (flowers, pebbles, grass tufts)
-    5. cliffs - Cliff edge tiles with collision
-    6. fences - Fence boundaries (guides player movement)
-    7. ysort - Objects that y-sort with entities (trees, rocks, bushes)
+    1. ground - Base terrain (grass, dirt path, water)
+    2. objects - Static objects with collision (cliffs, decorations, fences)
+    3. ysort - Objects that y-sort with entities (trees, rocks, bushes)
     """
     
-    LAYER_ORDER = ['ground', 'water', 'lvl1', 'decorations', 'cliffs', 'fences', 'ysort']
+    LAYER_ORDER = ['ground', 'objects', 'ysort']
     
     def __init__(self, width: int, height: int, tile_size: int = 16):
         """
@@ -170,7 +166,7 @@ class TileMap:
             layer = TileMapLayer(width, height, tile_size)
             
             # Set layer properties
-            if layer_name == 'cliffs':
+            if layer_name == 'objects':
                 layer.has_collision = True
             if layer_name == 'ysort':
                 layer.y_sort = True
@@ -216,7 +212,7 @@ class TileMap:
             List of pygame.Rect objects for collision detection
         """
         rects = []
-        for layer_name in ('cliffs',):
+        for layer_name in ('objects',):
             layer = self.layers.get(layer_name)
             if layer and layer.has_collision:
                 for (x, y) in layer.get_collision_tiles():
@@ -245,7 +241,7 @@ class TileMap:
         grid_y = int(pixel_y // self.tile_size)
         
         # Check collision layers
-        for layer_name in ('cliffs',):
+        for layer_name in ('objects',):
             layer = self.layers.get(layer_name)
             if layer and layer.has_collision:
                 tile = layer.get_tile(grid_x, grid_y)
@@ -271,7 +267,7 @@ class TileMap:
         end_y = int((rect.bottom - 1) // self.tile_size) + 1
         
         # Check all tiles in the range
-        for layer_name in ('cliffs',):
+        for layer_name in ('objects',):
             layer = self.layers.get(layer_name)
             if layer and layer.has_collision:
                 for y in range(start_y, end_y):
