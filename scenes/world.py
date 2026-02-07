@@ -8,7 +8,6 @@ from core.camera import Camera
 from core.map_loader import load_map_data, create_tilemap_from_data, get_spawn_points, get_transitions
 from entities.player import Player
 from entities.enemy import Slime
-from entities.collectibles import Mushroom
 from entities.spell import SpellProjectile
 from config.settings import (
     SCREEN_WIDTH, SCREEN_HEIGHT, SPRITES_DIR,
@@ -72,22 +71,14 @@ class WorldScene(Scene):
             slime.set_target(self.player)
             self.enemies.add(slime)
         
-        # Create collectibles at spawn points
-        self.mushrooms: list[Mushroom] = []
-        mushroom_spawns = spawn_points.get('mushrooms', [])
-        for spawn in mushroom_spawns:
-            x = spawn['x'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
-            y = spawn['y'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
-            mushroom = Mushroom(x, y)
-            self.mushrooms.append(mushroom)
+        # Mushrooms disabled - sprite removed
+        self.mushrooms = []
         
         # All sprites for rendering
         self.all_sprites = pygame.sprite.Group()
         self.all_sprites.add(self.player)
         for enemy in self.enemies:
             self.all_sprites.add(enemy)
-        for mushroom in self.mushrooms:
-            self.all_sprites.add(mushroom)
         
         # Spell projectiles
         self.spells = pygame.sprite.Group()
@@ -233,25 +224,7 @@ class WorldScene(Scene):
         # Check spell-enemy combat
         self._check_spell_combat()
         
-        # Update mushrooms - now harvested by spells
-        for mushroom in list(self.mushrooms):
-            # Check if any spell hits the mushroom
-            for spell in list(self.spells):
-                if spell.is_alive:
-                    spell_hitbox = spell.get_hitbox()
-                    mushroom_hitbox = pygame.Rect(
-                        mushroom.pos.x - 10, mushroom.pos.y - 10, 20, 20
-                    )
-                    if spell_hitbox.colliderect(mushroom_hitbox) and not mushroom.collected:
-                        mushroom.try_harvest(spell_hitbox)
-                        # Don't destroy spell on mushroom hit, let it pass through
-            
-            chunks = mushroom.update(dt)
-            if chunks > 0:
-                game_state.shroom_chunks += chunks
-            if mushroom.is_fully_collected():
-                self.mushrooms.remove(mushroom)
-                self.all_sprites.remove(mushroom)
+        # Mushrooms disabled - sprite removed
         
         # Clean up dead enemies
         for enemy in list(self.enemies):
@@ -394,11 +367,10 @@ class WorldScene(Scene):
         controls = self.font.render("WASD: Move | Space: Cast Spell | ESC: Menu", True, (180, 180, 180))
         screen.blit(controls, (10, SCREEN_HEIGHT - 25))
         
-        # Enemy/mushroom count
+        # Enemy count
         enemy_count = len([e for e in self.enemies if e.is_alive])
-        mushroom_count = len([m for m in self.mushrooms if not m.collected])
-        count_text = self.font.render(f"Enemies: {enemy_count} | Mushrooms: {mushroom_count}", True, (200, 200, 200))
-        screen.blit(count_text, (SCREEN_WIDTH - 250, SCREEN_HEIGHT - 25))
+        count_text = self.font.render(f"Enemies: {enemy_count}", True, (200, 200, 200))
+        screen.blit(count_text, (SCREEN_WIDTH - 150, SCREEN_HEIGHT - 25))
         
         # Death panel
         self.death_panel.draw(screen)
