@@ -1,0 +1,169 @@
+{
+  "name": "world",
+  "width": 25,
+  "height": 14,
+  "tile_size": 16,
+  "description": "Main world scene with cliffs, water pond, and path to camp",
+  
+  "layers": {
+    "ground": {
+      "fill": ["grass", 0, 0],
+      "tiles": []
+    },
+    
+    "cliffs": {
+      "tiles": [
+        {"comment": "Top edge cliffs"},
+        {"x": 0, "y": 0, "tileset": "plains", "col": 0, "row": 0},
+        {"x": 1, "y": 0, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 2, "y": 0, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 3, "y": 0, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 4, "y": 0, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 5, "y": 0, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 6, "y": 0, "tileset": "plains", "col": 2, "row": 0},
+        
+        {"x": 10, "y": 0, "tileset": "plains", "col": 0, "row": 0},
+        {"x": 11, "y": 0, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 12, "y": 0, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 13, "y": 0, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 14, "y": 0, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 15, "y": 0, "tileset": "plains", "col": 2, "row": 0},
+        
+        {"x": 19, "y": 0, "tileset": "plains", "col": 0, "row": 0},
+        {"x": 20, "y": 0, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 21, "y": 0, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 22, "y": 0, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 23, "y": 0, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 24, "y": 0, "tileset": "plains", "col": 2, "row": 0},
+        
+        {"comment": "Left edge cliffs (partial - leave gap for camp exit)"},
+        {"x": 0, "y": 1, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 0, "y": 2, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 0, "y": 3, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 0, "y": 10, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 0, "y": 11, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 0, "y": 12, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 0, "y": 13, "tileset": "plains", "col": 0, "row": 2},
+        
+        {"comment": "Right edge cliffs"},
+        {"x": 24, "y": 1, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 24, "y": 2, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 24, "y": 3, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 24, "y": 4, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 24, "y": 5, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 24, "y": 6, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 24, "y": 7, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 24, "y": 8, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 24, "y": 9, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 24, "y": 10, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 24, "y": 11, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 24, "y": 12, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 24, "y": 13, "tileset": "plains", "col": 2, "row": 2},
+        
+        {"comment": "Bottom edge cliffs"},
+        {"x": 0, "y": 13, "tileset": "plains", "col": 0, "row": 2},
+        {"x": 1, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 2, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 3, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 4, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 5, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 6, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 7, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 8, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 9, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 10, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 11, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 12, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 13, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 14, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 15, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 16, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 17, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 18, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 19, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 20, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 21, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 22, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 23, "y": 13, "tileset": "plains", "col": 1, "row": 2},
+        
+        {"comment": "Interior cliff formation (obstacle)"},
+        {"x": 15, "y": 5, "tileset": "plains", "col": 0, "row": 0},
+        {"x": 16, "y": 5, "tileset": "plains", "col": 1, "row": 0},
+        {"x": 17, "y": 5, "tileset": "plains", "col": 2, "row": 0},
+        {"x": 15, "y": 6, "tileset": "plains", "col": 0, "row": 1},
+        {"x": 17, "y": 6, "tileset": "plains", "col": 2, "row": 1},
+        {"x": 15, "y": 7, "tileset": "plains", "col": 0, "row": 2},
+        {"x": 16, "y": 7, "tileset": "plains", "col": 1, "row": 2},
+        {"x": 17, "y": 7, "tileset": "plains", "col": 2, "row": 2}
+      ]
+    },
+    
+    "water": {
+      "tiles": [
+        {"comment": "Small pond in lower left area"},
+        {"x": 4, "y": 9, "tileset": "water", "col": 0, "row": 0},
+        {"x": 5, "y": 9, "tileset": "water", "col": 1, "row": 0},
+        {"x": 6, "y": 9, "tileset": "water", "col": 2, "row": 0},
+        {"x": 4, "y": 10, "tileset": "water", "col": 0, "row": 1},
+        {"x": 5, "y": 10, "tileset": "water", "col": 1, "row": 1},
+        {"x": 6, "y": 10, "tileset": "water", "col": 2, "row": 1},
+        {"x": 4, "y": 11, "tileset": "water", "col": 0, "row": 2},
+        {"x": 5, "y": 11, "tileset": "water", "col": 1, "row": 2},
+        {"x": 6, "y": 11, "tileset": "water", "col": 2, "row": 2}
+      ]
+    },
+    
+    "paths": {
+      "tiles": [
+        {"comment": "Path from camp exit toward center"},
+        {"x": 1, "y": 6, "tileset": "flooring", "col": 0, "row": 0},
+        {"x": 2, "y": 6, "tileset": "flooring", "col": 1, "row": 0},
+        {"x": 3, "y": 6, "tileset": "flooring", "col": 1, "row": 0},
+        {"x": 4, "y": 6, "tileset": "flooring", "col": 1, "row": 0},
+        {"x": 5, "y": 6, "tileset": "flooring", "col": 1, "row": 0},
+        {"x": 6, "y": 6, "tileset": "flooring", "col": 1, "row": 0},
+        {"x": 7, "y": 6, "tileset": "flooring", "col": 1, "row": 0},
+        {"x": 8, "y": 6, "tileset": "flooring", "col": 2, "row": 0},
+        {"x": 1, "y": 7, "tileset": "flooring", "col": 0, "row": 1},
+        {"x": 2, "y": 7, "tileset": "flooring", "col": 1, "row": 1},
+        {"x": 3, "y": 7, "tileset": "flooring", "col": 1, "row": 1},
+        {"x": 4, "y": 7, "tileset": "flooring", "col": 1, "row": 1},
+        {"x": 5, "y": 7, "tileset": "flooring", "col": 1, "row": 1},
+        {"x": 6, "y": 7, "tileset": "flooring", "col": 1, "row": 1},
+        {"x": 7, "y": 7, "tileset": "flooring", "col": 1, "row": 1},
+        {"x": 8, "y": 7, "tileset": "flooring", "col": 2, "row": 1}
+      ]
+    },
+    
+    "decorations": {
+      "tiles": [
+        {"comment": "Scattered decorative elements (will y-sort with entities)"}
+      ]
+    }
+  },
+  
+  "spawn_points": {
+    "player_start": {"x": 3, "y": 6},
+    "camp_exit": {"x": 0, "y": 6},
+    "enemies": [
+      {"x": 18, "y": 3},
+      {"x": 10, "y": 8},
+      {"x": 20, "y": 10}
+    ],
+    "mushrooms": [
+      {"x": 12, "y": 3},
+      {"x": 20, "y": 2},
+      {"x": 8, "y": 10},
+      {"x": 14, "y": 11}
+    ]
+  },
+  
+  "transitions": {
+    "to_camp": {
+      "x": 0,
+      "y": 4,
+      "width": 1,
+      "height": 6
+    }
+  }
+}
