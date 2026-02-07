@@ -9,10 +9,12 @@ from core.map_loader import load_map_data, create_tilemap_from_data, get_spawn_p
 from entities.player import Player
 from entities.enemy import Slime
 from entities.collectibles import Mushroom
+from entities.spell import SpellProjectile
 from config.settings import (
-    SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_ATTACK_DAMAGE, SPRITES_DIR,
+    SCREEN_WIDTH, SCREEN_HEIGHT, SPRITES_DIR,
     TILE_SIZE, SCALE, WORLD_WIDTH, WORLD_HEIGHT,
-    WORLD_WIDTH_TILES, WORLD_HEIGHT_TILES, CAMERA_DRAG_MARGIN
+    WORLD_WIDTH_TILES, WORLD_HEIGHT_TILES, CAMERA_DRAG_MARGIN,
+    SPELL_DAMAGE
 )
 
 
@@ -84,6 +86,9 @@ class WorldScene(Scene):
         for mushroom in self.mushrooms:
             self.all_sprites.add(mushroom)
         
+        # Spell projectiles
+        self.spells = pygame.sprite.Group()
+        
         # Scene exit area (to camp) from map data
         transitions = get_transitions(self.map_data)
         camp_transition = transitions.get('to_camp', {'x': 0, 'y': 4, 'width': 1, 'height': 6})
@@ -125,7 +130,11 @@ class WorldScene(Scene):
                     self.next_scene = 'menu'
                 return
             
-            self.player.handle_attack_input(event.key)
+            # Handle spell casting
+            spell = self.player.handle_spell_input(event.key)
+            if spell:
+                self.spells.add(spell)
+                self.all_sprites.add(spell)
             
             if event.key == pygame.K_ESCAPE:
                 self.next_scene = 'menu'
@@ -180,14 +189,35 @@ class WorldScene(Scene):
                 enemy.pos.x = old_enemy_pos.x
                 enemy.pos.y = old_enemy_pos.y
         
-        # Check combat
-        self._check_combat()
+        # Update spells
+        for spell in list(self.spells):
+            spell.update(dt)
+            
+            # Remove spells that are out of bounds or expired
+            if not spell.is_alive:
+                self.spells.remove(spell)
+                self.all_sprites.remove(spell)
+            elif not self._is_in_world_bounds(spell.pos):
+                spell.destroy()
+                self.spells.remove(spell)
+                self.all_sprites.remove(spell)
         
-        # Update mushrooms
-        attack_hitbox = self.player.get_attack_hitbox()
+        # Check spell-enemy combat
+        self._check_spell_combat()
+        
+        # Update mushrooms - now harvested by spells
         for mushroom in list(self.mushrooms):
-            # Try to harvest if player is attacking
-            mushroom.try_harvest(attack_hitbox)
+            # Check if any spell hits the mushroom
+            for spell in list(self.spells):
+                if spell.is_alive:
+                    spell_hitbox = spell.get_hitbox()
+                    mushroom_hitbox = pygame.Rect(
+                        mushroom.pos.x - 10, mushroom.pos.y - 10, 20, 20
+                    )
+                    if spell_hitbox.colliderect(mushroom_hitbox) and not mushroom.collected:
+                        mushroom.try_harvest(spell_hitbox)
+                        # Don't destroy spell on mushroom hit, let it pass through
+            
             chunks = mushroom.update(dt)
             if chunks > 0:
                 game_state.shroom_chunks += chunks
@@ -235,15 +265,35 @@ class WorldScene(Scene):
         
         return False
     
-    def _check_combat(self):
-        """Check for combat interactions."""
-        attack_hitbox = self.player.get_attack_hitbox()
-        if attack_hitbox:
+    def _is_in_world_bounds(self, pos: pygame.Vector2) -> bool:
+        """Check if a position is within the world boundaries."""
+        margin = 50  # Some buffer for spells
+        return (
+            -margin < pos.x < self.world_pixel_width + margin and
+            -margin < pos.y < self.world_pixel_height + margin
+        )
+    
+    def _check_spell_combat(self):
+        """Check for spell-enemy collisions."""
+        for spell in list(self.spells):
+            if not spell.is_alive:
+                continue
+            
+            spell_hitbox = spell.get_hitbox()
+            
             for enemy in self.enemies:
                 if enemy.is_alive:
                     enemy_hitbox = enemy.get_hitbox()
-                    if attack_hitbox.colliderect(enemy_hitbox):
-                        enemy.take_damage(PLAYER_ATTACK_DAMAGE)
+                    if spell_hitbox.colliderect(enemy_hitbox):
+                        # Spell hits enemy
+                        enemy.take_damage(spell.damage)
+                        spell.destroy()
+                        # Remove spell from groups
+                        if spell in self.spells:
+                            self.spells.remove(spell)
+                        if spell in self.all_sprites:
+                            self.all_sprites.remove(spell)
+                        break  # Spell can only hit one enemy
     
     def _check_transitions(self):
         """Check if player entered a transition area."""
@@ -276,12 +326,6 @@ class WorldScene(Scene):
             )
             screen.blit(sprite.image, (screen_x, screen_y))
         
-        # Draw attack hitbox (debug - apply camera)
-        hitbox = self.player.get_attack_hitbox()
-        if hitbox:
-            screen_hitbox = self.camera.apply_to_rect(hitbox)
-            pygame.draw.rect(screen, (255, 100, 100, 128), screen_hitbox, 1)
-        
         # Draw entity health bars (in screen space)
         self._draw_entity_health_bars(screen)
         
@@ -292,8 +336,13 @@ class WorldScene(Scene):
         scene_text = self.font.render("WORLD", True, (200, 200, 100))
         screen.blit(scene_text, (SCREEN_WIDTH - 70, 10))
         
+        # Current spell indicator
+        spell_name = self.player.get_current_spell_name().capitalize()
+        spell_text = self.font.render(f"Next Spell: {spell_name}", True, (150, 200, 255))
+        screen.blit(spell_text, (SCREEN_WIDTH - 150, 35))
+        
         # Controls
-        controls = self.font.render("WASD: Move | Space: Attack | ESC: Menu", True, (180, 180, 180))
+        controls = self.font.render("WASD: Move | Space: Cast Spell | ESC: Menu", True, (180, 180, 180))
         screen.blit(controls, (10, SCREEN_HEIGHT - 25))
         
         # Enemy/mushroom count
