@@ -102,11 +102,62 @@
     "G": ["grass", 0, 0],
     
     "_decor": "--- Decorations ---",
-    "Dg": ["decor16", 0, 0],
-    "Df": ["decor16", 1, 2],
-    "Ro": ["decor16", 2, 1],
-    "Mr": ["decor16", 1, 3],
-    "Mb": ["decor16", 2, 3],
+    
+    "_decor8_rocks": "--- 8x8 Rocks (row 0) ---",
+    "r0": ["decor8", 0, 0],
+    "r1": ["decor8", 1, 0],
+    "r2": ["decor8", 2, 0],
+    "r3": ["decor8", 3, 0],
+    
+    "_decor8_grass": "--- 8x8 Grass decor (row 1) ---",
+    "g0": ["decor8", 0, 1],
+    "g1": ["decor8", 1, 1],
+    "g2": ["decor8", 2, 1],
+    "g3": ["decor8", 3, 1],
+    
+    "_decor8_flowers": "--- 8x8 Flowers (row 2) ---",
+    "f0": ["decor8", 0, 2],
+    "f1": ["decor8", 1, 2],
+    "f2": ["decor8", 2, 2],
+    "f3": ["decor8", 3, 2],
+    
+    "_decor8_dirt": "--- 8x8 Dirt pattern (row 3) ---",
+    "d0": ["decor8", 0, 3],
+    "d1": ["decor8", 1, 3],
+    "d2": ["decor8", 2, 3],
+    "d3": ["decor8", 3, 3],
+    
+    "_decor16_grass": "--- 16x16 Grass (cols 0-1, rows 0-7) ---",
+    "G0": ["decor16", 0, 0],
+    "G1": ["decor16", 0, 1],
+    "G2": ["decor16", 0, 2],
+    "G3": ["decor16", 0, 3],
+    "G4": ["decor16", 0, 4],
+    "G5": ["decor16", 0, 5],
+    "G6": ["decor16", 0, 6],
+    "G7": ["decor16", 0, 7],
+    
+    "_decor16_rocks": "--- 16x16 Rocks (cols 2-3, rows 2-7) ---",
+    "R0": ["decor16", 2, 2],
+    "R1": ["decor16", 2, 3],
+    "R2": ["decor16", 2, 4],
+    "R3": ["decor16", 2, 5],
+    "R4": ["decor16", 2, 6],
+    "R5": ["decor16", 2, 7],
+    
+    "_decor16_flowers": "--- 16x16 Flowers (cols 4-5, rows 4-7) ---",
+    "F0": ["decor16", 4, 4],
+    "F1": ["decor16", 4, 5],
+    "F2": ["decor16", 4, 6],
+    "F3": ["decor16", 4, 7],
+    
+    "_decor16_mushrooms": "--- 16x16 Mushrooms (cols 6-7, rows 6-7) ---",
+    "M0": ["decor16", 6, 6],
+    "M1": ["decor16", 6, 7],
+    
+    "_decor16_dirt": "--- 16x16 Dirt (cols 7-9?, rows 8-9?) ---",
+    "D0": ["decor16", 6, 8],
+    "D1": ["decor16", 6, 9],
     
     "_fence": "--- Fences ---",
     "Fp": ["fences", 0, 0],
@@ -152,6 +203,35 @@
         "G   G   G   Dl  Dc  Dr  G   G   G   G   G   G   G   G",
         "G   G   G   Dl  Dc  Dr  G   G   G   G   G   G   G   G",
         "G   G   G   Dbl Db  Dbr G   G   G   G   G   G   G   G"
+      ]
+    },
+    "decorations": {
+      "grid": [
+        "G1  .   g0  F0  .   G2  .   .   .   .   f1  G3  .   r0",
+        ".   g1  .   .   G0  .   f0  .   d0  .   .   g2  .   .",
+        "g1  F1  .   G4  .   .   .   .   d1  .   G5  .   .   g2",
+        "r1  .   G6  .   g3  .   .   .   .   d3  .   g0  .   .",
+        ".   g0  .   f2  .   M0  .   .   .   .   d0  .   .   f3",
+        "G7  .   .   g1  .   .   G0  r2  .   .   .   d2  .   g3",
+        ".   f0  .   g0  .   G1  .   .   F2  .   .   .   .   G2",
+        "r3  .   G3  .   F3  .   g2  .   .   .   .   d0  .   g1",
+        "f1  .   g3  .   .   .   .   .   .   .   .   .   .   g3",
+        "G4  .   .   .   d0  .   d2  .   .   d1  .   d3  .   .",
+        ".   g0  .   .   .   .   .   F0  .   g1  G5  .   .   r0",
+        ".   .   f2  .   d3  .   G6  .   .   g0  .   g2  .   .",
+        "G7  .   .   .   d0  .   .   g3  f3  .   .   M1  .   g1",
+        ".   g2  .   .   .   .   r1  .   .   G0  .   .   f0  .",
+        "r2  .   G1  .   d2  .   .   .   .   .   .   g0  .   F1",
+        "f1  .   .   .   .   d3  .   d1  .   d0  .   .   .   .",
+        "G2  .   g1  g3  F2  .   r3  .   .   .   d1  .   G3  .",
+        ".   f2  .   .   .   G4  .   g0  .   .   .   .   .   r0",
+        "g0  .   G5  .   .   .   f0  .   g2  .   d3  .   g1  .",
+        ".   r1  .   .   .   .   .   .   .   .   .   .   f3  .",
+        "G6  .   .   .   d0  .   d2  .   .   d1  .   .   .   F3",
+        ".   g3  .   .   .   .   .   .   g1  .   M0  .   G7  .",
+        "f1  G0  .   .   d1  .   G1  .   .   g0  .   f2  .   g2",
+        ".   .   r2  .   .   .   .   r3  .   G2  .   .   g3  .",
+        "G3  .   g0  .   .   .   f0  .   g3  .   F0  .   r0  ."
       ]
     },
     "objects": {
