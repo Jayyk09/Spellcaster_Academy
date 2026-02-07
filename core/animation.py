@@ -142,7 +142,8 @@ class AnimatedSprite(pygame.sprite.Sprite):
                 frame = pygame.transform.flip(frame, True, False)
             self.image = frame
         
-        self.rect.center = (int(self.pos.x), int(self.pos.y))
+        if self.rect is not None:
+            self.rect.center = (int(self.pos.x), int(self.pos.y))
     
     def is_animation_finished(self) -> bool:
         """Check if the current animation has finished (for non-looping animations)."""
