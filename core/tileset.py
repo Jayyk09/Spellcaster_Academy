@@ -9,23 +9,19 @@ from config.settings import SPRITES_DIR
 # Format: (col, row) -> (width_tiles, height_tiles, y_sort_origin, has_collision)
 # y_sort_origin is the pixel offset from top where the object "stands"
 # has_collision indicates if this object should block movement (for tree trunks, rocks)
+# NOTE: objects.png has furniture in rows 0-4, nature objects start at row 5
 OBJECTS_REGIONS = {
-    # Small decorations (no collision)
-    (0, 0): (1, 1, 3, False),       # Small bush
-    (5, 0): (1, 1, 2, False),       # Small decoration/flower
-    (10, 0): (2, 1, 1, False),      # Wide bush
-    (11, 2): (1, 2, -8, False),     # Tall plant/grass
+    # Medium rock (2x2) at row 7 - blocks movement
+    (10, 7): (2, 2, 20, True),
     
-    # Rocks (with collision)
-    (0, 1): (1, 1, 2, True),        # Small rock - blocks movement
-    (10, 7): (2, 2, 3, True),       # Medium rock - blocks movement
+    # Large bush/shrub (2x2) at row 7 - blocks movement
+    (6, 7): (2, 2, 20, True),
     
-    # Bushes (with collision at base)
-    (6, 7): (2, 2, 5, True),        # Large bush/shrub - blocks movement
+    # Pine tree (2x3) starting at row 6 - trunk collision
+    (8, 6): (2, 3, 40, True),
     
-    # Trees (with collision at trunk)
-    (8, 6): (2, 3, 17, True),       # Pine tree (32x48) - trunk collision
-    (0, 5): (3, 4, 18, True),       # Large tree (48x64) - trunk collision
+    # Large tree (3x4) starting at row 5 - trunk collision
+    (0, 5): (3, 4, 56, True),
 }
 
 
