@@ -1,35 +1,80 @@
-"""World scene - main gameplay area."""
+"""World scene - main gameplay area with tilemap and camera."""
 import pygame
 import os
 from core.scene import Scene
 from core.game_state import game_state
 from core.ui import HUD, DeathPanel, HealthBar
+from core.camera import Camera
+from core.map_loader import load_map_data, create_tilemap_from_data, get_spawn_points, get_transitions
 from entities.player import Player
 from entities.enemy import Slime
 from entities.collectibles import Mushroom
-from config.settings import SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_ATTACK_DAMAGE, SPRITES_DIR
+from config.settings import (
+    SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_ATTACK_DAMAGE, SPRITES_DIR,
+    TILE_SIZE, SCALE, WORLD_WIDTH, WORLD_HEIGHT,
+    WORLD_WIDTH_TILES, WORLD_HEIGHT_TILES, CAMERA_DRAG_MARGIN
+)
 
 
 class WorldScene(Scene):
-    """Main world gameplay scene."""
+    """Main world gameplay scene with tilemap rendering and camera."""
     
     def __init__(self, game, **kwargs):
         super().__init__(game)
         
-        # Load background tiles
-        self.background = self._create_tiled_background()
+        # Load map data
+        self.map_data = load_map_data('world_map')
+        if self.map_data is None:
+            raise RuntimeError("Failed to load world map data")
         
-        # Create player
-        start_x, start_y = game_state.player_start_pos
+        # Create tilemap
+        self.tilemap = create_tilemap_from_data(self.map_data)
+        
+        # Calculate world dimensions in pixels (at scale)
+        self.world_pixel_width = WORLD_WIDTH_TILES * TILE_SIZE * SCALE
+        self.world_pixel_height = WORLD_HEIGHT_TILES * TILE_SIZE * SCALE
+        
+        # Create camera
+        self.camera = Camera(
+            SCREEN_WIDTH, SCREEN_HEIGHT,
+            self.world_pixel_width, self.world_pixel_height
+        )
+        self.camera.drag_margin = CAMERA_DRAG_MARGIN
+        
+        # Pre-render and scale the base tilemap layers
+        self._render_scaled_background()
+        
+        # Get spawn points from map data
+        spawn_points = get_spawn_points(self.map_data)
+        
+        # Create player at spawn point
+        player_spawn = spawn_points.get('player_start', {'x': 3, 'y': 6})
+        start_x = player_spawn['x'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
+        start_y = player_spawn['y'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
         self.player = Player(start_x, start_y)
         
-        # Create enemies
-        self.enemies = pygame.sprite.Group()
-        self._spawn_enemies()
+        # Set camera to follow player
+        self.camera.set_target(self.player.pos)
+        self.camera.center_on(self.player.pos.x, self.player.pos.y)
         
-        # Create collectibles
+        # Create enemies at spawn points
+        self.enemies = pygame.sprite.Group()
+        enemy_spawns = spawn_points.get('enemies', [])
+        for spawn in enemy_spawns:
+            x = spawn['x'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
+            y = spawn['y'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
+            slime = Slime(x, y)
+            slime.set_target(self.player)
+            self.enemies.add(slime)
+        
+        # Create collectibles at spawn points
         self.mushrooms: list[Mushroom] = []
-        self._spawn_mushrooms()
+        mushroom_spawns = spawn_points.get('mushrooms', [])
+        for spawn in mushroom_spawns:
+            x = spawn['x'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
+            y = spawn['y'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
+            mushroom = Mushroom(x, y)
+            self.mushrooms.append(mushroom)
         
         # All sprites for rendering
         self.all_sprites = pygame.sprite.Group()
@@ -39,8 +84,15 @@ class WorldScene(Scene):
         for mushroom in self.mushrooms:
             self.all_sprites.add(mushroom)
         
-        # Scene exit area (to camp)
-        self.exit_to_camp = pygame.Rect(0, 100, 20, 100)  # Left edge
+        # Scene exit area (to camp) from map data
+        transitions = get_transitions(self.map_data)
+        camp_transition = transitions.get('to_camp', {'x': 0, 'y': 4, 'width': 1, 'height': 6})
+        self.exit_to_camp = pygame.Rect(
+            camp_transition['x'] * TILE_SIZE * SCALE,
+            camp_transition['y'] * TILE_SIZE * SCALE,
+            camp_transition['width'] * TILE_SIZE * SCALE,
+            camp_transition['height'] * TILE_SIZE * SCALE
+        )
         
         # UI
         self.hud = HUD()
@@ -50,52 +102,15 @@ class WorldScene(Scene):
         # Font for extra UI
         self.font = pygame.font.Font(None, 24)
     
-    def _spawn_enemies(self):
-        """Spawn enemies in the world."""
-        enemy_positions = [
-            (600, 300),
-            (200, 150),
-            (500, 400),
-        ]
+    def _render_scaled_background(self):
+        """Pre-render and scale the tilemap background."""
+        # Render base layers at native resolution
+        base_surface = self.tilemap.render_base_layers()
         
-        for x, y in enemy_positions:
-            slime = Slime(x, y)
-            slime.set_target(self.player)
-            self.enemies.add(slime)
-    
-    def _spawn_mushrooms(self):
-        """Spawn collectible mushrooms."""
-        mushroom_positions = [
-            (350, 100),
-            (650, 200),
-            (150, 350),
-            (450, 450),
-        ]
-        
-        for x, y in mushroom_positions:
-            mushroom = Mushroom(x, y)
-            self.mushrooms.append(mushroom)
-    
-    def _create_tiled_background(self) -> pygame.Surface:
-        """Create a tiled grass background."""
-        bg_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
-        
-        # Try to load grass tile
-        grass_path = os.path.join(SPRITES_DIR, 'tilesets', 'grass.png')
-        try:
-            grass_tile = pygame.image.load(grass_path).convert()
-            tile_size = grass_tile.get_width()
-            
-            # Tile the grass across the background
-            for y in range(0, SCREEN_HEIGHT, tile_size):
-                for x in range(0, SCREEN_WIDTH, tile_size):
-                    bg_surface.blit(grass_tile, (x, y))
-        except pygame.error as e:
-            print(f"Warning: Could not load grass tile: {e}")
-            # Fallback to solid color
-            bg_surface.fill((45, 65, 45))
-        
-        return bg_surface
+        # Scale up by SCALE factor
+        scaled_width = base_surface.get_width() * SCALE
+        scaled_height = base_surface.get_height() * SCALE
+        self.background = pygame.transform.scale(base_surface, (scaled_width, scaled_height))
     
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -116,8 +131,12 @@ class WorldScene(Scene):
                 self.next_scene = 'menu'
             
             # Debug: respawn
-            if event.key == pygame.K_r:
-                self.player.respawn(*game_state.player_start_pos)
+            if event.key == pygame.K_r and self.map_data:
+                spawn_points = get_spawn_points(self.map_data)
+                player_spawn = spawn_points.get('player_start', {'x': 3, 'y': 6})
+                start_x = player_spawn['x'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
+                start_y = player_spawn['y'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
+                self.player.respawn(start_x, start_y)
                 self.show_death_dialog = False
                 self.death_panel.hide()
     
@@ -126,18 +145,40 @@ class WorldScene(Scene):
         keys = pygame.key.get_pressed()
         self.player.handle_input(keys)
         
+        # Store old position for collision resolution
+        old_pos = pygame.Vector2(self.player.pos)
+        
         # Update player
         self.player.update(dt)
         
-        # Clamp player to screen
-        self.player.pos.x = max(24, min(SCREEN_WIDTH - 24, self.player.pos.x))
-        self.player.pos.y = max(24, min(SCREEN_HEIGHT - 24, self.player.pos.y))
+        # Clamp player to world bounds (accounting for sprite size)
+        margin = 24 * SCALE // 3  # Adjust margin based on sprite
+        self.player.pos.x = max(margin, min(self.world_pixel_width - margin, self.player.pos.x))
+        self.player.pos.y = max(margin, min(self.world_pixel_height - margin, self.player.pos.y))
+        
+        # Check tile collision
+        if self._check_tile_collision(self.player):
+            # Revert to old position if blocked
+            self.player.pos.x = old_pos.x
+            self.player.pos.y = old_pos.y
+        
+        # Update camera to follow player
+        self.camera.update(dt)
         
         # Update enemies
         for enemy in self.enemies:
+            old_enemy_pos = pygame.Vector2(enemy.pos)
             enemy.update(dt)
-            enemy.pos.x = max(16, min(SCREEN_WIDTH - 16, enemy.pos.x))
-            enemy.pos.y = max(16, min(SCREEN_HEIGHT - 16, enemy.pos.y))
+            
+            # Clamp enemy to world bounds
+            enemy_margin = 16 * SCALE // 3
+            enemy.pos.x = max(enemy_margin, min(self.world_pixel_width - enemy_margin, enemy.pos.x))
+            enemy.pos.y = max(enemy_margin, min(self.world_pixel_height - enemy_margin, enemy.pos.y))
+            
+            # Check tile collision for enemies
+            if self._check_tile_collision(enemy):
+                enemy.pos.x = old_enemy_pos.x
+                enemy.pos.y = old_enemy_pos.y
         
         # Check combat
         self._check_combat()
@@ -170,6 +211,30 @@ class WorldScene(Scene):
                 self.show_death_dialog = True
                 self.death_panel.show_death(game_state.game_has_savegame)
     
+    def _check_tile_collision(self, entity) -> bool:
+        """
+        Check if an entity collides with collision tiles.
+        
+        Args:
+            entity: Entity with pos attribute
+            
+        Returns:
+            True if collision detected
+        """
+        # Convert entity position to tilemap coordinates (unscaled)
+        tile_x = entity.pos.x / SCALE
+        tile_y = entity.pos.y / SCALE
+        
+        # Check a small area around the entity center
+        check_radius = 8  # pixels in tilemap space
+        
+        for dx in [-check_radius, 0, check_radius]:
+            for dy in [-check_radius, 0, check_radius]:
+                if self.tilemap.is_position_blocked(tile_x + dx, tile_y + dy):
+                    return True
+        
+        return False
+    
     def _check_combat(self):
         """Check for combat interactions."""
         attack_hitbox = self.player.get_attack_hitbox()
@@ -189,29 +254,38 @@ class WorldScene(Scene):
             self.next_scene = 'camp'
     
     def draw(self, screen: pygame.Surface):
-        # Draw tiled background
-        screen.blit(self.background, (0, 0))
+        # Clear screen
+        screen.fill((20, 30, 20))
         
-        # Draw exit area indicator
-        pygame.draw.rect(screen, (100, 150, 255), self.exit_to_camp, 2)
+        # Draw tilemap background with camera offset
+        self.camera.apply_to_surface(self.background, screen)
+        
+        # Draw exit area indicator (in world coords, apply camera)
+        exit_screen_rect = self.camera.apply_to_rect(self.exit_to_camp)
+        pygame.draw.rect(screen, (100, 150, 255), exit_screen_rect, 2)
         exit_font = pygame.font.Font(None, 18)
         exit_text = exit_font.render("Camp", True, (150, 200, 255))
-        screen.blit(exit_text, (2, self.exit_to_camp.centery - 8))
+        screen.blit(exit_text, (exit_screen_rect.x + 2, exit_screen_rect.centery - 8))
         
-        # Y-sort and draw sprites
+        # Y-sort and draw sprites (apply camera offset)
         sorted_sprites = sorted(self.all_sprites, key=lambda s: s.pos.y)
         for sprite in sorted_sprites:
-            screen.blit(sprite.image, sprite.rect)
+            # Convert world position to screen position
+            screen_x, screen_y = self.camera.world_to_screen(
+                sprite.rect.x, sprite.rect.y
+            )
+            screen.blit(sprite.image, (screen_x, screen_y))
         
-        # Draw attack hitbox (debug - can be removed)
+        # Draw attack hitbox (debug - apply camera)
         hitbox = self.player.get_attack_hitbox()
         if hitbox:
-            pygame.draw.rect(screen, (255, 100, 100, 128), hitbox, 1)
+            screen_hitbox = self.camera.apply_to_rect(hitbox)
+            pygame.draw.rect(screen, (255, 100, 100, 128), screen_hitbox, 1)
         
-        # Draw entity health bars
+        # Draw entity health bars (in screen space)
         self._draw_entity_health_bars(screen)
         
-        # Draw HUD
+        # Draw HUD (fixed to screen, not affected by camera)
         self.hud.draw(screen, self.player, game_state)
         
         # Scene label
@@ -232,15 +306,21 @@ class WorldScene(Scene):
         self.death_panel.draw(screen)
     
     def _draw_entity_health_bars(self, screen):
-        """Draw health bars above entities."""
+        """Draw health bars above entities (in screen space)."""
         # Player health bar above sprite
-        self._draw_health_bar(screen, self.player.pos.x, self.player.pos.y - 35,
+        player_screen_x, player_screen_y = self.camera.world_to_screen(
+            self.player.pos.x, self.player.pos.y - 35
+        )
+        self._draw_health_bar(screen, player_screen_x, player_screen_y,
                               self.player.health, self.player.max_health)
         
         # Enemy health bars
         for enemy in self.enemies:
             if enemy.is_alive:
-                self._draw_health_bar(screen, enemy.pos.x, enemy.pos.y - 25,
+                enemy_screen_x, enemy_screen_y = self.camera.world_to_screen(
+                    enemy.pos.x, enemy.pos.y - 25
+                )
+                self._draw_health_bar(screen, enemy_screen_x, enemy_screen_y,
                                      enemy.health, enemy.max_health, width=30, height=4)
     
     def _draw_health_bar(self, surface, x, y, health, max_health, width=50, height=5):
