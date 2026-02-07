@@ -44,6 +44,9 @@ class WorldScene(Scene):
         # Pre-render and scale the base tilemap layers
         self._render_scaled_background()
         
+        # Pre-render and scale ysort decoration objects
+        self._prepare_decorations()
+        
         # Get spawn points from map data
         spawn_points = get_spawn_points(self.map_data)
         
@@ -111,6 +114,31 @@ class WorldScene(Scene):
         scaled_width = base_surface.get_width() * SCALE
         scaled_height = base_surface.get_height() * SCALE
         self.background = pygame.transform.scale(base_surface, (scaled_width, scaled_height))
+    
+    def _prepare_decorations(self):
+        """
+        Pre-render and scale ysort decoration objects.
+        
+        Stores list of (scaled_surface, world_x, world_y, sort_y) tuples.
+        All coordinates are in world space (scaled pixels).
+        """
+        self.decorations = []
+        
+        # Get decoration tiles from tilemap (native resolution)
+        raw_decorations = self.tilemap.get_decoration_tiles()
+        
+        for surface, pixel_x, pixel_y, sort_y in raw_decorations:
+            # Scale the surface
+            scaled_width = surface.get_width() * SCALE
+            scaled_height = surface.get_height() * SCALE
+            scaled_surface = pygame.transform.scale(surface, (scaled_width, scaled_height))
+            
+            # Scale world positions
+            world_x = pixel_x * SCALE
+            world_y = pixel_y * SCALE
+            world_sort_y = sort_y * SCALE
+            
+            self.decorations.append((scaled_surface, world_x, world_y, world_sort_y))
     
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -267,14 +295,35 @@ class WorldScene(Scene):
         exit_text = exit_font.render("Camp", True, (150, 200, 255))
         screen.blit(exit_text, (exit_screen_rect.x + 2, exit_screen_rect.centery - 8))
         
-        # Y-sort and draw sprites (apply camera offset)
-        sorted_sprites = sorted(self.all_sprites, key=lambda s: s.pos.y)
-        for sprite in sorted_sprites:
-            # Convert world position to screen position
-            screen_x, screen_y = self.camera.world_to_screen(
-                sprite.rect.x, sprite.rect.y
-            )
-            screen.blit(sprite.image, (screen_x, screen_y))
+        # Build combined list of sprites and decorations for y-sorting
+        # Each item: (sort_y, type, data)
+        # type 'sprite': data = sprite
+        # type 'decor': data = (surface, world_x, world_y)
+        y_sort_items = []
+        
+        # Add sprites
+        for sprite in self.all_sprites:
+            y_sort_items.append((sprite.pos.y, 'sprite', sprite))
+        
+        # Add decorations
+        for surface, world_x, world_y, sort_y in self.decorations:
+            y_sort_items.append((sort_y, 'decor', (surface, world_x, world_y)))
+        
+        # Sort by y position
+        y_sort_items.sort(key=lambda item: item[0])
+        
+        # Draw sorted items
+        for sort_y, item_type, data in y_sort_items:
+            if item_type == 'sprite':
+                sprite = data
+                screen_x, screen_y = self.camera.world_to_screen(
+                    sprite.rect.x, sprite.rect.y
+                )
+                screen.blit(sprite.image, (screen_x, screen_y))
+            else:  # 'decor'
+                surface, world_x, world_y = data
+                screen_x, screen_y = self.camera.world_to_screen(world_x, world_y)
+                screen.blit(surface, (screen_x, screen_y))
         
         # Draw attack hitbox (debug - apply camera)
         hitbox = self.player.get_attack_hitbox()
