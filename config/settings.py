@@ -81,35 +81,35 @@ SLIME_SPRITE_CONFIG = {
         'walk_front': {'row': 3, 'frames': 6, 'fps': 5},
         'walk_side': {'row': 4, 'frames': 6, 'fps': 5},
         'walk_back': {'row': 5, 'frames': 6, 'fps': 5},
+        'attack_front': {'row': 6, 'frames': 4, 'fps': 8},
+        'attack_side': {'row': 7, 'frames': 4, 'fps': 8},
+        'attack_back': {'row': 8, 'frames': 4, 'fps': 8},
+        'damaged_front': {'row': 9, 'frames': 3, 'fps': 8},
+        'damaged_side': {'row': 10, 'frames': 3, 'fps': 8},
+        'damaged_back': {'row': 11, 'frames': 3, 'fps': 8},
         'death': {'row': 12, 'frames': 5, 'fps': 5},
     }
 }
 
-SPIRIT_SPRITE_CONFIG = {
-    'path': os.path.join(SPRITES_DIR, 'characters', 'spirit2.png'),
-    'frame_width': 32,
-    'frame_height': 32,
+# Skeleton enemy - 48x48 grid, 6 cols x 13 rows (288x624)
+SKELETON_SPRITE_CONFIG = {
+    'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'),
+    'frame_width': 48,
+    'frame_height': 48,
     'animations': {
-        'float': {'row': 0, 'frames': 6, 'fps': 5},
-    }
-}
-
-CAMPFIRE_SPRITE_CONFIG = {
-    'path': os.path.join(SPRITES_DIR, 'objects', 'campfire.png'),
-    'frame_width': 32,
-    'frame_height': 32,
-    'animations': {
-        'burn': {'row': 0, 'frames': 4, 'fps': 5},
-    }
-}
-
-MUSHROOM_SPRITE_CONFIG = {
-    'path': os.path.join(SPRITES_DIR, 'objects', 'mushroom.png'),
-    'frame_width': 32,
-    'frame_height': 32,
-    'animations': {
-        'idle': {'row': 0, 'frames': 1, 'fps': 1},
-        'harvest': {'row': 0, 'frames': 5, 'fps': 5},
+        'idle_front': {'row': 0, 'frames': 6, 'fps': 5},
+        'idle_side': {'row': 1, 'frames': 6, 'fps': 5},
+        'idle_back': {'row': 2, 'frames': 6, 'fps': 5},
+        'walk_front': {'row': 3, 'frames': 6, 'fps': 5},
+        'walk_side': {'row': 4, 'frames': 6, 'fps': 5},
+        'walk_back': {'row': 5, 'frames': 6, 'fps': 5},
+        'attack_front': {'row': 6, 'frames': 4, 'fps': 8},
+        'attack_side': {'row': 7, 'frames': 4, 'fps': 8},
+        'attack_back': {'row': 8, 'frames': 4, 'fps': 8},
+        'damaged_front': {'row': 9, 'frames': 3, 'fps': 8},
+        'damaged_side': {'row': 10, 'frames': 3, 'fps': 8},
+        'damaged_back': {'row': 11, 'frames': 3, 'fps': 8},
+        'death': {'row': 12, 'frames': 5, 'fps': 5},
     }
 }
 

@@ -190,7 +190,7 @@ class TileMap:
         self.tileset_manager.load_tileset('water', 'water-sheet.png', 16)
         self.tileset_manager.load_tileset('decor16', 'decor_16x16.png', 16)
         self.tileset_manager.load_tileset('decor8', 'decor_8x8.png', 8)
-        self.tileset_manager.load_tileset('flooring', 'flooring.png', 16)
+        self.tileset_manager.load_tileset('flooring', 'floors/flooring.png', 16)
     
     def get_layer(self, name: str) -> Optional[TileMapLayer]:
         """Get a layer by name."""
@@ -326,10 +326,10 @@ class TileMap:
                 if tile_data:
                     tileset_name, tile_col, tile_row = tile_data
                     
-                    # Get multi-tile region with y_sort_origin
+                    # Get multi-tile region with y_sort_origin and collision
                     region_data = self.tileset_manager.get_region(tileset_name, tile_col, tile_row)
                     if region_data:
-                        surface, y_sort_origin = region_data
+                        surface, y_sort_origin, has_collision = region_data
                         pixel_x = x * self.tile_size
                         pixel_y = y * self.tile_size
                         # sort_y is where the object's "feet" are for depth sorting
@@ -337,3 +337,51 @@ class TileMap:
                         decorations.append((surface, pixel_x, pixel_y, sort_y))
         
         return decorations
+    
+    def get_decoration_collision_rects(self) -> List[pygame.Rect]:
+        """
+        Get collision rectangles for ysort decoration objects that block movement.
+        
+        Returns:
+            List of pygame.Rect objects for collision detection (at object base)
+        """
+        rects = []
+        layer = self.layers.get('ysort')
+        if not layer:
+            return rects
+        
+        for y in range(layer.height):
+            for x in range(layer.width):
+                tile_data = layer.grid[y][x]
+                if tile_data:
+                    tileset_name, tile_col, tile_row = tile_data
+                    
+                    # Get multi-tile region with collision info
+                    region_data = self.tileset_manager.get_region(tileset_name, tile_col, tile_row)
+                    if region_data:
+                        surface, y_sort_origin, has_collision = region_data
+                        if has_collision:
+                            # Create collision rect at the base of the object
+                            pixel_x = x * self.tile_size
+                            pixel_y = y * self.tile_size
+                            obj_width = surface.get_width()
+                            obj_height = surface.get_height()
+                            
+                            # Collision rect is at the "feet" of the object
+                            # Use a smaller hitbox at the base for natural feel
+                            collision_height = min(self.tile_size, obj_height // 3)
+                            collision_y = pixel_y + y_sort_origin - collision_height // 2
+                            
+                            # Center the collision rect horizontally
+                            collision_width = int(obj_width * 0.6)  # 60% of object width
+                            collision_x = pixel_x + (obj_width - collision_width) // 2
+                            
+                            rect = pygame.Rect(
+                                collision_x,
+                                collision_y,
+                                collision_width,
+                                collision_height
+                            )
+                            rects.append(rect)
+        
+        return rects

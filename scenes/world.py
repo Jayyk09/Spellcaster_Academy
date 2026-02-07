@@ -7,8 +7,7 @@ from core.ui import HUD, DeathPanel, HealthBar
 from core.camera import Camera
 from core.map_loader import load_map_data, create_tilemap_from_data, get_spawn_points, get_transitions
 from entities.player import Player
-from entities.enemy import Slime
-from entities.collectibles import Mushroom
+from entities.enemy import Slime, Skeleton
 from entities.spell import SpellProjectile
 from config.settings import (
     SCREEN_WIDTH, SCREEN_HEIGHT, SPRITES_DIR,
@@ -68,26 +67,24 @@ class WorldScene(Scene):
         for spawn in enemy_spawns:
             x = spawn['x'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
             y = spawn['y'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
-            slime = Slime(x, y)
-            slime.set_target(self.player)
-            self.enemies.add(slime)
+            enemy_type = spawn.get('type', 'slime')
+            
+            if enemy_type == 'skeleton':
+                enemy = Skeleton(x, y)
+            else:
+                enemy = Slime(x, y)
+            
+            enemy.set_target(self.player)
+            self.enemies.add(enemy)
         
-        # Create collectibles at spawn points
-        self.mushrooms: list[Mushroom] = []
-        mushroom_spawns = spawn_points.get('mushrooms', [])
-        for spawn in mushroom_spawns:
-            x = spawn['x'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
-            y = spawn['y'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
-            mushroom = Mushroom(x, y)
-            self.mushrooms.append(mushroom)
+        # Mushrooms disabled - sprite removed
+        self.mushrooms = []
         
         # All sprites for rendering
         self.all_sprites = pygame.sprite.Group()
         self.all_sprites.add(self.player)
         for enemy in self.enemies:
             self.all_sprites.add(enemy)
-        for mushroom in self.mushrooms:
-            self.all_sprites.add(mushroom)
         
         # Spell projectiles
         self.spells = pygame.sprite.Group()
@@ -126,8 +123,10 @@ class WorldScene(Scene):
         
         Stores list of (scaled_surface, world_x, world_y, sort_y) tuples.
         All coordinates are in world space (scaled pixels).
+        Also pre-computes scaled collision rects for blocking objects.
         """
         self.decorations = []
+        self.decoration_collision_rects = []
         
         # Get decoration tiles from tilemap (native resolution)
         raw_decorations = self.tilemap.get_decoration_tiles()
@@ -144,6 +143,17 @@ class WorldScene(Scene):
             world_sort_y = sort_y * SCALE
             
             self.decorations.append((scaled_surface, world_x, world_y, world_sort_y))
+        
+        # Get collision rects for decoration objects and scale them
+        raw_collision_rects = self.tilemap.get_decoration_collision_rects()
+        for rect in raw_collision_rects:
+            scaled_rect = pygame.Rect(
+                rect.x * SCALE,
+                rect.y * SCALE,
+                rect.width * SCALE,
+                rect.height * SCALE
+            )
+            self.decoration_collision_rects.append(scaled_rect)
     
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -233,25 +243,7 @@ class WorldScene(Scene):
         # Check spell-enemy combat
         self._check_spell_combat()
         
-        # Update mushrooms - now harvested by spells
-        for mushroom in list(self.mushrooms):
-            # Check if any spell hits the mushroom
-            for spell in list(self.spells):
-                if spell.is_alive:
-                    spell_hitbox = spell.get_hitbox()
-                    mushroom_hitbox = pygame.Rect(
-                        mushroom.pos.x - 10, mushroom.pos.y - 10, 20, 20
-                    )
-                    if spell_hitbox.colliderect(mushroom_hitbox) and not mushroom.collected:
-                        mushroom.try_harvest(spell_hitbox)
-                        # Don't destroy spell on mushroom hit, let it pass through
-            
-            chunks = mushroom.update(dt)
-            if chunks > 0:
-                game_state.shroom_chunks += chunks
-            if mushroom.is_fully_collected():
-                self.mushrooms.remove(mushroom)
-                self.all_sprites.remove(mushroom)
+        # Mushrooms disabled - sprite removed
         
         # Clean up dead enemies
         for enemy in list(self.enemies):
@@ -271,7 +263,7 @@ class WorldScene(Scene):
     
     def _check_tile_collision(self, entity) -> bool:
         """
-        Check if an entity collides with collision tiles.
+        Check if an entity collides with collision tiles or decoration objects.
         
         Args:
             entity: Entity with pos attribute
@@ -283,13 +275,25 @@ class WorldScene(Scene):
         tile_x = entity.pos.x / SCALE
         tile_y = entity.pos.y / SCALE
         
-        # Check a small area around the entity center
+        # Check a small area around the entity center for cliff collision
         check_radius = 8  # pixels in tilemap space
         
         for dx in [-check_radius, 0, check_radius]:
             for dy in [-check_radius, 0, check_radius]:
                 if self.tilemap.is_position_blocked(tile_x + dx, tile_y + dy):
                     return True
+        
+        # Check collision with decoration objects (trees, rocks, etc.)
+        entity_rect = pygame.Rect(
+            entity.pos.x - 8 * SCALE,
+            entity.pos.y - 4 * SCALE,
+            16 * SCALE,
+            8 * SCALE
+        )
+        
+        for collision_rect in self.decoration_collision_rects:
+            if entity_rect.colliderect(collision_rect):
+                return True
         
         return False
     
@@ -394,11 +398,10 @@ class WorldScene(Scene):
         controls = self.font.render("WASD: Move | Space: Cast Spell | ESC: Menu", True, (180, 180, 180))
         screen.blit(controls, (10, SCREEN_HEIGHT - 25))
         
-        # Enemy/mushroom count
+        # Enemy count
         enemy_count = len([e for e in self.enemies if e.is_alive])
-        mushroom_count = len([m for m in self.mushrooms if not m.collected])
-        count_text = self.font.render(f"Enemies: {enemy_count} | Mushrooms: {mushroom_count}", True, (200, 200, 200))
-        screen.blit(count_text, (SCREEN_WIDTH - 250, SCREEN_HEIGHT - 25))
+        count_text = self.font.render(f"Enemies: {enemy_count}", True, (200, 200, 200))
+        screen.blit(count_text, (SCREEN_WIDTH - 150, SCREEN_HEIGHT - 25))
         
         # Death panel
         self.death_panel.draw(screen)

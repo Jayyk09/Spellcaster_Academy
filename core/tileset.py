@@ -5,19 +5,23 @@ from typing import Dict, List, Tuple, Optional
 from config.settings import SPRITES_DIR
 
 
-# Multi-tile region definitions for objects.png
-# Format: (col, row) -> (width_tiles, height_tiles, y_sort_origin)
+# Multi-tile region definitions for objects.png (256x208, 16 cols x 13 rows)
+# Format: (col, row) -> (width_tiles, height_tiles, y_sort_origin, has_collision)
 # y_sort_origin is the pixel offset from top where the object "stands"
+# has_collision indicates if this object should block movement (for tree trunks, rocks)
+# NOTE: objects.png has furniture in rows 0-4, nature objects start at row 5
 OBJECTS_REGIONS = {
-    (0, 0): (1, 1, 3),      # Small bush
-    (0, 1): (1, 1, 2),      # Rock
-    (5, 0): (1, 1, 2),      # Small decoration
-    (10, 0): (2, 1, 1),     # Wide bush
-    (11, 2): (1, 2, -8),    # Tall plant
-    (10, 7): (2, 2, 3),     # Medium rock
-    (8, 6): (2, 3, 17),     # Pine tree (32x48)
-    (6, 7): (2, 2, 5),      # Bush/shrub
-    (0, 5): (3, 4, 18),     # Large tree (48x64)
+    # Medium rock (2x2) at row 7 - blocks movement
+    (10, 7): (2, 2, 20, True),
+    
+    # Large bush/shrub (2x2) at row 7 - blocks movement
+    (6, 7): (2, 2, 20, True),
+    
+    # Pine tree (2x3) starting at row 6 - trunk collision
+    (8, 6): (2, 3, 40, True),
+    
+    # Large tree (3x4) starting at row 5 - trunk collision
+    (0, 5): (3, 4, 56, True),
 }
 
 
@@ -32,14 +36,14 @@ class TileSet:
     """
     
     def __init__(self, filename: str, tile_size: int = 16, 
-                 regions: Optional[Dict[Tuple[int, int], Tuple[int, int, int]]] = None):
+                 regions: Optional[Dict] = None):
         """
         Initialize a tileset from an image file.
         
         Args:
             filename: Name of the tileset image file (in assets/sprites/tilesets/)
             tile_size: Size of each tile in pixels (assumes square tiles)
-            regions: Optional dict of (col, row) -> (width, height, y_sort_origin)
+            regions: Optional dict of (col, row) -> (width, height, y_sort_origin, has_collision)
                      for multi-tile regions
         """
         self.tile_size = tile_size
@@ -100,7 +104,7 @@ class TileSet:
         """
         return self.tiles.get((col, row))
     
-    def get_region(self, col: int, row: int) -> Optional[Tuple[pygame.Surface, int]]:
+    def get_region(self, col: int, row: int) -> Optional[Tuple[pygame.Surface, int, bool]]:
         """
         Get a multi-tile region by its atlas coordinates.
         
@@ -109,20 +113,25 @@ class TileSet:
             row: Row index of top-left tile
             
         Returns:
-            Tuple of (surface, y_sort_origin) or None if not a region
+            Tuple of (surface, y_sort_origin, has_collision) or None if not a region
         """
         if self.image is None:
             return None
             
         region_info = self.regions.get((col, row))
         if not region_info:
-            # Fall back to single tile with default y_sort_origin
+            # Fall back to single tile with default y_sort_origin, no collision
             tile = self.get_tile(col, row)
             if tile:
-                return (tile, self.tile_size - 1)  # Default: bottom of tile
+                return (tile, self.tile_size - 1, False)  # Default: bottom of tile, no collision
             return None
         
-        width_tiles, height_tiles, y_sort_origin = region_info
+        # Handle both old 3-tuple and new 4-tuple format
+        if len(region_info) == 4:
+            width_tiles, height_tiles, y_sort_origin, has_collision = region_info
+        else:
+            width_tiles, height_tiles, y_sort_origin = region_info
+            has_collision = False
         
         # Create surface for multi-tile region
         pixel_width = width_tiles * self.tile_size
@@ -135,7 +144,7 @@ class TileSet:
             (col * self.tile_size, row * self.tile_size, pixel_width, pixel_height)
         )
         
-        return (surface, y_sort_origin)
+        return (surface, y_sort_origin, has_collision)
     
     def get_region_size(self, col: int, row: int) -> Tuple[int, int]:
         """
@@ -178,7 +187,7 @@ class TileSetManager:
         self.tilesets: Dict[str, TileSet] = {}
     
     def load_tileset(self, name: str, filename: str, tile_size: int = 16,
-                     regions: Optional[Dict[Tuple[int, int], Tuple[int, int, int]]] = None) -> TileSet:
+                     regions: Optional[Dict] = None) -> TileSet:
         """
         Load a tileset and register it with a name.
         
@@ -216,7 +225,7 @@ class TileSetManager:
             return tileset.get_tile(col, row)
         return None
     
-    def get_region(self, tileset_name: str, col: int, row: int) -> Optional[Tuple[pygame.Surface, int]]:
+    def get_region(self, tileset_name: str, col: int, row: int) -> Optional[Tuple[pygame.Surface, int, bool]]:
         """
         Get a multi-tile region from a named tileset.
         
@@ -226,7 +235,7 @@ class TileSetManager:
             row: Row index
             
         Returns:
-            Tuple of (surface, y_sort_origin) or None
+            Tuple of (surface, y_sort_origin, has_collision) or None
         """
         tileset = self.tilesets.get(tileset_name)
         if tileset:
