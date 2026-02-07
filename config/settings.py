@@ -9,9 +9,9 @@ TILESETS_DIR = os.path.join(SPRITES_DIR, 'tilesets')
 FONTS_DIR = os.path.join(ASSETS_DIR, 'fonts')
 
 # Display settings
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 500
-SCALE = 3  # Pixel art scaling
+SCREEN_WIDTH = 896
+SCREEN_HEIGHT = 600
+SCALE = 4  # Pixel art scaling
 FPS = 60
 
 # World/Tilemap settings (matching die-insel tutorial dimensions)
