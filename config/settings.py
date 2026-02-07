@@ -13,6 +13,16 @@ SCREEN_HEIGHT = 500
 SCALE = 3  # Pixel art scaling
 FPS = 60
 
+# World/Tilemap settings (matching die-insel tutorial dimensions)
+TILE_SIZE = 16  # Base tile size in pixels
+WORLD_WIDTH_TILES = 25  # World width in tiles (400 / 16)
+WORLD_HEIGHT_TILES = 14  # World height in tiles (224 / 16)
+WORLD_WIDTH = WORLD_WIDTH_TILES * TILE_SIZE * SCALE  # 1200 pixels at 3x scale
+WORLD_HEIGHT = WORLD_HEIGHT_TILES * TILE_SIZE * SCALE  # 672 pixels at 3x scale
+
+# Camera settings
+CAMERA_DRAG_MARGIN = 0.15  # 15% margin before camera follows (matching tutorial)
+
 # Colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
