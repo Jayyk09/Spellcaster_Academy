@@ -319,6 +319,191 @@ class CameraLetterDisplay:
             screen.blit(label_surf, label_rect)
 
 
+class ASLPopup:
+    """
+    Popup that displays ASL sign examples for letters before waves start.
+    
+    Loads the ASL spritesheet and displays individual letter signs
+    alongside their letter names. Requires user to click "Ready" to continue.
+    """
+    
+    def __init__(self):
+        self.visible = False
+        self.letters = []
+        self.ready = False
+        
+        # Colors
+        self.bg_color = (30, 30, 40, 230)
+        self.border_color = (100, 90, 80)
+        self.title_color = (255, 255, 255)
+        self.letter_color = (255, 255, 255)
+        self.button_color = (80, 120, 80)
+        self.button_hover_color = (100, 150, 100)
+        self.button_text_color = (255, 255, 255)
+        
+        # Panel dimensions
+        self.panel_width = 700
+        self.panel_height = 400
+        self.panel_rect = pygame.Rect(
+            (SCREEN_WIDTH - self.panel_width) // 2,
+            (SCREEN_HEIGHT - self.panel_height) // 2,
+            self.panel_width,
+            self.panel_height
+        )
+        
+        # Fonts - use same font as enemy letters (Alkhemikal.ttf size 24)
+        try:
+            font_path = os.path.join(FONTS_DIR, 'Alkhemikal.ttf')
+            self.title_font = pygame.font.Font(font_path, 36)
+            self.letter_font = pygame.font.Font(font_path, 24)  # Match enemy letter font
+            self.button_font = pygame.font.Font(font_path, 28)
+        except:
+            self.title_font = pygame.font.Font(None, 40)
+            self.letter_font = pygame.font.Font(None, 24)
+            self.button_font = pygame.font.Font(None, 32)
+        
+        # Load ASL sprites
+        self._load_asl_sprites()
+        
+        # Ready button
+        self.button_rect = pygame.Rect(
+            SCREEN_WIDTH // 2 - 80,
+            self.panel_rect.bottom - 70,
+            160,
+            50
+        )
+        self.button_hover = False
+    
+    def _load_asl_sprites(self):
+        """Load and split the ASL spritesheet into individual letter images."""
+        self.asl_sprites = {}
+        
+        try:
+            sprite_path = os.path.join(SPRITES_DIR, 'ui', 'asl-sprites.png')
+            spritesheet = pygame.image.load(sprite_path).convert_alpha()
+            sheet_width, sheet_height = spritesheet.get_size()
+            
+            # Sprite sheet has A-F (6 letters) evenly divided
+            letters = ['A', 'B', 'C', 'D', 'E', 'F']
+            sprite_width = sheet_width // len(letters)
+            
+            for i, letter in enumerate(letters):
+                # Extract sprite for this letter
+                x = i * sprite_width
+                sprite = spritesheet.subsurface(pygame.Rect(x, 0, sprite_width, sheet_height))
+                
+                # Scale up for better visibility
+                scaled_width = sprite_width * 2
+                scaled_height = sheet_height * 2
+                self.asl_sprites[letter] = pygame.transform.scale(sprite, (scaled_width, scaled_height))
+                
+        except Exception as e:
+            print(f"Warning: Could not load ASL sprites: {e}")
+            # Create placeholder sprites
+            for letter in ['A', 'B', 'C', 'D', 'E', 'F']:
+                placeholder = pygame.Surface((100, 100), pygame.SRCALPHA)
+                pygame.draw.rect(placeholder, (100, 100, 100), (0, 0, 100, 100), 2)
+                text = self.letter_font.render(letter, True, (200, 200, 200))
+                text_rect = text.get_rect(center=(50, 50))
+                placeholder.blit(text, text_rect)
+                self.asl_sprites[letter] = placeholder
+    
+    def show(self, letters: list[str]):
+        """Show the popup with the specified letters."""
+        self.visible = True
+        self.letters = [l.upper() for l in letters if l.upper() in self.asl_sprites]
+        self.ready = False
+    
+    def hide(self):
+        """Hide the popup."""
+        self.visible = False
+        self.ready = False
+    
+    def is_visible(self) -> bool:
+        """Check if the popup is currently visible."""
+        return self.visible
+    
+    def is_ready(self) -> bool:
+        """Check if the user clicked ready."""
+        return self.ready
+    
+    def handle_event(self, event):
+        """Handle mouse events for the ready button."""
+        if not self.visible:
+            return
+        
+        if event.type == pygame.MOUSEMOTION:
+            self.button_hover = self.button_rect.collidepoint(event.pos)
+        
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1 and self.button_rect.collidepoint(event.pos):
+                self.ready = True
+                self.visible = False
+        
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
+                self.ready = True
+                self.visible = False
+    
+    def draw(self, screen: pygame.Surface):
+        """Draw the popup with ASL examples."""
+        if not self.visible:
+            return
+        
+        # Draw semi-transparent overlay
+        overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 180))
+        screen.blit(overlay, (0, 0))
+        
+        # Draw panel background
+        bg_surface = pygame.Surface((self.panel_width, self.panel_height), pygame.SRCALPHA)
+        bg_surface.fill(self.bg_color)
+        screen.blit(bg_surface, self.panel_rect.topleft)
+        
+        # Draw border
+        pygame.draw.rect(screen, self.border_color, self.panel_rect, 3)
+        
+        # Draw title
+        title_text = self.title_font.render("Learn These Signs", True, self.title_color)
+        title_rect = title_text.get_rect(centerx=SCREEN_WIDTH // 2, top=self.panel_rect.top + 20)
+        screen.blit(title_text, title_rect)
+        
+        # Draw ASL examples for each letter
+        if self.letters:
+            # Calculate layout
+            num_letters = len(self.letters)
+            sprite_width = 120  # Scaled sprite width
+            sprite_height = 100  # Scaled sprite height
+            spacing = 20
+            
+            total_width = num_letters * sprite_width + (num_letters - 1) * spacing
+            start_x = SCREEN_WIDTH // 2 - total_width // 2 + sprite_width // 2
+            start_y = self.panel_rect.top + 80
+            
+            for i, letter in enumerate(self.letters):
+                x = start_x + i * (sprite_width + spacing)
+                
+                # Draw letter label (white font)
+                letter_text = self.letter_font.render(letter, True, self.letter_color)
+                letter_rect = letter_text.get_rect(centerx=x, top=start_y)
+                screen.blit(letter_text, letter_rect)
+                
+                # Draw ASL sprite below the letter
+                if letter in self.asl_sprites:
+                    sprite = self.asl_sprites[letter]
+                    sprite_rect = sprite.get_rect(centerx=x, top=start_y + 40)
+                    screen.blit(sprite, sprite_rect)
+        
+        # Draw Ready button
+        button_color = self.button_hover_color if self.button_hover else self.button_color
+        pygame.draw.rect(screen, button_color, self.button_rect, border_radius=8)
+        pygame.draw.rect(screen, (200, 200, 200), self.button_rect, 2, border_radius=8)
+        
+        button_text = self.button_font.render("Ready!", True, self.button_text_color)
+        button_text_rect = button_text.get_rect(center=self.button_rect.center)
+        screen.blit(button_text, button_text_rect)
+
+
 class WaveDisplay:
     """
     UI component to display current wave number and wave transition messages.
