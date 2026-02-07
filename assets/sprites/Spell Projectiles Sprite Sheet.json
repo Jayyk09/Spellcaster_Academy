@@ -1,0 +1,1837 @@
+{ "frames": {
+   "Spell Projectiles Sprite Sheet (Fireball) 0.ase": {
+    "frame": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball) 1.ase": {
+    "frame": { "x": 32, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball) 2.ase": {
+    "frame": { "x": 64, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball) 3.ase": {
+    "frame": { "x": 96, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball) 4.ase": {
+    "frame": { "x": 128, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball) 5.ase": {
+    "frame": { "x": 160, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball) 6.ase": {
+    "frame": { "x": 192, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball) 7.ase": {
+    "frame": { "x": 224, "y": 0, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice) 0.ase": {
+    "frame": { "x": 0, "y": 32, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice) 1.ase": {
+    "frame": { "x": 32, "y": 32, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice) 2.ase": {
+    "frame": { "x": 64, "y": 32, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice) 3.ase": {
+    "frame": { "x": 96, "y": 32, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice) 4.ase": {
+    "frame": { "x": 128, "y": 32, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice) 5.ase": {
+    "frame": { "x": 160, "y": 32, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice) 6.ase": {
+    "frame": { "x": 192, "y": 32, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice) 7.ase": {
+    "frame": { "x": 224, "y": 32, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth) 0.ase": {
+    "frame": { "x": 0, "y": 64, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth) 1.ase": {
+    "frame": { "x": 32, "y": 64, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth) 2.ase": {
+    "frame": { "x": 64, "y": 64, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth) 3.ase": {
+    "frame": { "x": 96, "y": 64, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth) 4.ase": {
+    "frame": { "x": 128, "y": 64, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth) 5.ase": {
+    "frame": { "x": 160, "y": 64, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth) 6.ase": {
+    "frame": { "x": 192, "y": 64, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth) 7.ase": {
+    "frame": { "x": 224, "y": 64, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature) 0.ase": {
+    "frame": { "x": 0, "y": 96, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature) 1.ase": {
+    "frame": { "x": 32, "y": 96, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature) 2.ase": {
+    "frame": { "x": 64, "y": 96, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature) 3.ase": {
+    "frame": { "x": 96, "y": 96, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature) 4.ase": {
+    "frame": { "x": 128, "y": 96, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature) 5.ase": {
+    "frame": { "x": 160, "y": 96, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature) 6.ase": {
+    "frame": { "x": 192, "y": 96, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature) 7.ase": {
+    "frame": { "x": 224, "y": 96, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air) 0.ase": {
+    "frame": { "x": 0, "y": 128, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air) 1.ase": {
+    "frame": { "x": 32, "y": 128, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air) 2.ase": {
+    "frame": { "x": 64, "y": 128, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air) 3.ase": {
+    "frame": { "x": 96, "y": 128, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air) 4.ase": {
+    "frame": { "x": 128, "y": 128, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air) 5.ase": {
+    "frame": { "x": 160, "y": 128, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air) 6.ase": {
+    "frame": { "x": 192, "y": 128, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air) 7.ase": {
+    "frame": { "x": 224, "y": 128, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane) 0.ase": {
+    "frame": { "x": 0, "y": 160, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane) 1.ase": {
+    "frame": { "x": 32, "y": 160, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane) 2.ase": {
+    "frame": { "x": 64, "y": 160, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane) 3.ase": {
+    "frame": { "x": 96, "y": 160, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane) 4.ase": {
+    "frame": { "x": 128, "y": 160, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane) 5.ase": {
+    "frame": { "x": 160, "y": 160, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane) 6.ase": {
+    "frame": { "x": 192, "y": 160, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane) 7.ase": {
+    "frame": { "x": 224, "y": 160, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning) 0.ase": {
+    "frame": { "x": 0, "y": 192, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning) 1.ase": {
+    "frame": { "x": 32, "y": 192, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning) 2.ase": {
+    "frame": { "x": 64, "y": 192, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning) 3.ase": {
+    "frame": { "x": 96, "y": 192, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning) 4.ase": {
+    "frame": { "x": 128, "y": 192, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning) 5.ase": {
+    "frame": { "x": 160, "y": 192, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning) 6.ase": {
+    "frame": { "x": 192, "y": 192, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning) 7.ase": {
+    "frame": { "x": 224, "y": 192, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 1) 0.ase": {
+    "frame": { "x": 0, "y": 224, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 1) 1.ase": {
+    "frame": { "x": 32, "y": 224, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 1) 2.ase": {
+    "frame": { "x": 64, "y": 224, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 1) 3.ase": {
+    "frame": { "x": 96, "y": 224, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 1) 4.ase": {
+    "frame": { "x": 128, "y": 224, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 1) 5.ase": {
+    "frame": { "x": 160, "y": 224, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 1) 6.ase": {
+    "frame": { "x": 192, "y": 224, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 1) 7.ase": {
+    "frame": { "x": 224, "y": 224, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 1) 0.ase": {
+    "frame": { "x": 0, "y": 256, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 1) 1.ase": {
+    "frame": { "x": 32, "y": 256, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 1) 2.ase": {
+    "frame": { "x": 64, "y": 256, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 1) 3.ase": {
+    "frame": { "x": 96, "y": 256, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 1) 4.ase": {
+    "frame": { "x": 128, "y": 256, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 1) 5.ase": {
+    "frame": { "x": 160, "y": 256, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 1) 6.ase": {
+    "frame": { "x": 192, "y": 256, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 1) 7.ase": {
+    "frame": { "x": 224, "y": 256, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 1) 0.ase": {
+    "frame": { "x": 0, "y": 288, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 1) 1.ase": {
+    "frame": { "x": 32, "y": 288, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 1) 2.ase": {
+    "frame": { "x": 64, "y": 288, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 1) 3.ase": {
+    "frame": { "x": 96, "y": 288, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 1) 4.ase": {
+    "frame": { "x": 128, "y": 288, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 1) 5.ase": {
+    "frame": { "x": 160, "y": 288, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 1) 6.ase": {
+    "frame": { "x": 192, "y": 288, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 1) 7.ase": {
+    "frame": { "x": 224, "y": 288, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 1) 0.ase": {
+    "frame": { "x": 0, "y": 320, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 1) 1.ase": {
+    "frame": { "x": 32, "y": 320, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 1) 2.ase": {
+    "frame": { "x": 64, "y": 320, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 1) 3.ase": {
+    "frame": { "x": 96, "y": 320, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 1) 4.ase": {
+    "frame": { "x": 128, "y": 320, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 1) 5.ase": {
+    "frame": { "x": 160, "y": 320, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 1) 6.ase": {
+    "frame": { "x": 192, "y": 320, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 1) 7.ase": {
+    "frame": { "x": 224, "y": 320, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 1) 0.ase": {
+    "frame": { "x": 0, "y": 352, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 1) 1.ase": {
+    "frame": { "x": 32, "y": 352, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 1) 2.ase": {
+    "frame": { "x": 64, "y": 352, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 1) 3.ase": {
+    "frame": { "x": 96, "y": 352, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 1) 4.ase": {
+    "frame": { "x": 128, "y": 352, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 1) 5.ase": {
+    "frame": { "x": 160, "y": 352, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 1) 6.ase": {
+    "frame": { "x": 192, "y": 352, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 1) 7.ase": {
+    "frame": { "x": 224, "y": 352, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 1) 0.ase": {
+    "frame": { "x": 0, "y": 384, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 1) 1.ase": {
+    "frame": { "x": 32, "y": 384, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 1) 2.ase": {
+    "frame": { "x": 64, "y": 384, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 1) 3.ase": {
+    "frame": { "x": 96, "y": 384, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 1) 4.ase": {
+    "frame": { "x": 128, "y": 384, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 1) 5.ase": {
+    "frame": { "x": 160, "y": 384, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 1) 6.ase": {
+    "frame": { "x": 192, "y": 384, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 1) 7.ase": {
+    "frame": { "x": 224, "y": 384, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 1) 0.ase": {
+    "frame": { "x": 0, "y": 416, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 1) 1.ase": {
+    "frame": { "x": 32, "y": 416, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 1) 2.ase": {
+    "frame": { "x": 64, "y": 416, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 1) 3.ase": {
+    "frame": { "x": 96, "y": 416, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 1) 4.ase": {
+    "frame": { "x": 128, "y": 416, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 1) 5.ase": {
+    "frame": { "x": 160, "y": 416, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 1) 6.ase": {
+    "frame": { "x": 192, "y": 416, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 1) 7.ase": {
+    "frame": { "x": 224, "y": 416, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 2) 0.ase": {
+    "frame": { "x": 0, "y": 448, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 2) 1.ase": {
+    "frame": { "x": 32, "y": 448, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 2) 2.ase": {
+    "frame": { "x": 64, "y": 448, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 2) 3.ase": {
+    "frame": { "x": 96, "y": 448, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 2) 4.ase": {
+    "frame": { "x": 128, "y": 448, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 2) 5.ase": {
+    "frame": { "x": 160, "y": 448, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 2) 6.ase": {
+    "frame": { "x": 192, "y": 448, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 2) 7.ase": {
+    "frame": { "x": 224, "y": 448, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 2) 0.ase": {
+    "frame": { "x": 0, "y": 480, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 2) 1.ase": {
+    "frame": { "x": 32, "y": 480, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 2) 2.ase": {
+    "frame": { "x": 64, "y": 480, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 2) 3.ase": {
+    "frame": { "x": 96, "y": 480, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 2) 4.ase": {
+    "frame": { "x": 128, "y": 480, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 2) 5.ase": {
+    "frame": { "x": 160, "y": 480, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 2) 6.ase": {
+    "frame": { "x": 192, "y": 480, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 2) 7.ase": {
+    "frame": { "x": 224, "y": 480, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 2) 0.ase": {
+    "frame": { "x": 0, "y": 512, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 2) 1.ase": {
+    "frame": { "x": 32, "y": 512, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 2) 2.ase": {
+    "frame": { "x": 64, "y": 512, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 2) 3.ase": {
+    "frame": { "x": 96, "y": 512, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 2) 4.ase": {
+    "frame": { "x": 128, "y": 512, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 2) 5.ase": {
+    "frame": { "x": 160, "y": 512, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 2) 6.ase": {
+    "frame": { "x": 192, "y": 512, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 2) 7.ase": {
+    "frame": { "x": 224, "y": 512, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 2) 0.ase": {
+    "frame": { "x": 0, "y": 544, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 2) 1.ase": {
+    "frame": { "x": 32, "y": 544, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 2) 2.ase": {
+    "frame": { "x": 64, "y": 544, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 2) 3.ase": {
+    "frame": { "x": 96, "y": 544, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 2) 4.ase": {
+    "frame": { "x": 128, "y": 544, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 2) 5.ase": {
+    "frame": { "x": 160, "y": 544, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 2) 6.ase": {
+    "frame": { "x": 192, "y": 544, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 2) 7.ase": {
+    "frame": { "x": 224, "y": 544, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 2) 0.ase": {
+    "frame": { "x": 0, "y": 576, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 2) 1.ase": {
+    "frame": { "x": 32, "y": 576, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 2) 2.ase": {
+    "frame": { "x": 64, "y": 576, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 2) 3.ase": {
+    "frame": { "x": 96, "y": 576, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 2) 4.ase": {
+    "frame": { "x": 128, "y": 576, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 2) 5.ase": {
+    "frame": { "x": 160, "y": 576, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 2) 6.ase": {
+    "frame": { "x": 192, "y": 576, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 2) 7.ase": {
+    "frame": { "x": 224, "y": 576, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 2) 0.ase": {
+    "frame": { "x": 0, "y": 608, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 2) 1.ase": {
+    "frame": { "x": 32, "y": 608, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 2) 2.ase": {
+    "frame": { "x": 64, "y": 608, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 2) 3.ase": {
+    "frame": { "x": 96, "y": 608, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 2) 4.ase": {
+    "frame": { "x": 128, "y": 608, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 2) 5.ase": {
+    "frame": { "x": 160, "y": 608, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 2) 6.ase": {
+    "frame": { "x": 192, "y": 608, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 2) 7.ase": {
+    "frame": { "x": 224, "y": 608, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 2) 0.ase": {
+    "frame": { "x": 0, "y": 640, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 2) 1.ase": {
+    "frame": { "x": 32, "y": 640, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 2) 2.ase": {
+    "frame": { "x": 64, "y": 640, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 2) 3.ase": {
+    "frame": { "x": 96, "y": 640, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 2) 4.ase": {
+    "frame": { "x": 128, "y": 640, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 2) 5.ase": {
+    "frame": { "x": 160, "y": 640, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 2) 6.ase": {
+    "frame": { "x": 192, "y": 640, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 2) 7.ase": {
+    "frame": { "x": 224, "y": 640, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 3) 0.ase": {
+    "frame": { "x": 0, "y": 672, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 3) 1.ase": {
+    "frame": { "x": 32, "y": 672, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 3) 2.ase": {
+    "frame": { "x": 64, "y": 672, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 3) 3.ase": {
+    "frame": { "x": 96, "y": 672, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 3) 4.ase": {
+    "frame": { "x": 128, "y": 672, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 3) 5.ase": {
+    "frame": { "x": 160, "y": 672, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 3) 6.ase": {
+    "frame": { "x": 192, "y": 672, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Fireball - Alternate 3) 7.ase": {
+    "frame": { "x": 224, "y": 672, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 3) 0.ase": {
+    "frame": { "x": 0, "y": 704, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 3) 1.ase": {
+    "frame": { "x": 32, "y": 704, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 3) 2.ase": {
+    "frame": { "x": 64, "y": 704, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 3) 3.ase": {
+    "frame": { "x": 96, "y": 704, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 3) 4.ase": {
+    "frame": { "x": 128, "y": 704, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 3) 5.ase": {
+    "frame": { "x": 160, "y": 704, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 3) 6.ase": {
+    "frame": { "x": 192, "y": 704, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Ice - Alternate 3) 7.ase": {
+    "frame": { "x": 224, "y": 704, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 3) 0.ase": {
+    "frame": { "x": 0, "y": 736, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 3) 1.ase": {
+    "frame": { "x": 32, "y": 736, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 3) 2.ase": {
+    "frame": { "x": 64, "y": 736, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 3) 3.ase": {
+    "frame": { "x": 96, "y": 736, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 3) 4.ase": {
+    "frame": { "x": 128, "y": 736, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 3) 5.ase": {
+    "frame": { "x": 160, "y": 736, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 3) 6.ase": {
+    "frame": { "x": 192, "y": 736, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Earth - Alternate 3) 7.ase": {
+    "frame": { "x": 224, "y": 736, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 3) 0.ase": {
+    "frame": { "x": 0, "y": 768, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 3) 1.ase": {
+    "frame": { "x": 32, "y": 768, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 3) 2.ase": {
+    "frame": { "x": 64, "y": 768, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 3) 3.ase": {
+    "frame": { "x": 96, "y": 768, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 3) 4.ase": {
+    "frame": { "x": 128, "y": 768, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 3) 5.ase": {
+    "frame": { "x": 160, "y": 768, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 3) 6.ase": {
+    "frame": { "x": 192, "y": 768, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Nature - Alternate 3) 7.ase": {
+    "frame": { "x": 224, "y": 768, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 3) 0.ase": {
+    "frame": { "x": 0, "y": 800, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 3) 1.ase": {
+    "frame": { "x": 32, "y": 800, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 3) 2.ase": {
+    "frame": { "x": 64, "y": 800, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 3) 3.ase": {
+    "frame": { "x": 96, "y": 800, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 3) 4.ase": {
+    "frame": { "x": 128, "y": 800, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 3) 5.ase": {
+    "frame": { "x": 160, "y": 800, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 3) 6.ase": {
+    "frame": { "x": 192, "y": 800, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Air - Alternate 3) 7.ase": {
+    "frame": { "x": 224, "y": 800, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 3) 0.ase": {
+    "frame": { "x": 0, "y": 832, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 3) 1.ase": {
+    "frame": { "x": 32, "y": 832, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 3) 2.ase": {
+    "frame": { "x": 64, "y": 832, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 3) 3.ase": {
+    "frame": { "x": 96, "y": 832, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 3) 4.ase": {
+    "frame": { "x": 128, "y": 832, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 3) 5.ase": {
+    "frame": { "x": 160, "y": 832, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 3) 6.ase": {
+    "frame": { "x": 192, "y": 832, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Arcane - Alternate 3) 7.ase": {
+    "frame": { "x": 224, "y": 832, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 3) 0.ase": {
+    "frame": { "x": 0, "y": 864, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 3) 1.ase": {
+    "frame": { "x": 32, "y": 864, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 3) 2.ase": {
+    "frame": { "x": 64, "y": 864, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 3) 3.ase": {
+    "frame": { "x": 96, "y": 864, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 3) 4.ase": {
+    "frame": { "x": 128, "y": 864, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 3) 5.ase": {
+    "frame": { "x": 160, "y": 864, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 3) 6.ase": {
+    "frame": { "x": 192, "y": 864, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   "Spell Projectiles Sprite Sheet (Lightning Alternate 3) 7.ase": {
+    "frame": { "x": 224, "y": 864, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.16.1-x64",
+  "image": "Spell Projectiles Sprite Sheet.png",
+  "format": "RGBA8888",
+  "size": { "w": 256, "h": 896 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Fireball", "opacity": 255, "blendMode": "normal" },
+   { "name": "Ice", "opacity": 255, "blendMode": "normal" },
+   { "name": "Earth", "opacity": 255, "blendMode": "normal" },
+   { "name": "Nature", "opacity": 255, "blendMode": "normal" },
+   { "name": "Air", "opacity": 255, "blendMode": "normal" },
+   { "name": "Arcane", "opacity": 255, "blendMode": "normal" },
+   { "name": "Lightning", "opacity": 255, "blendMode": "normal" },
+   { "name": "Fireball - Alternate 1", "opacity": 255, "blendMode": "normal" },
+   { "name": "Ice - Alternate 1", "opacity": 255, "blendMode": "normal" },
+   { "name": "Earth - Alternate 1", "opacity": 255, "blendMode": "normal" },
+   { "name": "Nature - Alternate 1", "opacity": 255, "blendMode": "normal" },
+   { "name": "Air - Alternate 1", "opacity": 255, "blendMode": "normal" },
+   { "name": "Arcane - Alternate 1", "opacity": 255, "blendMode": "normal" },
+   { "name": "Lightning Alternate 1", "opacity": 255, "blendMode": "normal" },
+   { "name": "Fireball - Alternate 2", "opacity": 255, "blendMode": "normal" },
+   { "name": "Ice - Alternate 2", "opacity": 255, "blendMode": "normal" },
+   { "name": "Earth - Alternate 2", "opacity": 255, "blendMode": "normal" },
+   { "name": "Nature - Alternate 2", "opacity": 255, "blendMode": "normal" },
+   { "name": "Air - Alternate 2", "opacity": 255, "blendMode": "normal" },
+   { "name": "Arcane - Alternate 2", "opacity": 255, "blendMode": "normal" },
+   { "name": "Lightning Alternate 2", "opacity": 255, "blendMode": "normal" },
+   { "name": "Fireball - Alternate 3", "opacity": 255, "blendMode": "normal" },
+   { "name": "Ice - Alternate 3", "opacity": 255, "blendMode": "normal" },
+   { "name": "Earth - Alternate 3", "opacity": 255, "blendMode": "normal" },
+   { "name": "Nature - Alternate 3", "opacity": 255, "blendMode": "normal" },
+   { "name": "Air - Alternate 3", "opacity": 255, "blendMode": "normal" },
+   { "name": "Arcane - Alternate 3", "opacity": 255, "blendMode": "normal" },
+   { "name": "Lightning Alternate 3", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
