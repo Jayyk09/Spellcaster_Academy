@@ -5,7 +5,7 @@ from core.scene import Scene
 from core.game_state import game_state
 from core.ui import HUD, DeathPanel, HealthBar, CameraLetterDisplay
 from core.camera import Camera
-from core.map_loader import load_map_data, create_tilemap_from_data, get_spawn_points, get_transitions
+from core.map_loader import load_map_data, create_tilemap_from_data, get_spawn_points
 from entities.player import Player
 from entities.enemy import Slime, Skeleton, find_closest_enemy_by_letter
 from entities.undine import UndineManager
@@ -94,16 +94,6 @@ class WorldScene(Scene):
         # Spell projectiles
         self.spells = pygame.sprite.Group()
         
-        # Scene exit area (to camp) from map data
-        transitions = get_transitions(self.map_data)
-        camp_transition = transitions.get('to_camp', {'x': 0, 'y': 4, 'width': 1, 'height': 6})
-        self.exit_to_camp = pygame.Rect(
-            camp_transition['x'] * TILE_SIZE * SCALE,
-            camp_transition['y'] * TILE_SIZE * SCALE,
-            camp_transition['width'] * TILE_SIZE * SCALE,
-            camp_transition['height'] * TILE_SIZE * SCALE
-        )
-        
         # UI
         self.hud = HUD()
         self.death_panel = DeathPanel()
@@ -189,9 +179,9 @@ class WorldScene(Scene):
             # Handle death dialog input
             if self.show_death_dialog:
                 if event.key == pygame.K_y and game_state.game_has_savegame:
-                    # Load save and go to camp
+                    # Load save and restart world
                     game_state.load_game()
-                    self.next_scene = 'camp'
+                    self.next_scene = 'world'
                 elif event.key == pygame.K_n:
                     # Quit to menu
                     self.next_scene = 'menu'
@@ -294,9 +284,6 @@ class WorldScene(Scene):
                 self.enemies.remove(enemy)
                 self.all_sprites.remove(enemy)
         
-        # Check scene transitions
-        self._check_transitions()
-        
         # Check for player death
         if not self.player.is_alive and self.player.is_animation_finished():
             if not self.show_death_dialog:
@@ -398,14 +385,6 @@ class WorldScene(Scene):
                             self.all_sprites.remove(spell)
                         break  # Spell can only hit one undine
     
-    def _check_transitions(self):
-        """Check if player entered a transition area."""
-        player_rect = self.player.get_collision_rect()
-        
-        if player_rect.colliderect(self.exit_to_camp):
-            game_state.player_exit_pos = (SCREEN_WIDTH - 50, self.player.pos.y)
-            self.next_scene = 'camp'
-    
     def _process_camera_input(self, dt: float):
         """Process camera input for ASL letter detection."""
         # Update no-target feedback timer
@@ -497,13 +476,6 @@ class WorldScene(Scene):
         
         # Draw tilemap background with camera offset
         self.camera.apply_to_surface(self.background, screen)
-        
-        # Draw exit area indicator (in world coords, apply camera)
-        exit_screen_rect = self.camera.apply_to_rect(self.exit_to_camp)
-        pygame.draw.rect(screen, (100, 150, 255), exit_screen_rect, 2)
-        exit_font = pygame.font.Font(None, 18)
-        exit_text = exit_font.render("Camp", True, (150, 200, 255))
-        screen.blit(exit_text, (exit_screen_rect.x + 2, exit_screen_rect.centery - 8))
         
         # Build combined list of sprites and decorations for y-sorting
         # Each item: (sort_y, type, data)

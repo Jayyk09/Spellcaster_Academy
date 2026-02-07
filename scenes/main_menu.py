@@ -65,7 +65,7 @@ class MainMenuScene(Scene):
         elif option == 'Load Game':
             if game_state.check_savegame_exists():
                 game_state.load_game()
-                self.next_scene = 'camp'
+                self.next_scene = 'world'
         elif option == 'Quit':
             self.game.running = False
     
