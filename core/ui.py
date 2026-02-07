@@ -158,13 +158,6 @@ class HUD:
         # Stats below health bar
         y = 32
         
-        # EXP
-        exp_text = self.font.render(f"EXP: {game_state.player_exp}", True, self.text_color)
-        screen.blit(exp_text, (10, y))
-        
-        # Level
-        level_text = self.font.render(f"LVL: {game_state.player_level}", True, self.text_color)
-        screen.blit(level_text, (100, y))
         
         # Shrooms (if any)
         if game_state.shroom_chunks > 0:

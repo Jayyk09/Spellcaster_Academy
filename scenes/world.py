@@ -765,24 +765,15 @@ class WorldScene(Scene):
             self.wave_transition_timer
         )
         
-        # Scene label
-        scene_text = self.font.render("WORLD", True, (200, 200, 100))
-        screen.blit(scene_text, (SCREEN_WIDTH - 70, 10))
-        
-        # Current spell indicator
-        spell_name = self.player.get_current_spell_name().capitalize()
-        spell_text = self.font.render(f"Next Spell: {spell_name}", True, (150, 200, 255))
-        screen.blit(spell_text, (SCREEN_WIDTH - 150, 35))
-        
         # Controls
-        controls = self.font.render("WASD: Move | Space: Cast Spell | ESC: Menu", True, (180, 180, 180))
+        controls = self.font.render("WASD: Move | ESC: Menu", True, (180, 180, 180))
         screen.blit(controls, (10, SCREEN_HEIGHT - 25))
         
         # Enemy count (including undines)
         enemy_count = len([e for e in self.enemies if e.is_alive])
         undine_count = self.undine_manager.get_alive_count()
-        count_text = self.font.render(f"Enemies: {enemy_count} | Undines: {undine_count}", True, (200, 200, 200))
-        screen.blit(count_text, (SCREEN_WIDTH - 220, SCREEN_HEIGHT - 25))
+        count_text = self.font.render(f"Enemies: {enemy_count}", True, (200, 200, 200))
+        screen.blit(count_text, (SCREEN_WIDTH - 100, SCREEN_HEIGHT - 25))
         
         # Camera letter display (ASL detection feedback)
         if self.camera_input is not None and not self._waiting_for_camera_ready:

@@ -80,7 +80,7 @@ class MainMenuScene(Scene):
             screen.fill((30, 30, 50))
         
         # Draw title
-        title_text = self.title_font.render("Die Insel", True, (255, 255, 255))
+        title_text = self.title_font.render("Spellcaster Academy", True, self.color_normal)
         title_rect = title_text.get_rect(center=(SCREEN_WIDTH // 2, 100))
         screen.blit(title_text, title_rect)
         
