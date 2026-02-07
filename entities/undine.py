@@ -8,7 +8,7 @@ class Undine:
     def __init__(self, x, y, screen_width, screen_height):
         self.screen_width = screen_width
         self.screen_height = screen_height
-        self.speed = 120  # Slightly faster than slime since it flies
+        self.speed = 70
         
         # Animation settings
         self.frame_count = 6
