@@ -5,7 +5,7 @@ import json
 import random
 from core.scene import Scene
 from core.game_state import game_state
-from core.ui import HUD, DeathPanel, HealthBar, CameraLetterDisplay, WaveDisplay
+from core.ui import HUD, DeathPanel, HealthBar, CameraLetterDisplay, WaveDisplay, ASLPopup
 from core.camera import Camera
 from core.map_loader import load_map_data, create_tilemap_from_data, get_spawn_points
 from entities.player import Player
@@ -85,9 +85,6 @@ class WorldScene(Scene):
         self.time_between_waves = self.wave_config.get('time_between_waves_seconds', 5.0)
         self.wave_display = WaveDisplay()
         
-        # Spawn first wave
-        self._spawn_wave(0)
-        
         # Spell projectiles
         self.spells = pygame.sprite.Group()
         
@@ -96,25 +93,29 @@ class WorldScene(Scene):
         self.death_panel = DeathPanel()
         self.show_death_dialog = False
         
+        # ASL Popup for learning new letters
+        self.asl_popup = ASLPopup()
+        self._showing_asl_popup = False
+        self._letters_learned = set()  # Track which letters have been shown
+        self._pending_letters = []  # Letters to show in next popup
+        
+        # Show ASL popup for first wave letters before spawning
+        first_wave_data = self._get_wave_data(0)
+        first_letters = first_wave_data.get('letters', ['A'])
+        self._show_asl_popup_for_letters(first_letters)
+        
         # Camera input (ASL detection) - get from game (shared across scenes)
         self.camera_input = None
         self.camera_letter_display = CameraLetterDisplay()
         self._no_target_timer = 0.0  # Timer for "No Target" feedback
         self._no_target_letter = None  # Letter that had no target
-        
-        if CAMERA_ENABLED:
-            self.camera_input = self.game.get_camera_input()
+        self._camera_initialized = False  # Delay camera init until after ASL popup
         
         # Font for extra UI
         self.font = pygame.font.Font(None, 24)
         
-        # Camera startup pause - only show if camera not yet ready
-        # Skip the pause if camera is already running (e.g., returning from menu)
-        camera_already_running = (
-            self.camera_input is not None and 
-            self.camera_input.is_available()
-        )
-        self._waiting_for_camera_ready = CAMERA_ENABLED and not camera_already_running
+        # Camera startup pause - will be set after ASL popup closes
+        self._waiting_for_camera_ready = False
         self._camera_ready_font = pygame.font.Font(None, 36)
     
     def _render_scaled_background(self):
@@ -240,6 +241,24 @@ class WorldScene(Scene):
         y = max(margin, min(self.world_pixel_height - margin, y))
         return (x, y)
     
+    def _show_asl_popup_for_letters(self, letters: list[str]):
+        """Show ASL popup for new letters that haven't been learned yet."""
+        # Filter to only letters A-F that are in our sprites
+        valid_letters = [l.upper() for l in letters if l.upper() in ['A', 'B', 'C', 'D', 'E', 'F']]
+        
+        # Find letters that haven't been shown yet
+        new_letters = [l for l in valid_letters if l not in self._letters_learned]
+        
+        if new_letters:
+            # Add new letters to learned set
+            self._letters_learned.update(new_letters)
+            # Show popup with only the NEW letters
+            self.asl_popup.show(new_letters)
+            self._showing_asl_popup = True
+            return True
+        
+        return False
+
     def _spawn_wave(self, wave_index: int):
         """
         Spawn enemies for a specific wave.
@@ -294,13 +313,28 @@ class WorldScene(Scene):
     def _start_next_wave(self):
         """Start the next wave after transition period."""
         self.current_wave_index += 1
-        self._spawn_wave(self.current_wave_index)
+        
+        # Check if there are new letters to learn
+        wave_data = self._get_wave_data(self.current_wave_index)
+        letters = wave_data.get('letters', [])
+        
+        # Show ASL popup for new letters before spawning
+        showing_popup = self._show_asl_popup_for_letters(letters)
+        
+        # Only spawn if popup is not showing (otherwise wait for ready)
+        if not showing_popup:
+            self._spawn_wave(self.current_wave_index)
     
     def _get_current_wave_number(self) -> int:
         """Get the current wave number (1-indexed for display)."""
         return self.current_wave_index + 1
     
     def handle_event(self, event):
+        # Handle ASL popup events first
+        if self._showing_asl_popup:
+            self.asl_popup.handle_event(event)
+            return
+        
         if event.type == pygame.KEYDOWN:
             # Handle camera startup pause
             if self._waiting_for_camera_ready:
@@ -333,9 +367,34 @@ class WorldScene(Scene):
                 self.show_death_dialog = False
                 self.death_panel.hide()
     
+    def _initialize_camera(self):
+        """Initialize camera input after ASL popup is closed."""
+        if self._camera_initialized or not CAMERA_ENABLED:
+            return
+        
+        self._camera_initialized = True
+        self.camera_input = self.game.get_camera_input()
+        
+        # Check if we need to wait for camera to be ready
+        camera_already_running = (
+            self.camera_input is not None and 
+            self.camera_input.is_available()
+        )
+        self._waiting_for_camera_ready = CAMERA_ENABLED and not camera_already_running
+    
     def update(self, dt: float):
-        # Don't update game while waiting for camera ready
+        # Don't update game while waiting for camera ready or ASL popup
         if self._waiting_for_camera_ready:
+            return
+        
+        # Check if ASL popup is showing - don't update game while learning
+        if self._showing_asl_popup:
+            if self.asl_popup.is_ready():
+                self._showing_asl_popup = False
+                # Now spawn the wave that was waiting
+                self._spawn_wave(self.current_wave_index)
+                # Initialize camera after popup closes
+                self._initialize_camera()
             return
         
         # Get input
@@ -710,6 +769,10 @@ class WorldScene(Scene):
         
         # Death panel
         self.death_panel.draw(screen)
+        
+        # ASL Popup (shown over everything else)
+        if self._showing_asl_popup:
+            self.asl_popup.draw(screen)
     
     def _draw_entity_health_bars(self, screen):
         """Draw health bars and letters above entities (in screen space)."""
