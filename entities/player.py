@@ -1,68 +1,233 @@
+"""Player entity with movement, animations, and spell casting."""
 import pygame
-import os
+from core.animation import AnimatedSprite
+from config.settings import (
+    PLAYER_SPRITE_CONFIG, PLAYER_SPEED, PLAYER_MAX_HEALTH,
+    PLAYER_HEALTH_REGEN, PLAYER_REGEN_INTERVAL,
+    SPELL_TYPES, SPELL_COOLDOWN
+)
+from entities.spell import SpellProjectile
 
-class Player:
-    def __init__(self, x, y, screen_width, screen_height):
-        self.screen_width = screen_width
-        self.screen_height = screen_height
-        self.speed = 300
+
+class Player(AnimatedSprite):
+    """Player character with 8-directional movement and spell casting."""
+    
+    # Direction constants
+    DIR_FRONT = 'front'
+    DIR_BACK = 'back'
+    DIR_SIDE = 'side'
+    
+    # States
+    STATE_IDLE = 'idle'
+    STATE_WALKING = 'walking'
+    STATE_DEAD = 'dead'
+    
+    def __init__(self, x: float, y: float):
+        super().__init__(x, y, PLAYER_SPRITE_CONFIG)
         
-        # Load player image
-        image_path = os.path.join('assets', 'sprites', 'Gemini_Generated_Image_6q1sja6q1sja6q1s-removebg-preview.png')
-        try:
-            self.image = pygame.image.load(image_path).convert_alpha()
-            # Scale down the image to a reasonable size
-            self.image = pygame.transform.scale(self.image, (64, 64))
-        except pygame.error as e:
-            print(f"Error loading image: {e}")
-            # Create a fallback surface if image fails to load
-            self.image = pygame.Surface((64, 64), pygame.SRCALPHA)
-            pygame.draw.circle(self.image, (255, 0, 0), (32, 32), 32)
+        # Movement
+        self.speed = PLAYER_SPEED
+        self.velocity = pygame.Vector2(0, 0)
+        self.direction = self.DIR_FRONT  # Current facing direction
         
-        self.rect = self.image.get_rect()
-        self.rect.center = (x, y)
+        # State
+        self.state = self.STATE_IDLE
+        self._alive = True
+        
+        # Spell casting
+        self.spell_cooldown = 0.0
+        self.spell_cooldown_duration = SPELL_COOLDOWN
+        self.current_spell_index = 0
+        
+        # Health
+        self.max_health = PLAYER_MAX_HEALTH
+        self.health = PLAYER_MAX_HEALTH
+        
+        # Health regeneration
+        self.regen_timer = 0.0
+        self.regen_interval = PLAYER_REGEN_INTERVAL
+        self.regen_amount = PLAYER_HEALTH_REGEN
+        
+        # Collision box (smaller than sprite for better feel)
+        self.collision_radius = 7
+        
+        # Input tracking
+        self.input_vector = pygame.Vector2(0, 0)
+        
+        # Play initial animation
+        self.play('idle_front')
+    
+    def handle_input(self, keys):
+        """Process keyboard input for movement."""
+        if self.state == self.STATE_DEAD:
+            self.input_vector = pygame.Vector2(0, 0)
+            return
+        
+        # Reset input
+        self.input_vector = pygame.Vector2(0, 0)
+        
+        # WASD or Arrow keys
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            self.input_vector.x -= 1
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            self.input_vector.x += 1
+        if keys[pygame.K_UP] or keys[pygame.K_w]:
+            self.input_vector.y -= 1
+        if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+            self.input_vector.y += 1
+        
+        # Normalize diagonal movement
+        if self.input_vector.length() > 0:
+            self.input_vector = self.input_vector.normalize()
+    
+    def handle_spell_input(self, key) -> SpellProjectile | None:
+        """Handle spell casting input (spacebar). Returns a spell if cast."""
+        if key == pygame.K_SPACE and self.state != self.STATE_DEAD:
+            if self.spell_cooldown <= 0:
+                return self.cast_spell()
+        return None
+    
+    def cast_spell(self) -> SpellProjectile:
+        """Cast the current spell and return the projectile."""
+        # Get current spell type and cycle to next
+        spell_type = SPELL_TYPES[self.current_spell_index]
+        self.current_spell_index = (self.current_spell_index + 1) % len(SPELL_TYPES)
+        
+        # Calculate spell direction based on player facing
+        direction = self._get_spell_direction()
+        
+        # Create spell projectile at player position (slightly offset in direction)
+        offset = 20
+        spawn_x = self.pos.x + direction.x * offset
+        spawn_y = self.pos.y + direction.y * offset
+        
+        spell = SpellProjectile(spawn_x, spawn_y, spell_type, direction)
+        
+        # Set cooldown but don't change state or play animation
+        # The spell projectile is the visual feedback, not a player animation
+        self.spell_cooldown = self.spell_cooldown_duration
+        
+        return spell
+    
+    def _get_spell_direction(self) -> pygame.Vector2:
+        """Get the direction vector for spell casting based on facing."""
+        if self.direction == self.DIR_FRONT:
+            return pygame.Vector2(0, 1)  # Down
+        elif self.direction == self.DIR_BACK:
+            return pygame.Vector2(0, -1)  # Up
+        else:  # Side
+            if self.facing_right:
+                return pygame.Vector2(1, 0)  # Right
+            else:
+                return pygame.Vector2(-1, 0)  # Left
+    
+    def update(self, dt: float):
+        """Update player state, movement, and animation."""
+        # Update spell cooldown
+        if self.spell_cooldown > 0:
+            self.spell_cooldown -= dt
+        
+        # Update movement if not dead
+        if self.state != self.STATE_DEAD:
+            self._update_movement(dt)
+        
+        # Update health regeneration
+        if self._alive and self.health < self.max_health:
+            self.regen_timer += dt
+            if self.regen_timer >= self.regen_interval:
+                self.regen_timer = 0.0
+                self.health = min(self.max_health, self.health + self.regen_amount)
+        
+        # Update animation
+        self._update_animation()
+        
+        # Call parent update for animation frame advancement
+        super().update(dt)
+    
+    def _update_movement(self, dt: float):
+        """Update player position based on input."""
+        if self.input_vector.length() > 0:
+            # Update velocity
+            self.velocity = self.input_vector * self.speed
+            
+            # Update position
+            self.pos += self.velocity * dt
+            
+            # Update direction based on movement
+            self._update_direction()
+            
+            self.state = self.STATE_WALKING
+        else:
+            self.velocity = pygame.Vector2(0, 0)
+            self.state = self.STATE_IDLE
+    
+    def _update_direction(self):
+        """Update facing direction based on velocity."""
+        if abs(self.input_vector.x) > abs(self.input_vector.y):
+            # Moving more horizontally
+            self.direction = self.DIR_SIDE
+            self.facing_right = self.input_vector.x > 0
+        elif self.input_vector.y > 0:
+            # Moving down
+            self.direction = self.DIR_FRONT
+        elif self.input_vector.y < 0:
+            # Moving up
+            self.direction = self.DIR_BACK
+    
+    def _update_animation(self):
+        """Update current animation based on state and direction."""
+        if self.state == self.STATE_DEAD:
+            self.play('death')
+            return
+        
+        if self.state == self.STATE_WALKING:
+            anim_name = f'walk_{self.direction}'
+        else:
+            anim_name = f'idle_{self.direction}'
+        
+        self.play(anim_name)
+    
+    def take_damage(self, amount: int):
+        """Take damage and check for death."""
+        if not self._alive:
+            return
+        
+        self.health -= amount
+        if self.health <= 0:
+            self.health = 0
+            self.die()
+    
+    @property
+    def is_alive(self) -> bool:
+        """Check if player is alive."""
+        return self._alive
+    
+    def die(self):
+        """Handle player death."""
+        self._alive = False
+        self.state = self.STATE_DEAD
+        self.play('death', reset=True)
+        if 'death' in self.animations:
+            self.animations['death'].loop = False
+    
+    def respawn(self, x: float, y: float):
+        """Respawn player at position."""
         self.pos = pygame.Vector2(x, y)
-        
-        # Track active movement keys
-        self.active_keys = set()
+        self.health = self.max_health
+        self._alive = True
+        self.state = self.STATE_IDLE
+        self.spell_cooldown = 0.0
+        self.play('idle_front', reset=True)
     
-    def handle_keydown(self, key):
-        """Call this when a key is pressed."""
-        if key in (pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d):
-            self.active_keys.add(key)
+    def get_collision_rect(self) -> pygame.Rect:
+        """Get collision rectangle for physics."""
+        return pygame.Rect(
+            self.pos.x - self.collision_radius,
+            self.pos.y - self.collision_radius,
+            self.collision_radius * 2,
+            self.collision_radius * 2
+        )
     
-    def handle_keyup(self, key):
-        """Call this when a key is released."""
-        if key in self.active_keys:
-            self.active_keys.discard(key)
-    
-    def update(self, dt):
-        # Calculate movement based on active keys
-        dx, dy = 0, 0
-        
-        if pygame.K_w in self.active_keys:
-            dy -= 1
-        if pygame.K_s in self.active_keys:
-            dy += 1
-        if pygame.K_a in self.active_keys:
-            dx -= 1
-        if pygame.K_d in self.active_keys:
-            dx += 1
-        
-        # Normalize diagonal movement so speed is consistent
-        if dx != 0 and dy != 0:
-            dx *= 0.707  # 1/sqrt(2)
-            dy *= 0.707
-        
-        # Apply movement
-        self.pos.x += dx * self.speed * dt
-        self.pos.y += dy * self.speed * dt
-        
-        # Keep player on screen
-        self.pos.x = max(self.rect.width / 2, min(self.screen_width - self.rect.width / 2, self.pos.x))
-        self.pos.y = max(self.rect.height / 2, min(self.screen_height - self.rect.height / 2, self.pos.y))
-        
-        self.rect.center = self.pos
-    
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
+    def get_current_spell_name(self) -> str:
+        """Get the name of the next spell that will be cast."""
+        return SPELL_TYPES[self.current_spell_index]

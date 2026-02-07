@@ -1,50 +1,62 @@
-from entities.slime import SlimeManager
-from entities.undine import UndineManager
+"""Main game entry point with scene management."""
 import pygame
-from entities.player import Player
+from core.scene import SceneManager
+from scenes import MainMenuScene, WorldScene, CampScene
+from config.settings import SCREEN_WIDTH, SCREEN_HEIGHT, FPS
 
-# pygame setup
-pygame.init()
-screen = pygame.display.set_mode((1280, 720))
-clock = pygame.time.Clock()
-running = True
-dt = 0
 
-# Create player
-player = Player(screen.get_width() / 2, screen.get_height() / 2, screen.get_width(), screen.get_height())
-# slime_manager = SlimeManager(screen.get_width(), screen.get_height())
-# slime_manager.spawn_random(5)
+class Game:
+    """Main game class managing the game loop and scenes."""
+    
+    def __init__(self):
+        pygame.init()
+        
+        # Display setup
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        pygame.display.set_caption("Die Insel - Pygame")
+        
+        self.clock = pygame.time.Clock()
+        self.running = True
+        
+        # Scene manager
+        self.scene_manager = SceneManager()
+        self._register_scenes()
+        
+        # Start at main menu
+        self.scene_manager.change_scene('menu', self)
+    
+    def _register_scenes(self):
+        """Register all game scenes."""
+        self.scene_manager.register_scene('menu', MainMenuScene)
+        self.scene_manager.register_scene('world', WorldScene)
+        self.scene_manager.register_scene('camp', CampScene)
+    
+    def run(self):
+        """Main game loop."""
+        while self.running:
+            dt = self.clock.tick(FPS) / 1000  # Delta time in seconds
+            
+            # Event handling
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                else:
+                    self.scene_manager.handle_event(event)
+            
+            # Update
+            self.scene_manager.update(dt)
+            
+            # Draw
+            self.scene_manager.draw(self.screen)
+            pygame.display.flip()
+        
+        pygame.quit()
 
-undine_manager = UndineManager(screen.get_width(), screen.get_height())
-undine_manager.spawn_random(5)
 
-while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            player.handle_keydown(event.key)
-        elif event.type == pygame.KEYUP:
-            player.handle_keyup(event.key)
+def main():
+    game = Game()
+    game.run()
 
-    # fill the screen with a color to wipe away anything from last frame
-    screen.fill("purple")
 
-    # Update and draw player
-    player.update(dt)
-    player.draw(screen)
-
-    undine_manager.update(dt, player)
-    undine_manager.draw(screen)
-
-    # flip() the display to put your work on screen
-    pygame.display.flip()
-
-    # limits FPS to 60
-    # dt is delta time in seconds since last frame, used for framerate-
-    # independent physics.
-    dt = clock.tick(60) / 1000
-
-pygame.quit()
+if __name__ == '__main__':
+    main()

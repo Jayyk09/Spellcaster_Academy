@@ -8,7 +8,6 @@ from core.camera import Camera
 from core.map_loader import load_map_data, create_tilemap_from_data, get_spawn_points, get_transitions
 from entities.player import Player
 from entities.enemy import Slime, Skeleton
-from entities.undine import UndineManager
 from entities.spell import SpellProjectile
 from config.settings import (
     SCREEN_WIDTH, SCREEN_HEIGHT, SPRITES_DIR,
@@ -80,10 +79,6 @@ class WorldScene(Scene):
         
         # Mushrooms disabled - sprite removed
         self.mushrooms = []
-        
-        # Create Undine manager and spawn some undines for testing
-        self.undine_manager = UndineManager(self.world_pixel_width, self.world_pixel_height)
-        self.undine_manager.spawn_random(5)  # Spawn 5 undines at random positions
         
         # All sprites for rendering
         self.all_sprites = pygame.sprite.Group()
@@ -248,12 +243,6 @@ class WorldScene(Scene):
         # Check spell-enemy combat
         self._check_spell_combat()
         
-        # Update undines
-        self.undine_manager.update(dt, self.player)
-        
-        # Check spell-undine combat
-        self._check_spell_undine_combat()
-        
         # Mushrooms disabled - sprite removed
         
         # Clean up dead enemies
@@ -338,27 +327,6 @@ class WorldScene(Scene):
                             self.all_sprites.remove(spell)
                         break  # Spell can only hit one enemy
     
-    def _check_spell_undine_combat(self):
-        """Check for spell-undine collisions."""
-        for spell in list(self.spells):
-            if not spell.is_alive:
-                continue
-            
-            spell_hitbox = spell.get_hitbox()
-            
-            for undine in self.undine_manager.undines:
-                if undine.alive:
-                    if spell_hitbox.colliderect(undine.rect):
-                        # Spell hits undine
-                        undine.take_damage(spell.damage)
-                        spell.destroy()
-                        # Remove spell from groups
-                        if spell in self.spells:
-                            self.spells.remove(spell)
-                        if spell in self.all_sprites:
-                            self.all_sprites.remove(spell)
-                        break  # Spell can only hit one undine
-    
     def _check_transitions(self):
         """Check if player entered a transition area."""
         player_rect = self.player.get_collision_rect()
@@ -385,17 +353,11 @@ class WorldScene(Scene):
         # Each item: (sort_y, type, data)
         # type 'sprite': data = sprite
         # type 'decor': data = (surface, world_x, world_y)
-        # type 'undine': data = undine
         y_sort_items = []
         
         # Add sprites
         for sprite in self.all_sprites:
             y_sort_items.append((sprite.pos.y, 'sprite', sprite))
-        
-        # Add undines
-        for undine in self.undine_manager.undines:
-            if undine.alive:
-                y_sort_items.append((undine.pos.y, 'undine', undine))
         
         # Add decorations
         for surface, world_x, world_y, sort_y in self.decorations:
@@ -412,12 +374,6 @@ class WorldScene(Scene):
                     sprite.rect.x, sprite.rect.y
                 )
                 screen.blit(sprite.image, (screen_x, screen_y))
-            elif item_type == 'undine':
-                undine = data
-                screen_x, screen_y = self.camera.world_to_screen(
-                    undine.rect.x, undine.rect.y
-                )
-                screen.blit(undine.image, (screen_x, screen_y))
             else:  # 'decor'
                 surface, world_x, world_y = data
                 screen_x, screen_y = self.camera.world_to_screen(world_x, world_y)
@@ -442,11 +398,10 @@ class WorldScene(Scene):
         controls = self.font.render("WASD: Move | Space: Cast Spell | ESC: Menu", True, (180, 180, 180))
         screen.blit(controls, (10, SCREEN_HEIGHT - 25))
         
-        # Enemy count (including undines)
+        # Enemy count
         enemy_count = len([e for e in self.enemies if e.is_alive])
-        undine_count = self.undine_manager.get_alive_count()
-        count_text = self.font.render(f"Enemies: {enemy_count} | Undines: {undine_count}", True, (200, 200, 200))
-        screen.blit(count_text, (SCREEN_WIDTH - 220, SCREEN_HEIGHT - 25))
+        count_text = self.font.render(f"Enemies: {enemy_count}", True, (200, 200, 200))
+        screen.blit(count_text, (SCREEN_WIDTH - 150, SCREEN_HEIGHT - 25))
         
         # Death panel
         self.death_panel.draw(screen)
@@ -468,15 +423,6 @@ class WorldScene(Scene):
                 )
                 self._draw_health_bar(screen, enemy_screen_x, enemy_screen_y,
                                      enemy.health, enemy.max_health, width=30, height=4)
-        
-        # Undine health bars
-        for undine in self.undine_manager.undines:
-            if undine.alive and undine.health < undine.max_health:
-                undine_screen_x, undine_screen_y = self.camera.world_to_screen(
-                    undine.pos.x, undine.pos.y - 40
-                )
-                self._draw_health_bar(screen, undine_screen_x, undine_screen_y,
-                                     undine.health, undine.max_health, width=40, height=4)
     
     def _draw_health_bar(self, surface, x, y, health, max_health, width=50, height=5):
         health_ratio = max(0, health / max_health)
