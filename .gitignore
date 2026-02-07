@@ -4,3 +4,4 @@ entities/__pycache__/
 *.pyo
 .DS_Store
 savegame.json
+ASL-TFLite-Edge
