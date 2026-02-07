@@ -4,7 +4,8 @@ import random
 import math
 from core.animation import AnimatedSprite
 from config.settings import (
-    SLIME_SPRITE_CONFIG, ENEMY_CHASE_SPEED, ENEMY_IDLE_SPEED,
+    SLIME_SPRITE_CONFIG, SKELETON_SPRITE_CONFIG,
+    ENEMY_CHASE_SPEED, ENEMY_IDLE_SPEED,
     ENEMY_MAX_HEALTH, ENEMY_ATTACK_DAMAGE, ENEMY_DETECTION_RADIUS,
     ENEMY_ATTACK_RANGE, ENEMY_DAMAGE_COOLDOWN, ENEMY_XP_VALUE
 )
@@ -240,3 +241,21 @@ class Slime(Enemy):
     
     def __init__(self, x: float, y: float):
         super().__init__(x, y, SLIME_SPRITE_CONFIG)
+
+
+class Skeleton(Enemy):
+    """Skeleton enemy - stronger melee enemy with more health."""
+    
+    def __init__(self, x: float, y: float):
+        super().__init__(x, y, SKELETON_SPRITE_CONFIG)
+        
+        # Skeleton is tougher than slime
+        self.max_health = int(ENEMY_MAX_HEALTH * 1.5)  # 150 HP
+        self.health = self.max_health
+        self.attack_damage = int(ENEMY_ATTACK_DAMAGE * 1.2)  # 60 damage
+        self.chase_speed = ENEMY_CHASE_SPEED * 1.1  # Slightly faster
+        self.xp_value = ENEMY_XP_VALUE * 2  # 20 XP
+        
+        # Larger collision for skeleton
+        self.collision_radius = 10
+        self.hitbox_radius = 16

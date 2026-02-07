@@ -7,7 +7,7 @@ from core.ui import HUD, DeathPanel, HealthBar
 from core.camera import Camera
 from core.map_loader import load_map_data, create_tilemap_from_data, get_spawn_points, get_transitions
 from entities.player import Player
-from entities.enemy import Slime
+from entities.enemy import Slime, Skeleton
 from entities.spell import SpellProjectile
 from config.settings import (
     SCREEN_WIDTH, SCREEN_HEIGHT, SPRITES_DIR,
@@ -67,9 +67,15 @@ class WorldScene(Scene):
         for spawn in enemy_spawns:
             x = spawn['x'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
             y = spawn['y'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
-            slime = Slime(x, y)
-            slime.set_target(self.player)
-            self.enemies.add(slime)
+            enemy_type = spawn.get('type', 'slime')
+            
+            if enemy_type == 'skeleton':
+                enemy = Skeleton(x, y)
+            else:
+                enemy = Slime(x, y)
+            
+            enemy.set_target(self.player)
+            self.enemies.add(enemy)
         
         # Mushrooms disabled - sprite removed
         self.mushrooms = []
@@ -117,8 +123,10 @@ class WorldScene(Scene):
         
         Stores list of (scaled_surface, world_x, world_y, sort_y) tuples.
         All coordinates are in world space (scaled pixels).
+        Also pre-computes scaled collision rects for blocking objects.
         """
         self.decorations = []
+        self.decoration_collision_rects = []
         
         # Get decoration tiles from tilemap (native resolution)
         raw_decorations = self.tilemap.get_decoration_tiles()
@@ -135,6 +143,17 @@ class WorldScene(Scene):
             world_sort_y = sort_y * SCALE
             
             self.decorations.append((scaled_surface, world_x, world_y, world_sort_y))
+        
+        # Get collision rects for decoration objects and scale them
+        raw_collision_rects = self.tilemap.get_decoration_collision_rects()
+        for rect in raw_collision_rects:
+            scaled_rect = pygame.Rect(
+                rect.x * SCALE,
+                rect.y * SCALE,
+                rect.width * SCALE,
+                rect.height * SCALE
+            )
+            self.decoration_collision_rects.append(scaled_rect)
     
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -244,7 +263,7 @@ class WorldScene(Scene):
     
     def _check_tile_collision(self, entity) -> bool:
         """
-        Check if an entity collides with collision tiles.
+        Check if an entity collides with collision tiles or decoration objects.
         
         Args:
             entity: Entity with pos attribute
@@ -256,13 +275,25 @@ class WorldScene(Scene):
         tile_x = entity.pos.x / SCALE
         tile_y = entity.pos.y / SCALE
         
-        # Check a small area around the entity center
+        # Check a small area around the entity center for cliff collision
         check_radius = 8  # pixels in tilemap space
         
         for dx in [-check_radius, 0, check_radius]:
             for dy in [-check_radius, 0, check_radius]:
                 if self.tilemap.is_position_blocked(tile_x + dx, tile_y + dy):
                     return True
+        
+        # Check collision with decoration objects (trees, rocks, etc.)
+        entity_rect = pygame.Rect(
+            entity.pos.x - 8 * SCALE,
+            entity.pos.y - 4 * SCALE,
+            16 * SCALE,
+            8 * SCALE
+        )
+        
+        for collision_rect in self.decoration_collision_rects:
+            if entity_rect.colliderect(collision_rect):
+                return True
         
         return False
     
