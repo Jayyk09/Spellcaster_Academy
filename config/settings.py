@@ -85,34 +85,6 @@ SLIME_SPRITE_CONFIG = {
     }
 }
 
-SPIRIT_SPRITE_CONFIG = {
-    'path': os.path.join(SPRITES_DIR, 'characters', 'spirit2.png'),
-    'frame_width': 32,
-    'frame_height': 32,
-    'animations': {
-        'float': {'row': 0, 'frames': 6, 'fps': 5},
-    }
-}
-
-CAMPFIRE_SPRITE_CONFIG = {
-    'path': os.path.join(SPRITES_DIR, 'objects', 'campfire.png'),
-    'frame_width': 32,
-    'frame_height': 32,
-    'animations': {
-        'burn': {'row': 0, 'frames': 4, 'fps': 5},
-    }
-}
-
-MUSHROOM_SPRITE_CONFIG = {
-    'path': os.path.join(SPRITES_DIR, 'objects', 'mushroom.png'),
-    'frame_width': 32,
-    'frame_height': 32,
-    'animations': {
-        'idle': {'row': 0, 'frames': 1, 'fps': 1},
-        'harvest': {'row': 0, 'frames': 5, 'fps': 5},
-    }
-}
-
 # Spell settings
 SPELL_TYPES = ['fireball', 'ice', 'earth', 'nature', 'air', 'arcane', 'lightning']
 SPELL_SPEED = 200  # pixels per second
