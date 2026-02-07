@@ -80,7 +80,7 @@ class CampScene(Scene):
     
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
-            self.player.handle_attack_input(event.key)
+            # No combat in camp - spells disabled in safe area
             
             if event.key == pygame.K_ESCAPE:
                 self.next_scene = 'menu'

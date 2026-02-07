@@ -112,3 +112,25 @@ MUSHROOM_SPRITE_CONFIG = {
         'harvest': {'row': 0, 'frames': 5, 'fps': 5},
     }
 }
+
+# Spell settings
+SPELL_TYPES = ['fireball', 'ice', 'earth', 'nature', 'air', 'arcane', 'lightning']
+SPELL_SPEED = 200  # pixels per second
+SPELL_DAMAGE = 150  # enough to one-shot enemies (ENEMY_MAX_HEALTH = 100)
+SPELL_COOLDOWN = 0.5  # seconds between casts
+SPELL_LIFETIME = 2.0  # seconds before despawn
+
+SPELL_PROJECTILE_CONFIG = {
+    'path': os.path.join(SPRITES_DIR, 'Spell Projectiles Sprite Sheet.png'),
+    'frame_width': 32,
+    'frame_height': 32,
+    'animations': {
+        'fireball': {'row': 0, 'frames': 8, 'fps': 10},
+        'ice': {'row': 1, 'frames': 8, 'fps': 10},
+        'earth': {'row': 2, 'frames': 8, 'fps': 10},
+        'nature': {'row': 3, 'frames': 8, 'fps': 10},
+        'air': {'row': 4, 'frames': 8, 'fps': 10},
+        'arcane': {'row': 5, 'frames': 8, 'fps': 10},
+        'lightning': {'row': 6, 'frames': 8, 'fps': 10},
+    }
+}

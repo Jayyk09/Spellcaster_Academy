@@ -1,15 +1,16 @@
-"""Player entity with movement, animations, and combat."""
+"""Player entity with movement, animations, and spell casting."""
 import pygame
 from core.animation import AnimatedSprite
 from config.settings import (
     PLAYER_SPRITE_CONFIG, PLAYER_SPEED, PLAYER_MAX_HEALTH,
-    PLAYER_ATTACK_DAMAGE, PLAYER_ATTACK_DURATION,
-    PLAYER_HEALTH_REGEN, PLAYER_REGEN_INTERVAL
+    PLAYER_HEALTH_REGEN, PLAYER_REGEN_INTERVAL,
+    SPELL_TYPES, SPELL_COOLDOWN
 )
+from entities.spell import SpellProjectile
 
 
 class Player(AnimatedSprite):
-    """Player character with 8-directional movement and combat."""
+    """Player character with 8-directional movement and spell casting."""
     
     # Direction constants
     DIR_FRONT = 'front'
@@ -19,7 +20,7 @@ class Player(AnimatedSprite):
     # States
     STATE_IDLE = 'idle'
     STATE_WALKING = 'walking'
-    STATE_ATTACKING = 'attacking'
+    STATE_CASTING = 'casting'
     STATE_DEAD = 'dead'
     
     def __init__(self, x: float, y: float):
@@ -34,15 +35,17 @@ class Player(AnimatedSprite):
         self.state = self.STATE_IDLE
         self._alive = True
         
-        # Combat
+        # Spell casting
+        self.spell_cooldown = 0.0
+        self.spell_cooldown_duration = SPELL_COOLDOWN
+        self.current_spell_index = 0
+        self.is_casting = False
+        self.cast_timer = 0.0
+        self.cast_duration = 0.3  # Brief casting animation
+        
+        # Health
         self.max_health = PLAYER_MAX_HEALTH
         self.health = PLAYER_MAX_HEALTH
-        self.attack_damage = PLAYER_ATTACK_DAMAGE
-        self.attack_duration = PLAYER_ATTACK_DURATION
-        self.attack_timer = 0.0
-        self.is_attacking = False
-        self.attack_cooldown = 0.0
-        self.attack_cooldown_duration = 0.3
         
         # Health regeneration
         self.regen_timer = 0.0
@@ -60,7 +63,7 @@ class Player(AnimatedSprite):
     
     def handle_input(self, keys):
         """Process keyboard input for movement."""
-        if self.state == self.STATE_DEAD or self.state == self.STATE_ATTACKING:
+        if self.state == self.STATE_DEAD or self.state == self.STATE_CASTING:
             self.input_vector = pygame.Vector2(0, 0)
             return
         
@@ -81,41 +84,69 @@ class Player(AnimatedSprite):
         if self.input_vector.length() > 0:
             self.input_vector = self.input_vector.normalize()
     
-    def handle_attack_input(self, key):
-        """Handle attack input (spacebar)."""
+    def handle_spell_input(self, key) -> SpellProjectile | None:
+        """Handle spell casting input (spacebar). Returns a spell if cast."""
         if key == pygame.K_SPACE and self.state != self.STATE_DEAD:
-            if not self.is_attacking and self.attack_cooldown <= 0:
-                self.start_attack()
+            if not self.is_casting and self.spell_cooldown <= 0:
+                return self.cast_spell()
+        return None
     
-    def start_attack(self):
-        """Start an attack."""
-        self.is_attacking = True
-        self.attack_timer = self.attack_duration
-        self.state = self.STATE_ATTACKING
+    def cast_spell(self) -> SpellProjectile:
+        """Cast the current spell and return the projectile."""
+        self.is_casting = True
+        self.cast_timer = self.cast_duration
+        self.state = self.STATE_CASTING
         
-        # Play attack animation based on direction
+        # Get current spell type and cycle to next
+        spell_type = SPELL_TYPES[self.current_spell_index]
+        self.current_spell_index = (self.current_spell_index + 1) % len(SPELL_TYPES)
+        
+        # Calculate spell direction based on player facing
+        direction = self._get_spell_direction()
+        
+        # Create spell projectile at player position (slightly offset in direction)
+        offset = 20
+        spawn_x = self.pos.x + direction.x * offset
+        spawn_y = self.pos.y + direction.y * offset
+        
+        spell = SpellProjectile(spawn_x, spawn_y, spell_type, direction)
+        
+        # Play casting animation (use attack animation)
         anim_name = f'attack_{self.direction}'
         self.play(anim_name, reset=True)
-        # Mark attack animation as non-looping
         if anim_name in self.animations:
             self.animations[anim_name].loop = False
+        
+        return spell
+    
+    def _get_spell_direction(self) -> pygame.Vector2:
+        """Get the direction vector for spell casting based on facing."""
+        if self.direction == self.DIR_FRONT:
+            return pygame.Vector2(0, 1)  # Down
+        elif self.direction == self.DIR_BACK:
+            return pygame.Vector2(0, -1)  # Up
+        else:  # Side
+            if self.facing_right:
+                return pygame.Vector2(1, 0)  # Right
+            else:
+                return pygame.Vector2(-1, 0)  # Left
     
     def update(self, dt: float):
         """Update player state, movement, and animation."""
-        # Update attack cooldown
-        if self.attack_cooldown > 0:
-            self.attack_cooldown -= dt
+        # Update spell cooldown
+        if self.spell_cooldown > 0:
+            self.spell_cooldown -= dt
         
-        # Handle attack state
-        if self.is_attacking:
-            self.attack_timer -= dt
-            if self.attack_timer <= 0:
-                self.is_attacking = False
-                self.attack_cooldown = self.attack_cooldown_duration
+        # Handle casting state
+        if self.is_casting:
+            self.cast_timer -= dt
+            if self.cast_timer <= 0:
+                self.is_casting = False
+                self.spell_cooldown = self.spell_cooldown_duration
                 self.state = self.STATE_IDLE
         
-        # Update movement if not attacking or dead
-        if self.state not in (self.STATE_ATTACKING, self.STATE_DEAD):
+        # Update movement if not casting or dead
+        if self.state not in (self.STATE_CASTING, self.STATE_DEAD):
             self._update_movement(dt)
         
         # Update health regeneration
@@ -167,8 +198,8 @@ class Player(AnimatedSprite):
             self.play('death')
             return
         
-        if self.state == self.STATE_ATTACKING:
-            # Attack animation is already set in start_attack
+        if self.state == self.STATE_CASTING:
+            # Casting animation is already set in cast_spell
             return
         
         if self.state == self.STATE_WALKING:
@@ -207,45 +238,10 @@ class Player(AnimatedSprite):
         self.health = self.max_health
         self._alive = True
         self.state = self.STATE_IDLE
-        self.is_attacking = False
-        self.attack_timer = 0.0
-        self.attack_cooldown = 0.0
+        self.is_casting = False
+        self.cast_timer = 0.0
+        self.spell_cooldown = 0.0
         self.play('idle_front', reset=True)
-    
-    def get_attack_hitbox(self) -> pygame.Rect | None:
-        """Get the attack hitbox based on direction (only when attacking)."""
-        if not self.is_attacking:
-            return None
-        
-        # Create hitbox in front of player based on direction
-        hitbox_size = 24
-        offset = 20
-        
-        if self.direction == self.DIR_FRONT:
-            return pygame.Rect(
-                self.pos.x - hitbox_size // 2,
-                self.pos.y + offset,
-                hitbox_size, hitbox_size
-            )
-        elif self.direction == self.DIR_BACK:
-            return pygame.Rect(
-                self.pos.x - hitbox_size // 2,
-                self.pos.y - offset - hitbox_size,
-                hitbox_size, hitbox_size
-            )
-        else:  # Side
-            if self.facing_right:
-                return pygame.Rect(
-                    self.pos.x + offset,
-                    self.pos.y - hitbox_size // 2,
-                    hitbox_size, hitbox_size
-                )
-            else:
-                return pygame.Rect(
-                    self.pos.x - offset - hitbox_size,
-                    self.pos.y - hitbox_size // 2,
-                    hitbox_size, hitbox_size
-                )
     
     def get_collision_rect(self) -> pygame.Rect:
         """Get collision rectangle for physics."""
@@ -255,3 +251,7 @@ class Player(AnimatedSprite):
             self.collision_radius * 2,
             self.collision_radius * 2
         )
+    
+    def get_current_spell_name(self) -> str:
+        """Get the name of the next spell that will be cast."""
+        return SPELL_TYPES[self.current_spell_index]
