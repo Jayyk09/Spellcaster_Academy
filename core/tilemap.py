@@ -368,10 +368,9 @@ class TileMap:
                             obj_height = surface.get_height()
                             
                             # Collision rect is at the "feet" of the object (base of trunk)
-                            # Place collision at second-to-bottom tile (middle of tree trunk)
-                            # This prevents blocking the grass tile directly under the tree
+                            # Place collision at center of middle tile (trunk only, not grass below)
                             collision_height = self.tile_size
-                            collision_y = pixel_y + obj_height - self.tile_size * 2
+                            collision_y = pixel_y + self.tile_size
                             
                             # Center the collision rect horizontally
                             collision_width = int(obj_width * 0.6)  # 60% of object width
