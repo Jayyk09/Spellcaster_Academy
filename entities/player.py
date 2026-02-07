@@ -13,13 +13,15 @@ class Player(AnimatedSprite):
     """Player character with 8-directional movement and spell casting."""
     
     # Direction constants
-    DIR_FRONT = 'front'
-    DIR_BACK = 'back'
-    DIR_SIDE = 'side'
+    DIR_DOWN = 'down'
+    DIR_UP = 'up'
+    DIR_LEFT = 'left'
+    DIR_RIGHT = 'right'
     
     # States
     STATE_IDLE = 'idle'
     STATE_WALKING = 'walking'
+    STATE_CASTING = 'casting'
     STATE_DEAD = 'dead'
     
     def __init__(self, x: float, y: float):
@@ -28,7 +30,7 @@ class Player(AnimatedSprite):
         # Movement
         self.speed = PLAYER_SPEED
         self.velocity = pygame.Vector2(0, 0)
-        self.direction = self.DIR_FRONT  # Current facing direction
+        self.direction = self.DIR_DOWN  # Current facing direction
         
         # State
         self.state = self.STATE_IDLE
@@ -54,8 +56,12 @@ class Player(AnimatedSprite):
         # Input tracking
         self.input_vector = pygame.Vector2(0, 0)
         
+        # Casting animation timer
+        self.cast_anim_timer = 0.0
+        self.cast_anim_duration = 0.4  # seconds to show cast animation
+        
         # Play initial animation
-        self.play('idle_front')
+        self.play('idle_down')
     
     def handle_input(self, keys):
         """Process keyboard input for movement."""
@@ -80,6 +86,12 @@ class Player(AnimatedSprite):
         if self.input_vector.length() > 0:
             self.input_vector = self.input_vector.normalize()
     
+    def handle_spell_input(self, key) -> SpellProjectile | None:
+        """Handle spell casting input (spacebar). Returns a spell if cast."""
+        if key == pygame.K_SPACE and self.state != self.STATE_DEAD:
+            if self.spell_cooldown <= 0:
+                return self.cast_spell()
+        return None
     
     def cast_spell(self) -> SpellProjectile:
         """Cast the current spell and return the projectile."""
@@ -91,29 +103,61 @@ class Player(AnimatedSprite):
         direction = self._get_spell_direction()
         
         # Create spell projectile at player position (slightly offset in direction)
+        # Adjust Y offset for left/right animations where wand is held lower
         offset = 20
         spawn_x = self.pos.x + direction.x * offset
         spawn_y = self.pos.y + direction.y * offset
         
+        # Add vertical offset for horizontal casting (wand is held lower in side animations)
+        if self.direction in (self.DIR_LEFT, self.DIR_RIGHT):
+            spawn_y += 20  # Move spell down to match wand position
+        if self.direction in (self.DIR_UP, self.DIR_DOWN):
+            spawn_x += 10  # Move spell slightly to the right for better alignment
+            if self.direction == self.DIR_DOWN:
+                spawn_y += 50  # Move spell down for downward casting
+        
         spell = SpellProjectile(spawn_x, spawn_y, spell_type, direction)
         
-        # Set cooldown but don't change state or play animation
-        # The spell projectile is the visual feedback, not a player animation
+        # Set cooldown and play cast animation
         self.spell_cooldown = self.spell_cooldown_duration
+        self.state = self.STATE_CASTING
+        self.cast_anim_timer = self.cast_anim_duration
+        self.play(f'cast_{self.direction}', reset=True)
         
         return spell
     
     def _get_spell_direction(self) -> pygame.Vector2:
         """Get the direction vector for spell casting based on facing."""
-        if self.direction == self.DIR_FRONT:
-            return pygame.Vector2(0, 1)  # Down
-        elif self.direction == self.DIR_BACK:
-            return pygame.Vector2(0, -1)  # Up
-        else:  # Side
-            if self.facing_right:
-                return pygame.Vector2(1, 0)  # Right
+        if self.direction == self.DIR_DOWN:
+            return pygame.Vector2(0, 1)
+        elif self.direction == self.DIR_UP:
+            return pygame.Vector2(0, -1)
+        elif self.direction == self.DIR_RIGHT:
+            return pygame.Vector2(1, 0)
+        else:  # LEFT
+            return pygame.Vector2(-1, 0)
+    
+    def play_cast_toward(self, target_pos: pygame.Vector2):
+        """Trigger the casting animation facing toward a target position."""
+        # Determine direction to target
+        diff = target_pos - self.pos
+        if abs(diff.x) > abs(diff.y):
+            if diff.x > 0:
+                self.direction = self.DIR_RIGHT
+                self.facing_right = True
             else:
-                return pygame.Vector2(-1, 0)  # Left
+                self.direction = self.DIR_LEFT
+                self.facing_right = False
+        else:
+            if diff.y > 0:
+                self.direction = self.DIR_DOWN
+            else:
+                self.direction = self.DIR_UP
+        
+        # Set casting state and animation
+        self.state = self.STATE_CASTING
+        self.cast_anim_timer = self.cast_anim_duration
+        self.play(f'cast_{self.direction}', reset=True)
     
     def update(self, dt: float):
         """Update player state, movement, and animation."""
@@ -121,8 +165,14 @@ class Player(AnimatedSprite):
         if self.spell_cooldown > 0:
             self.spell_cooldown -= dt
         
-        # Update movement if not dead
-        if self.state != self.STATE_DEAD:
+        # Update cast animation timer
+        if self.cast_anim_timer > 0:
+            self.cast_anim_timer -= dt
+            if self.cast_anim_timer <= 0:
+                self.state = self.STATE_IDLE
+        
+        # Update movement if not dead or casting
+        if self.state not in (self.STATE_DEAD, self.STATE_CASTING):
             self._update_movement(dt)
         
         # Update health regeneration
@@ -159,14 +209,18 @@ class Player(AnimatedSprite):
         """Update facing direction based on velocity."""
         if abs(self.input_vector.x) > abs(self.input_vector.y):
             # Moving more horizontally
-            self.direction = self.DIR_SIDE
-            self.facing_right = self.input_vector.x > 0
+            if self.input_vector.x > 0:
+                self.direction = self.DIR_RIGHT
+                self.facing_right = True
+            else:
+                self.direction = self.DIR_LEFT
+                self.facing_right = False
         elif self.input_vector.y > 0:
             # Moving down
-            self.direction = self.DIR_FRONT
+            self.direction = self.DIR_DOWN
         elif self.input_vector.y < 0:
             # Moving up
-            self.direction = self.DIR_BACK
+            self.direction = self.DIR_UP
     
     def _update_animation(self):
         """Update current animation based on state and direction."""
@@ -174,10 +228,26 @@ class Player(AnimatedSprite):
             self.play('death')
             return
         
-        if self.state == self.STATE_WALKING:
+        if self.state == self.STATE_CASTING:
+            anim_name = f'cast_{self.direction}'
+        elif self.state == self.STATE_WALKING:
             anim_name = f'walk_{self.direction}'
         else:
-            anim_name = f'idle_{self.direction}'
+            # Idle: use first frame of walk animation for current direction
+            anim_name = f'walk_{self.direction}'
+            # Reset to first frame so we show a static idle pose
+            if self.current_animation_name != anim_name:
+                self.play(anim_name, reset=True)
+                # Freeze on first frame
+                if anim_name in self.animations:
+                    self.animations[anim_name].current_frame = 0
+                    self.animations[anim_name].elapsed_time = 0.0
+            else:
+                # Already on the right walk anim, just freeze on frame 0
+                if anim_name in self.animations:
+                    self.animations[anim_name].current_frame = 0
+                    self.animations[anim_name].elapsed_time = 0.0
+            return
         
         self.play(anim_name)
     
@@ -211,7 +281,7 @@ class Player(AnimatedSprite):
         self._alive = True
         self.state = self.STATE_IDLE
         self.spell_cooldown = 0.0
-        self.play('idle_front', reset=True)
+        self.play('idle_down', reset=True)
     
     def get_collision_rect(self) -> pygame.Rect:
         """Get collision rectangle for physics."""

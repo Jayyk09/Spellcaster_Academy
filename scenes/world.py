@@ -634,6 +634,7 @@ class WorldScene(Scene):
             )
             self.spells.add(spell)
             self.all_sprites.add(spell)
+            self.player.play_cast_toward(target.pos)
         elif target_undine:
             spell = SpellProjectile.create_targeted(
                 self.player.pos,
@@ -643,6 +644,7 @@ class WorldScene(Scene):
             )
             self.spells.add(spell)
             self.all_sprites.add(spell)
+            self.player.play_cast_toward(target_undine.pos)
         else:
             # No target found - show feedback
             self._no_target_timer = 1.5  # Show "No Target" for 1.5 seconds

@@ -44,6 +44,7 @@ class Animation:
         self.current_frame = 0
         self.elapsed_time = 0.0
         self.finished = False
+        self.disable_flip = False  # Set to True for custom animations that shouldn't be flipped
     
     def reset(self):
         """Reset animation to the beginning."""
@@ -108,12 +109,35 @@ class AnimatedSprite(pygame.sprite.Sprite):
         )
         
         for anim_name, anim_data in config['animations'].items():
-            frames = sprite_sheet.get_animation_frames(
-                anim_data['row'],
-                anim_data['frames']
-            )
+            # Support per-animation sprite sheet override
+            has_custom_path = 'path' in anim_data
+            if has_custom_path:
+                anim_sheet = SpriteSheet(
+                    anim_data['path'],
+                    anim_data.get('frame_width', config['frame_width']),
+                    anim_data.get('frame_height', config['frame_height'])
+                )
+                frames = anim_sheet.get_animation_frames(
+                    anim_data.get('row', 0),
+                    anim_data['frames']
+                )
+                # Scale frames if 'scale' is specified
+                if 'scale' in anim_data:
+                    s = anim_data['scale']
+                    frames = [
+                        pygame.transform.scale(f, (int(f.get_width() * s), int(f.get_height() * s)))
+                        for f in frames
+                    ]
+            else:
+                frames = sprite_sheet.get_animation_frames(
+                    anim_data['row'],
+                    anim_data['frames']
+                )
             loop = anim_data.get('loop', True)
-            self.animations[anim_name] = Animation(frames, anim_data['fps'], loop)
+            animation = Animation(frames, anim_data['fps'], loop)
+            # Mark animations with custom paths to not be flipped (unless allow_flip is True)
+            animation.disable_flip = has_custom_path and not anim_data.get('allow_flip', False)
+            self.animations[anim_name] = animation
     
     def add_animation(self, name: str, animation: Animation):
         """Add an animation to the sprite."""
@@ -135,10 +159,8 @@ class AnimatedSprite(pygame.sprite.Sprite):
         if self.current_animation_name in self.animations:
             anim = self.animations[self.current_animation_name]
             anim.update(dt)
-            
-            # Get frame and flip if needed
             frame = anim.get_current_frame()
-            if not self.facing_right:
+            if not self.facing_right and not anim.disable_flip:
                 frame = pygame.transform.flip(frame, True, False)
             self.image = frame
         

@@ -63,16 +63,71 @@ PLAYER_SPRITE_CONFIG = {
     'frame_width': 48,
     'frame_height': 48,
     'animations': {
-        'idle_front': {'row': 0, 'frames': 6, 'fps': 5},
-        'idle_side': {'row': 1, 'frames': 6, 'fps': 5},
-        'idle_back': {'row': 2, 'frames': 6, 'fps': 5},
-        'walk_front': {'row': 3, 'frames': 6, 'fps': 5},
-        'walk_side': {'row': 4, 'frames': 6, 'fps': 5},
-        'walk_back': {'row': 5, 'frames': 6, 'fps': 5},
-        'attack_front': {'row': 6, 'frames': 4, 'fps': 5},
-        'attack_side': {'row': 7, 'frames': 4, 'fps': 5},
-        'attack_back': {'row': 8, 'frames': 4, 'fps': 5},
-        'death': {'row': 9, 'frames': 3, 'fps': 5},
+        'idle_down': {'row': 0, 'frames': 1, 'fps': 5},
+        'idle_left': {'row': 1, 'frames': 1, 'fps': 5},
+        'idle_right': {'row': 2, 'frames': 1, 'fps': 5},
+        'idle_up': {'row': 3, 'frames': 1, 'fps': 5},
+        'walk_down': {
+            'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'walking_down.png'),
+            'frame_width': 270,
+            'frame_height': 540,
+            'row': 0, 'frames': 4, 'fps': 5,
+            'scale': 0.25
+        },
+        'walk_left': {
+            'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'walking_right.png'),
+            'frame_width': 270,
+            'frame_height': 528,
+            'row': 0, 'frames': 4, 'fps': 5,
+            'scale': 0.25,
+            'allow_flip': True
+        },
+        'walk_right': {
+            'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'walking_right.png'),
+            'frame_width': 270,
+            'frame_height': 528,
+            'row': 0, 'frames': 4, 'fps': 5,
+            'scale': 0.25,
+            'allow_flip': True
+        },
+        'walk_up': {
+            'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'walking_up.png'),
+            'frame_width': 270,
+            'frame_height': 534,
+            'row': 0, 'frames': 4, 'fps': 5,
+            'scale': 0.25
+        },
+        'cast_down': {
+            'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'cast_down.png'),
+            'frame_width': 270,
+            'frame_height': 534,
+            'row': 0, 'frames': 4, 'fps': 5,
+            'scale': 0.25
+        },
+        'cast_left': {
+            'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'cast_right.png'),
+            'frame_width': 280,
+            'frame_height': 534,
+            'row': 0, 'frames': 4, 'fps': 5,
+            'scale': 0.25,
+            'allow_flip': True
+        },
+        'cast_right': {
+            'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'cast_right.png'),
+            'frame_width': 280,
+            'frame_height': 534,
+            'row': 0, 'frames': 4, 'fps': 5,
+            'scale': 0.25
+        },
+        'cast_up': {
+            'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'walking_up.png'),
+            'frame_width': 270,
+            'frame_height': 534,
+            'row': 0, 'frames': 4, 'fps': 5,
+            'scale': 0.25
+        },
+        'shield': {'row': 8, 'frames': 4, 'fps': 10},
+        'death': {'row': 0, 'frames': 1, 'fps': 5, 'loop': False},
     }
 }
 
