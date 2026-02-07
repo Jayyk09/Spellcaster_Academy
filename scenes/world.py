@@ -1,12 +1,13 @@
 """World scene - main gameplay area."""
 import pygame
+import os
 from core.scene import Scene
 from core.game_state import game_state
 from core.ui import HUD, DeathPanel, HealthBar
 from entities.player import Player
 from entities.enemy import Slime
 from entities.collectibles import Mushroom
-from config.settings import SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_ATTACK_DAMAGE
+from config.settings import SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_ATTACK_DAMAGE, SPRITES_DIR
 
 
 class WorldScene(Scene):
@@ -14,6 +15,9 @@ class WorldScene(Scene):
     
     def __init__(self, game, **kwargs):
         super().__init__(game)
+        
+        # Load background tiles
+        self.background = self._create_tiled_background()
         
         # Create player
         start_x, start_y = game_state.player_start_pos
@@ -71,6 +75,27 @@ class WorldScene(Scene):
         for x, y in mushroom_positions:
             mushroom = Mushroom(x, y)
             self.mushrooms.append(mushroom)
+    
+    def _create_tiled_background(self) -> pygame.Surface:
+        """Create a tiled grass background."""
+        bg_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+        
+        # Try to load grass tile
+        grass_path = os.path.join(SPRITES_DIR, 'tilesets', 'grass.png')
+        try:
+            grass_tile = pygame.image.load(grass_path).convert()
+            tile_size = grass_tile.get_width()
+            
+            # Tile the grass across the background
+            for y in range(0, SCREEN_HEIGHT, tile_size):
+                for x in range(0, SCREEN_WIDTH, tile_size):
+                    bg_surface.blit(grass_tile, (x, y))
+        except pygame.error as e:
+            print(f"Warning: Could not load grass tile: {e}")
+            # Fallback to solid color
+            bg_surface.fill((45, 65, 45))
+        
+        return bg_surface
     
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -164,8 +189,8 @@ class WorldScene(Scene):
             self.next_scene = 'camp'
     
     def draw(self, screen: pygame.Surface):
-        # Background
-        screen.fill((45, 65, 45))  # Grass green
+        # Draw tiled background
+        screen.blit(self.background, (0, 0))
         
         # Draw exit area indicator
         pygame.draw.rect(screen, (100, 150, 255), self.exit_to_camp, 2)

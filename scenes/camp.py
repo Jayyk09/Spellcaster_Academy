@@ -13,6 +13,9 @@ class CampScene(Scene):
     def __init__(self, game, **kwargs):
         super().__init__(game)
         
+        # Load background
+        self.background = self._create_background()
+        
         # Create player at exit position or load position
         start_x, start_y = game_state.player_exit_pos
         self.player = Player(start_x, start_y)
@@ -49,6 +52,31 @@ class CampScene(Scene):
         # Font
         self.font = pygame.font.Font(None, 24)
         self.prompt_font = pygame.font.Font(None, 28)
+    
+    def _create_background(self) -> pygame.Surface:
+        """Create the camp background with wooden floor."""
+        bg_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+        
+        # Dark outer area
+        bg_surface.fill((35, 30, 28))
+        
+        # Try to load wooden floor tile
+        floor_path = os.path.join(SPRITES_DIR, 'tilesets', 'wooden.png')
+        try:
+            floor_tile = pygame.image.load(floor_path).convert()
+            tile_size = floor_tile.get_width()
+            
+            # Tile the floor in the center area
+            floor_rect = pygame.Rect(40, 40, SCREEN_WIDTH - 80, SCREEN_HEIGHT - 80)
+            for y in range(floor_rect.top, floor_rect.bottom, tile_size):
+                for x in range(floor_rect.left, floor_rect.right, tile_size):
+                    bg_surface.blit(floor_tile, (x, y))
+        except pygame.error as e:
+            print(f"Warning: Could not load floor tile: {e}")
+            # Fallback to solid color
+            pygame.draw.rect(bg_surface, (60, 50, 45), (40, 40, SCREEN_WIDTH - 80, SCREEN_HEIGHT - 80))
+        
+        return bg_surface
     
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -100,24 +128,24 @@ class CampScene(Scene):
             self.next_scene = 'world'
     
     def draw(self, screen: pygame.Surface):
-        # Background (warmer, safer feeling)
-        screen.fill((50, 45, 40))
-        
-        # Draw floor area
-        pygame.draw.rect(screen, (60, 55, 50), (50, 50, SCREEN_WIDTH - 100, SCREEN_HEIGHT - 100))
+        # Draw background
+        screen.blit(self.background, (0, 0))
         
         # Draw exit area
-        pygame.draw.rect(screen, (100, 100, 255), self.exit_to_world, 2)
+        pygame.draw.rect(screen, (100, 150, 255), self.exit_to_world, 2)
+        exit_font = pygame.font.Font(None, 18)
+        exit_text = exit_font.render("World", True, (150, 200, 255))
+        screen.blit(exit_text, (SCREEN_WIDTH - 18, self.exit_to_world.centery - 8))
+        
+        # Draw campfire glow (behind campfire)
+        glow_surface = pygame.Surface((120, 120), pygame.SRCALPHA)
+        pygame.draw.circle(glow_surface, (255, 150, 50, 40), (60, 60), 60)
+        screen.blit(glow_surface, (self.campfire_pos.x - 60, self.campfire_pos.y - 60))
         
         # Draw campfire
         campfire_rect = self.campfire_frames[self.campfire_frame].get_rect()
         campfire_rect.center = (int(self.campfire_pos.x), int(self.campfire_pos.y))
         screen.blit(self.campfire_frames[self.campfire_frame], campfire_rect)
-        
-        # Draw campfire glow
-        glow_surface = pygame.Surface((100, 100), pygame.SRCALPHA)
-        pygame.draw.circle(glow_surface, (255, 150, 50, 30), (50, 50), 50)
-        screen.blit(glow_surface, (self.campfire_pos.x - 50, self.campfire_pos.y - 50))
         
         # Draw player
         screen.blit(self.player.image, self.player.rect)
@@ -125,8 +153,9 @@ class CampScene(Scene):
         # Draw health bar
         health_ratio = self.player.health / self.player.max_health
         bar_x, bar_y = self.player.pos.x - 25, self.player.pos.y - 35
-        pygame.draw.rect(screen, (100, 0, 0), (bar_x, bar_y, 50, 5))
-        pygame.draw.rect(screen, (0, 200, 0), (bar_x, bar_y, 50 * health_ratio, 5))
+        pygame.draw.rect(screen, (80, 20, 20), (bar_x, bar_y, 50, 5))
+        pygame.draw.rect(screen, (50, 180, 50), (bar_x, bar_y, 50 * health_ratio, 5))
+        pygame.draw.rect(screen, (40, 40, 40), (bar_x, bar_y, 50, 5), 1)
         
         # UI
         self._draw_ui(screen)

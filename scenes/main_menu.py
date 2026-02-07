@@ -17,7 +17,11 @@ class MainMenuScene(Scene):
         try:
             self.background = pygame.image.load(bg_path).convert()
             self.background = pygame.transform.scale(self.background, (SCREEN_WIDTH, SCREEN_HEIGHT))
-        except pygame.error:
+        except pygame.error as e:
+            print(f"Warning: Could not load background: {e}")
+            self.background = None
+        except Exception as e:
+            print(f"Warning: Unexpected error loading background: {e}")
             self.background = None
         
         # Load font
