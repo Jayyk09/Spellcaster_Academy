@@ -7,21 +7,31 @@ from config.settings import SPRITES_DIR
 
 # Multi-tile region definitions for objects.png (256x208, 16 cols x 13 rows)
 # Format: (col, row) -> (width_tiles, height_tiles, y_sort_origin, has_collision)
-# y_sort_origin is the pixel offset from top where the object "stands"
-# has_collision indicates if this object should block movement (for tree trunks, rocks)
-# NOTE: objects.png has furniture in rows 0-4, nature objects start at row 5
+# y_sort_origin formula: (height_tiles - 1 - foot_offset) * 16 + 15
+# has_collision indicates if this object should block movement
+# Mappings based on actual objects.png tileset layout
 OBJECTS_REGIONS = {
-    # Medium rock (2x2) at row 7 - blocks movement
-    (10, 7): (2, 2, 20, True),
+    # === ENVIRONMENT (nature objects) ===
+    (0, 5): (3, 3, 15, True),      # tree_green (3x3, foot_offset=2)
+    (3, 5): (3, 3, 15, True),      # tree_apple (3x3, foot_offset=2)
+    (6, 7): (2, 2, 15, True),      # bush_large (2x2, foot_offset=1)
+    (6, 5): (2, 1, 15, False),     # log_mushroom (2x1, no collision)
+    (6, 6): (2, 1, 15, False),     # log_hollow (2x1, no collision)
+    (6, 9): (3, 1, 15, False),     # log_long (3x1, no collision)
     
-    # Large bush/shrub (2x2) at row 7 - blocks movement
-    (6, 7): (2, 2, 20, True),
+    # === PROPS (small objects) ===
+    (0, 0): (1, 1, 15, True),      # signpost
+    (1, 0): (1, 1, 15, True),      # well_bucket
+    (0, 1): (1, 1, 15, True),      # rock_medium
+    (1, 1): (1, 1, 15, True),      # rock_small_a
+    (2, 1): (1, 1, 15, True),      # rock_small_b
     
-    # Pine tree (2x3) starting at row 6 - trunk collision
-    (8, 6): (2, 3, 40, True),
-    
-    # Large tree (3x4) starting at row 5 - trunk collision
-    (0, 5): (3, 4, 56, True),
+    # === FURNITURE (indoor objects) ===
+    (9, 0): (3, 2, 31, True),      # table_long (3x2, foot_offset=1)
+    (3, 1): (2, 1, 15, True),      # bench_wooden
+    (12, 2): (1, 2, 15, True),     # bed_red
+    (13, 2): (1, 2, 15, True),     # bookshelf
+    (10, 2): (1, 2, 15, True),     # plant_potted
 }
 
 
