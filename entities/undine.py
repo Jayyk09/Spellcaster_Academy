@@ -281,6 +281,31 @@ class UndineManager:
             letter = random.choice(letters) if letters else None
             self.spawn_undine(x, y, letter=letter)
     
+    def spawn_near(self, count=1, center_x=0, center_y=0, radius=200, letters: list[str] | None = None):
+        """
+        Spawn undines near a specific position.
+        
+        Args:
+            count: Number of undines to spawn
+            center_x: Center x position
+            center_y: Center y position  
+            radius: Maximum distance from center
+            letters: Optional list of letters to assign (randomly picked from pool)
+        """
+        for _ in range(count):
+            # Random position within radius of center
+            angle = random.uniform(0, 2 * 3.14159)
+            dist = random.uniform(50, radius)
+            x = center_x + math.cos(angle) * dist
+            y = center_y + math.sin(angle) * dist
+            
+            # Clamp to screen bounds
+            x = max(50, min(self.screen_width - 50, x))
+            y = max(50, min(self.screen_height - 50, y))
+            
+            letter = random.choice(letters) if letters else None
+            self.spawn_undine(x, y, letter=letter)
+    
     def update(self, dt, player=None):
         """Update all undines. They collide with each other but fly through obstacles."""
         for undine in self.undines:

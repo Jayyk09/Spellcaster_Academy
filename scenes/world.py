@@ -290,9 +290,15 @@ class WorldScene(Scene):
             self.enemies.add(enemy)
             self.all_sprites.add(enemy)
         
-        # Spawn undines
+        # Spawn undines near player
         undine_count = enemies_config.get('undine', 0)
-        self.undine_manager.spawn_random(undine_count, margin=80, letters=letters)
+        self.undine_manager.spawn_near(
+            undine_count, 
+            center_x=self.player.pos.x, 
+            center_y=self.player.pos.y, 
+            radius=300, 
+            letters=letters
+        )
         
         # Reset transition state
         self.wave_in_transition = False

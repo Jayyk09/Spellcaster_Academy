@@ -367,10 +367,10 @@ class TileMap:
                             obj_width = surface.get_width()
                             obj_height = surface.get_height()
                             
-                            # Collision rect is at the "feet" of the object
-                            # Use a smaller hitbox at the base for natural feel
-                            collision_height = min(self.tile_size, obj_height // 3)
-                            collision_y = pixel_y + y_sort_origin - collision_height // 2
+                            # Collision rect is at the "feet" of the object (base of trunk)
+                            # Place collision at center of middle tile (trunk only, not grass below)
+                            collision_height = self.tile_size
+                            collision_y = pixel_y + self.tile_size
                             
                             # Center the collision rect horizontally
                             collision_width = int(obj_width * 0.6)  # 60% of object width
