@@ -461,6 +461,9 @@ class WorldScene(Scene):
         # Check spell-undine combat
         self._check_spell_undine_combat()
         
+        # Check undine spell collisions with player
+        self._check_undine_spell_player_combat()
+        
         # Mushrooms disabled - sprite removed
         
         # Clean up dead enemies
@@ -583,6 +586,24 @@ class WorldScene(Scene):
                             self.all_sprites.remove(spell)
                         break  # Spell can only hit one undine
     
+    def _check_undine_spell_player_combat(self):
+        """Check for undine spell collisions with player."""
+        for spell in list(self.undine_manager.spells):
+            if not spell.is_alive:
+                continue
+            
+            spell_hitbox = spell.get_hitbox()
+            player_hitbox = self.player.rect
+            
+            if spell_hitbox.colliderect(player_hitbox):
+                # Undine spell hits player
+                self.player.take_damage(spell.damage)
+                spell.destroy()
+                # Remove spell from manager
+                if spell in self.undine_manager.spells:
+                    self.undine_manager.spells.remove(spell)
+                break  # Spell can only hit once
+    
     def _process_camera_input(self, dt: float):
         """Process camera input for ASL letter detection."""
         # Update no-target feedback timer
@@ -693,6 +714,11 @@ class WorldScene(Scene):
             if undine.alive:
                 y_sort_items.append((undine.pos.y, 'undine', undine))
         
+        # Add undine spells
+        for spell in self.undine_manager.spells:
+            if spell.is_alive:
+                y_sort_items.append((spell.pos.y, 'spell', spell))
+        
         # Add decorations
         for surface, world_x, world_y, sort_y in self.decorations:
             y_sort_items.append((sort_y, 'decor', (surface, world_x, world_y)))
@@ -714,6 +740,12 @@ class WorldScene(Scene):
                     undine.rect.x, undine.rect.y
                 )
                 screen.blit(undine.image, (screen_x, screen_y))
+            elif item_type == 'spell':
+                spell = data
+                screen_x, screen_y = self.camera.world_to_screen(
+                    spell.rect.x, spell.rect.y
+                )
+                screen.blit(spell.image, (screen_x, screen_y))
             else:  # 'decor'
                 surface, world_x, world_y = data
                 screen_x, screen_y = self.camera.world_to_screen(world_x, world_y)
