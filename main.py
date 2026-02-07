@@ -2,7 +2,10 @@
 import pygame
 from core.scene import SceneManager
 from scenes import MainMenuScene, WorldScene, CampScene
-from config.settings import SCREEN_WIDTH, SCREEN_HEIGHT, FPS
+from config.settings import (
+    SCREEN_WIDTH, SCREEN_HEIGHT, FPS,
+    CAMERA_ENABLED, CAMERA_HOLD_TIME, CAMERA_CONFIDENCE, CAMERA_SHOW_PREVIEW
+)
 
 
 class Game:
@@ -18,12 +21,37 @@ class Game:
         self.clock = pygame.time.Clock()
         self.running = True
         
+        # Shared camera input (persists across scenes)
+        self.camera_input = None
+        self._camera_initialized = False
+        
         # Scene manager
         self.scene_manager = SceneManager()
         self._register_scenes()
         
         # Start at main menu
         self.scene_manager.change_scene('menu', self)
+    
+    def get_camera_input(self):
+        """Get or initialize the shared camera input."""
+        if not CAMERA_ENABLED:
+            return None
+        
+        if not self._camera_initialized:
+            self._camera_initialized = True
+            try:
+                from vision.camera_input import CameraInput
+                self.camera_input = CameraInput(
+                    hold_time=CAMERA_HOLD_TIME,
+                    confidence_threshold=CAMERA_CONFIDENCE,
+                    show_preview=CAMERA_SHOW_PREVIEW
+                )
+                self.camera_input.start()
+            except Exception as e:
+                print(f"Camera input not available: {e}")
+                self.camera_input = None
+        
+        return self.camera_input
     
     def _register_scenes(self):
         """Register all game scenes."""
@@ -49,6 +77,10 @@ class Game:
             # Draw
             self.scene_manager.draw(self.screen)
             pygame.display.flip()
+        
+        # Cleanup camera on exit
+        if self.camera_input is not None:
+            self.camera_input.stop()
         
         pygame.quit()
 

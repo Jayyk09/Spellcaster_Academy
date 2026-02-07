@@ -14,8 +14,7 @@ from config.settings import (
     SCREEN_WIDTH, SCREEN_HEIGHT, SPRITES_DIR,
     TILE_SIZE, SCALE, WORLD_WIDTH, WORLD_HEIGHT,
     WORLD_WIDTH_TILES, WORLD_HEIGHT_TILES, CAMERA_DRAG_MARGIN,
-    SPELL_DAMAGE, CAMERA_ENABLED, CAMERA_HOLD_TIME, CAMERA_CONFIDENCE,
-    CAMERA_DEFAULT_SPELL, CAMERA_SHOW_PREVIEW
+    SPELL_DAMAGE, CAMERA_ENABLED, CAMERA_DEFAULT_SPELL
 )
 
 
@@ -110,27 +109,26 @@ class WorldScene(Scene):
         self.death_panel = DeathPanel()
         self.show_death_dialog = False
         
-        # Camera input (ASL detection)
+        # Camera input (ASL detection) - get from game (shared across scenes)
         self.camera_input = None
         self.camera_letter_display = CameraLetterDisplay()
         self._no_target_timer = 0.0  # Timer for "No Target" feedback
         self._no_target_letter = None  # Letter that had no target
         
         if CAMERA_ENABLED:
-            try:
-                from vision.camera_input import CameraInput
-                self.camera_input = CameraInput(
-                    hold_time=CAMERA_HOLD_TIME,
-                    confidence_threshold=CAMERA_CONFIDENCE,
-                    show_preview=CAMERA_SHOW_PREVIEW
-                )
-                self.camera_input.start()
-            except Exception as e:
-                print(f"Camera input not available: {e}")
-                self.camera_input = None
+            self.camera_input = self.game.get_camera_input()
         
         # Font for extra UI
         self.font = pygame.font.Font(None, 24)
+        
+        # Camera startup pause - only show if camera not yet ready
+        # Skip the pause if camera is already running (e.g., returning from menu)
+        camera_already_running = (
+            self.camera_input is not None and 
+            self.camera_input.is_available()
+        )
+        self._waiting_for_camera_ready = CAMERA_ENABLED and not camera_already_running
+        self._camera_ready_font = pygame.font.Font(None, 36)
     
     def _render_scaled_background(self):
         """Pre-render and scale the tilemap background."""
@@ -182,6 +180,12 @@ class WorldScene(Scene):
     
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
+            # Handle camera startup pause
+            if self._waiting_for_camera_ready:
+                if event.key == pygame.K_RETURN:
+                    self._waiting_for_camera_ready = False
+                return
+            
             # Handle death dialog input
             if self.show_death_dialog:
                 if event.key == pygame.K_y and game_state.game_has_savegame:
@@ -213,6 +217,10 @@ class WorldScene(Scene):
                 self.death_panel.hide()
     
     def update(self, dt: float):
+        # Don't update game while waiting for camera ready
+        if self._waiting_for_camera_ready:
+            return
+        
         # Get input
         keys = pygame.key.get_pressed()
         self.player.handle_input(keys)
@@ -565,7 +573,7 @@ class WorldScene(Scene):
         screen.blit(count_text, (SCREEN_WIDTH - 220, SCREEN_HEIGHT - 25))
         
         # Camera letter display (ASL detection feedback)
-        if self.camera_input is not None:
+        if self.camera_input is not None and not self._waiting_for_camera_ready:
             detected_letter, hold_progress = self.camera_input.get_current_detection()
             state = self.camera_input.get_state()
             self.camera_letter_display.draw(
@@ -576,6 +584,10 @@ class WorldScene(Scene):
                 self._no_target_letter,
                 self._no_target_timer > 0
             )
+        
+        # Camera startup overlay
+        if self._waiting_for_camera_ready:
+            self._draw_camera_startup_overlay(screen)
         
         # Death panel
         self.death_panel.draw(screen)
@@ -623,3 +635,62 @@ class WorldScene(Scene):
         pygame.draw.rect(surface, (80, 20, 20), (x - width/2, y, width, height))
         pygame.draw.rect(surface, (50, 180, 50), (x - width/2, y, width * health_ratio, height))
         pygame.draw.rect(surface, (40, 40, 40), (x - width/2, y, width, height), 1)
+    
+    def _draw_camera_startup_overlay(self, screen: pygame.Surface):
+        """Draw overlay while waiting for camera to be ready."""
+        # Semi-transparent dark overlay
+        overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 180))
+        screen.blit(overlay, (0, 0))
+        
+        # Check camera status
+        camera_ready = self.camera_input is not None and self.camera_input.is_available()
+        
+        # Title
+        title_text = self._camera_ready_font.render("Camera Setup", True, (255, 255, 255))
+        title_rect = title_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 80))
+        screen.blit(title_text, title_rect)
+        
+        # Status message
+        if camera_ready:
+            status_color = (100, 255, 100)
+            status_msg = "Camera is ready!"
+            instruction_msg = "Position your camera window, then press ENTER to start"
+        else:
+            status_color = (255, 200, 100)
+            if self.camera_input is None:
+                status_msg = "Camera not available"
+                instruction_msg = "Press ENTER to start without camera"
+            else:
+                error = self.camera_input.get_error_message()
+                if error:
+                    status_msg = f"Camera error: {error}"
+                    instruction_msg = "Press ENTER to start without camera"
+                else:
+                    status_msg = "Waiting for camera to initialize..."
+                    instruction_msg = "Please wait..."
+        
+        status_text = self._camera_ready_font.render(status_msg, True, status_color)
+        status_rect = status_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 20))
+        screen.blit(status_text, status_rect)
+        
+        # Instruction
+        instruction_font = pygame.font.Font(None, 28)
+        instruction_text = instruction_font.render(instruction_msg, True, (200, 200, 200))
+        instruction_rect = instruction_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 40))
+        screen.blit(instruction_text, instruction_rect)
+        
+        # Tips
+        tips = [
+            "Tips:",
+            "- Position the camera window where you can see it",
+            "- Make sure your hand is visible in the camera",
+            "- Good lighting helps with detection"
+        ]
+        tip_font = pygame.font.Font(None, 22)
+        tip_y = SCREEN_HEIGHT // 2 + 90
+        for tip in tips:
+            tip_text = tip_font.render(tip, True, (150, 150, 150))
+            tip_rect = tip_text.get_rect(center=(SCREEN_WIDTH // 2, tip_y))
+            screen.blit(tip_text, tip_rect)
+            tip_y += 25
