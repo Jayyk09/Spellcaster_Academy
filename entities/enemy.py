@@ -10,7 +10,7 @@ from config.settings import (
     ENEMY_CHASE_SPEED, ENEMY_IDLE_SPEED,
     ENEMY_MAX_HEALTH, ENEMY_ATTACK_DAMAGE, ENEMY_DETECTION_RADIUS,
     ENEMY_ATTACK_RANGE, ENEMY_DAMAGE_COOLDOWN, ENEMY_XP_VALUE,
-    ENEMY_LETTER_FONT_SIZE, ENEMY_LETTER_OFFSET_Y, FONTS_DIR,
+    ENEMY_LETTER_OFFSET_Y, FONTS_DIR,
     ENEMY_LETTER_BACKDROP_PATH
 )
 
@@ -39,9 +39,9 @@ class Enemy(AnimatedSprite):
         if cls._letter_font is None:
             font_path = os.path.join(FONTS_DIR, 'Alkhemikal.ttf')
             try:
-                cls._letter_font = pygame.font.Font(font_path, ENEMY_LETTER_FONT_SIZE)
+                cls._letter_font = pygame.font.Font(font_path, 24)  # Larger font size
             except:
-                cls._letter_font = pygame.font.Font(None, ENEMY_LETTER_FONT_SIZE)
+                cls._letter_font = pygame.font.Font(None, 24)
         return cls._letter_font
     
     @classmethod
@@ -50,11 +50,11 @@ class Enemy(AnimatedSprite):
         if cls._letter_backdrop is None:
             try:
                 original = pygame.image.load(ENEMY_LETTER_BACKDROP_PATH).convert_alpha()
-                # Scale down to be more compact (roughly square for single letter)
-                cls._letter_backdrop = pygame.transform.scale(original, (24, 18))
+                # Scale to larger size for better visibility
+                cls._letter_backdrop = pygame.transform.scale(original, (36, 28))
             except:
                 # Fallback: create a simple dark rectangle
-                cls._letter_backdrop = pygame.Surface((24, 18), pygame.SRCALPHA)
+                cls._letter_backdrop = pygame.Surface((36, 28), pygame.SRCALPHA)
                 cls._letter_backdrop.fill((20, 40, 50, 200))
         return cls._letter_backdrop
     
