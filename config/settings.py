@@ -48,6 +48,11 @@ ENEMY_ATTACK_RANGE = 12
 ENEMY_DAMAGE_COOLDOWN = 0.8  # seconds
 ENEMY_XP_VALUE = 10
 
+# Enemy letter display settings
+ENEMY_LETTER_FONT_SIZE = 16
+ENEMY_LETTER_OFFSET_Y = 35  # pixels above enemy center
+ENEMY_LETTER_BACKDROP_PATH = os.path.join(SPRITES_DIR, 'ui', 'Rahmen - klein.png')
+
 # Animation settings
 ANIMATION_FPS = 5
 

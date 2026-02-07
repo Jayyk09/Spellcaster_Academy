@@ -2,12 +2,16 @@
 import pygame
 import random
 import math
+import string
+import os
 from core.animation import AnimatedSprite
 from config.settings import (
     SLIME_SPRITE_CONFIG, SKELETON_SPRITE_CONFIG,
     ENEMY_CHASE_SPEED, ENEMY_IDLE_SPEED,
     ENEMY_MAX_HEALTH, ENEMY_ATTACK_DAMAGE, ENEMY_DETECTION_RADIUS,
-    ENEMY_ATTACK_RANGE, ENEMY_DAMAGE_COOLDOWN, ENEMY_XP_VALUE
+    ENEMY_ATTACK_RANGE, ENEMY_DAMAGE_COOLDOWN, ENEMY_XP_VALUE,
+    ENEMY_LETTER_FONT_SIZE, ENEMY_LETTER_OFFSET_Y, FONTS_DIR,
+    ENEMY_LETTER_BACKDROP_PATH
 )
 
 
@@ -25,8 +29,42 @@ class Enemy(AnimatedSprite):
     STATE_CHASING = 'chasing'
     STATE_DEAD = 'dead'
     
+    # Class-level font for letter rendering (loaded once)
+    _letter_font = None
+    _letter_backdrop = None
+    
+    @classmethod
+    def _get_letter_font(cls):
+        """Get or initialize the letter font (lazy loading)."""
+        if cls._letter_font is None:
+            font_path = os.path.join(FONTS_DIR, 'Alkhemikal.ttf')
+            try:
+                cls._letter_font = pygame.font.Font(font_path, ENEMY_LETTER_FONT_SIZE)
+            except:
+                cls._letter_font = pygame.font.Font(None, ENEMY_LETTER_FONT_SIZE)
+        return cls._letter_font
+    
+    @classmethod
+    def _get_letter_backdrop(cls):
+        """Get or initialize the letter backdrop image (lazy loading)."""
+        if cls._letter_backdrop is None:
+            try:
+                original = pygame.image.load(ENEMY_LETTER_BACKDROP_PATH).convert_alpha()
+                # Scale down to be more compact (roughly square for single letter)
+                cls._letter_backdrop = pygame.transform.scale(original, (24, 18))
+            except:
+                # Fallback: create a simple dark rectangle
+                cls._letter_backdrop = pygame.Surface((24, 18), pygame.SRCALPHA)
+                cls._letter_backdrop.fill((20, 40, 50, 200))
+        return cls._letter_backdrop
+    
     def __init__(self, x: float, y: float, sprite_config: dict):
         super().__init__(x, y, sprite_config)
+        
+        # Assign random letter (A-Z)
+        self.letter = random.choice(string.ascii_uppercase)
+        self._letter_surface = None  # Pre-rendered letter surface
+        self._render_letter_surface()
         
         # Movement
         self.idle_speed = ENEMY_IDLE_SPEED
@@ -234,6 +272,38 @@ class Enemy(AnimatedSprite):
             self.collision_radius * 2,
             self.collision_radius * 2
         )
+    
+    def _render_letter_surface(self):
+        """Pre-render the letter with backdrop for efficient drawing."""
+        font = self._get_letter_font()
+        backdrop = self._get_letter_backdrop()
+        
+        # Render white letter
+        letter_surf = font.render(self.letter, True, (255, 255, 255))
+        
+        # Create combined surface with backdrop and centered letter
+        self._letter_surface = backdrop.copy()
+        letter_x = (backdrop.get_width() - letter_surf.get_width()) // 2
+        letter_y = (backdrop.get_height() - letter_surf.get_height()) // 2
+        self._letter_surface.blit(letter_surf, (letter_x, letter_y))
+    
+    def draw_letter(self, screen: pygame.Surface, screen_x: float, screen_y: float):
+        """
+        Draw the assigned letter above the enemy.
+        
+        Args:
+            screen: The surface to draw on
+            screen_x: Enemy center x position in screen coordinates
+            screen_y: Enemy center y position in screen coordinates
+        """
+        if self._letter_surface is None:
+            return
+        
+        # Position letter above enemy (above health bar)
+        letter_x = screen_x - self._letter_surface.get_width() // 2
+        letter_y = screen_y - ENEMY_LETTER_OFFSET_Y
+        
+        screen.blit(self._letter_surface, (letter_x, letter_y))
 
 
 class Slime(Enemy):

@@ -452,7 +452,7 @@ class WorldScene(Scene):
         self.death_panel.draw(screen)
     
     def _draw_entity_health_bars(self, screen):
-        """Draw health bars above entities (in screen space)."""
+        """Draw health bars and letters above entities (in screen space)."""
         # Player health bar above sprite
         player_screen_x, player_screen_y = self.camera.world_to_screen(
             self.player.pos.x, self.player.pos.y - 35
@@ -460,7 +460,7 @@ class WorldScene(Scene):
         self._draw_health_bar(screen, player_screen_x, player_screen_y,
                               self.player.health, self.player.max_health)
         
-        # Enemy health bars
+        # Enemy health bars and letters
         for enemy in self.enemies:
             if enemy.is_alive:
                 enemy_screen_x, enemy_screen_y = self.camera.world_to_screen(
@@ -468,8 +468,13 @@ class WorldScene(Scene):
                 )
                 self._draw_health_bar(screen, enemy_screen_x, enemy_screen_y,
                                      enemy.health, enemy.max_health, width=30, height=4)
+            # Draw letter always (even when dead, per requirements)
+            enemy_center_x, enemy_center_y = self.camera.world_to_screen(
+                enemy.pos.x, enemy.pos.y
+            )
+            enemy.draw_letter(screen, enemy_center_x, enemy_center_y)
         
-        # Undine health bars
+        # Undine health bars and letters
         for undine in self.undine_manager.undines:
             if undine.alive and undine.health < undine.max_health:
                 undine_screen_x, undine_screen_y = self.camera.world_to_screen(
@@ -477,6 +482,12 @@ class WorldScene(Scene):
                 )
                 self._draw_health_bar(screen, undine_screen_x, undine_screen_y,
                                      undine.health, undine.max_health, width=40, height=4)
+            # Draw letter always (even when dead, per requirements)
+            if undine.alive:
+                undine_center_x, undine_center_y = self.camera.world_to_screen(
+                    undine.pos.x, undine.pos.y
+                )
+                undine.draw_letter(screen, undine_center_x, undine_center_y)
     
     def _draw_health_bar(self, surface, x, y, health, max_health, width=50, height=5):
         health_ratio = max(0, health / max_health)
