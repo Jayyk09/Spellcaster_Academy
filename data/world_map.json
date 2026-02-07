@@ -3202,6 +3202,150 @@
           "tileset": "objects",
           "col": 8,
           "row": 6
+        },
+        {
+          "x": 3,
+          "y": 5,
+          "tileset": "objects",
+          "col": 0,
+          "row": 0,
+          "comment": "small bush by road"
+        },
+        {
+          "x": 3,
+          "y": 8,
+          "tileset": "objects",
+          "col": 5,
+          "row": 0,
+          "comment": "flower"
+        },
+        {
+          "x": 8,
+          "y": 5,
+          "tileset": "objects",
+          "col": 0,
+          "row": 0,
+          "comment": "small bush"
+        },
+        {
+          "x": 9,
+          "y": 7,
+          "tileset": "objects",
+          "col": 5,
+          "row": 0,
+          "comment": "flower"
+        },
+        {
+          "x": 2,
+          "y": 10,
+          "tileset": "objects",
+          "col": 0,
+          "row": 0,
+          "comment": "small bush"
+        },
+        {
+          "x": 9,
+          "y": 12,
+          "tileset": "objects",
+          "col": 5,
+          "row": 0,
+          "comment": "flower"
+        },
+        {
+          "x": 8,
+          "y": 15,
+          "tileset": "objects",
+          "col": 0,
+          "row": 0,
+          "comment": "small bush"
+        },
+        {
+          "x": 9,
+          "y": 16,
+          "tileset": "objects",
+          "col": 5,
+          "row": 0,
+          "comment": "flower"
+        },
+        {
+          "x": 2,
+          "y": 18,
+          "tileset": "objects",
+          "col": 0,
+          "row": 0,
+          "comment": "small bush"
+        },
+        {
+          "x": 8,
+          "y": 19,
+          "tileset": "objects",
+          "col": 5,
+          "row": 0,
+          "comment": "flower"
+        },
+        {
+          "x": 4,
+          "y": 22,
+          "tileset": "objects",
+          "col": 0,
+          "row": 0,
+          "comment": "small bush"
+        },
+        {
+          "x": 6,
+          "y": 23,
+          "tileset": "objects",
+          "col": 5,
+          "row": 0,
+          "comment": "flower"
+        },
+        {
+          "x": 11,
+          "y": 16,
+          "tileset": "objects",
+          "col": 11,
+          "row": 2,
+          "comment": "tall grass"
+        },
+        {
+          "x": 10,
+          "y": 9,
+          "tileset": "objects",
+          "col": 11,
+          "row": 2,
+          "comment": "tall grass"
+        },
+        {
+          "x": 3,
+          "y": 14,
+          "tileset": "objects",
+          "col": 11,
+          "row": 2,
+          "comment": "tall grass"
+        },
+        {
+          "x": 1,
+          "y": 5,
+          "tileset": "objects",
+          "col": 11,
+          "row": 2,
+          "comment": "tall grass"
+        },
+        {
+          "x": 8,
+          "y": 1,
+          "tileset": "objects",
+          "col": 0,
+          "row": 0,
+          "comment": "small bush"
+        },
+        {
+          "x": 10,
+          "y": 3,
+          "tileset": "objects",
+          "col": 5,
+          "row": 0,
+          "comment": "flower"
         }
       ]
     }
@@ -3211,13 +3355,11 @@
       "x": 12,
       "y": 9
     },
-    "enemy": {
-      "x": 7,
-      "y": 6
-    },
-    "shroom": {
-      "x": 7,
-      "y": 3
-    }
+    "enemies": [
+      {"x": 7, "y": 6, "type": "slime"},
+      {"x": 5, "y": 18, "type": "skeleton"},
+      {"x": 10, "y": 14, "type": "slime"},
+      {"x": 3, "y": 21, "type": "skeleton"}
+    ]
   }
 }
