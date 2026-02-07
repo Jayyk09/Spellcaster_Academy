@@ -323,11 +323,6 @@ class WorldScene(Scene):
                     self.next_scene = 'menu'
                 return
             
-            # Handle spell casting
-            spell = self.player.handle_spell_input(event.key)
-            if spell:
-                self.spells.add(spell)
-                self.all_sprites.add(spell)
             
             if event.key == pygame.K_ESCAPE:
                 self.next_scene = 'menu'

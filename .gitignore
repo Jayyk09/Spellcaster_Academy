@@ -1,5 +1,5 @@
 venv/
-entities/__pycache__/
+entities/__pycache__/player.cpython-313.pyc
 *.pyc
 *.pyo
 .DS_Store
