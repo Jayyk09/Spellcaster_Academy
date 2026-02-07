@@ -140,3 +140,10 @@ SPELL_PROJECTILE_CONFIG = {
         'lightning': {'row': 6, 'frames': 8, 'fps': 10},
     }
 }
+
+# Camera input settings (ASL hand sign detection)
+CAMERA_ENABLED = True           # Toggle camera integration on/off
+CAMERA_HOLD_TIME = 0.5          # Seconds to hold a letter before it fires
+CAMERA_CONFIDENCE = 0.8         # Minimum confidence for hand detection
+CAMERA_DEFAULT_SPELL = 'arcane' # Spell type used for camera-triggered spells
+CAMERA_SHOW_PREVIEW = True      # Show camera preview window for debugging

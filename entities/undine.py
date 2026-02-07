@@ -41,8 +41,8 @@ class Undine:
         self.screen_height = screen_height
         self.speed = 70
         
-        # Assign random letter (A-Z)
-        self.letter = random.choice(string.ascii_uppercase)
+        # Assign random letter (A-E for testing)
+        self.letter = random.choice(['A', 'B', 'C', 'D', 'E'])
         self._letter_surface = None  # Pre-rendered letter surface
         self._render_letter_surface()
         

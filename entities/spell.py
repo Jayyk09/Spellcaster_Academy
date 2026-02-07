@@ -10,7 +10,8 @@ from config.settings import (
 class SpellProjectile(AnimatedSprite):
     """A spell projectile that travels in a direction and damages enemies on hit."""
     
-    def __init__(self, x: float, y: float, spell_type: str, direction: pygame.Vector2):
+    def __init__(self, x: float, y: float, spell_type: str, direction: pygame.Vector2,
+                 target_letter: str | None = None):
         """
         Create a spell projectile.
         
@@ -19,6 +20,7 @@ class SpellProjectile(AnimatedSprite):
             y: Starting y position
             spell_type: Type of spell (fireball, ice, etc.) - determines animation
             direction: Normalized direction vector for movement
+            target_letter: If set, this spell can only hit enemies with this letter
         """
         super().__init__(x, y, SPELL_PROJECTILE_CONFIG)
         
@@ -28,6 +30,9 @@ class SpellProjectile(AnimatedSprite):
         self.lifetime = SPELL_LIFETIME
         self.alive = True
         self.direction = direction
+        
+        # Letter targeting - if set, can only hit enemies with this letter
+        self.target_letter = target_letter.upper() if target_letter else None
         
         # Set velocity based on direction
         self.velocity = direction * self.speed
@@ -46,6 +51,45 @@ class SpellProjectile(AnimatedSprite):
             self.play(spell_type)
         else:
             self.play('fireball')  # Fallback
+    
+    @classmethod
+    def create_targeted(cls, source_pos: pygame.Vector2, target_pos: pygame.Vector2,
+                        spell_type: str, target_letter: str) -> 'SpellProjectile':
+        """
+        Create a spell that travels toward a target position.
+        
+        Args:
+            source_pos: Starting position (usually player position)
+            target_pos: Target position (usually enemy position)
+            spell_type: Type of spell for animation
+            target_letter: Letter of the target enemy (spell can only hit this letter)
+        
+        Returns:
+            A new SpellProjectile aimed at the target
+        """
+        # Calculate direction from source to target
+        direction = target_pos - source_pos
+        if direction.length() > 0:
+            direction = direction.normalize()
+        else:
+            direction = pygame.Vector2(1, 0)  # Default to right if same position
+        
+        return cls(source_pos.x, source_pos.y, spell_type, direction, target_letter)
+    
+    def can_hit_target(self, target_letter: str) -> bool:
+        """
+        Check if this spell can hit a target with the given letter.
+        
+        Args:
+            target_letter: The letter of the potential target
+        
+        Returns:
+            True if this spell can hit the target, False otherwise
+        """
+        if self.target_letter is None:
+            # No letter restriction, can hit anyone
+            return True
+        return self.target_letter == target_letter.upper()
     
     def update(self, dt: float):
         """Update spell position and check lifetime."""
