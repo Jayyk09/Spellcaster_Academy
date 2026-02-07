@@ -58,11 +58,14 @@ class Enemy(AnimatedSprite):
                 cls._letter_backdrop.fill((20, 40, 50, 200))
         return cls._letter_backdrop
     
-    def __init__(self, x: float, y: float, sprite_config: dict):
+    def __init__(self, x: float, y: float, sprite_config: dict, letter: str | None = None):
         super().__init__(x, y, sprite_config)
         
-        # Assign random letter (A-E for testing)
-        self.letter = random.choice(['A', 'B', 'C', 'D', 'E'])
+        # Assign letter (use provided letter or random A-E as fallback)
+        if letter is not None:
+            self.letter = letter.upper()
+        else:
+            self.letter = random.choice(['A', 'B', 'C', 'D', 'E'])
         self._letter_surface = None  # Pre-rendered letter surface
         self._render_letter_surface()
         
@@ -309,15 +312,15 @@ class Enemy(AnimatedSprite):
 class Slime(Enemy):
     """Slime enemy - basic melee enemy that chases player."""
     
-    def __init__(self, x: float, y: float):
-        super().__init__(x, y, SLIME_SPRITE_CONFIG)
+    def __init__(self, x: float, y: float, letter: str | None = None):
+        super().__init__(x, y, SLIME_SPRITE_CONFIG, letter=letter)
 
 
 class Skeleton(Enemy):
     """Skeleton enemy - stronger melee enemy with more health."""
     
-    def __init__(self, x: float, y: float):
-        super().__init__(x, y, SKELETON_SPRITE_CONFIG)
+    def __init__(self, x: float, y: float, letter: str | None = None):
+        super().__init__(x, y, SKELETON_SPRITE_CONFIG, letter=letter)
         
         # Skeleton is tougher than slime
         self.max_health = int(ENEMY_MAX_HEALTH * 1.5)  # 150 HP

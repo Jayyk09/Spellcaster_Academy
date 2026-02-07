@@ -1,0 +1,32 @@
+{
+  "waves": [
+    {
+      "wave_number": 1,
+      "letters": ["A"],
+      "enemies": {
+        "slime": 1,
+        "skeleton": 0,
+        "undine": 0
+      }
+    },
+    {
+      "wave_number": 2,
+      "letters": ["A", "B", "C"],
+      "enemies": {
+        "slime": 2,
+        "skeleton": 0,
+        "undine": 1
+      }
+    },
+    {
+      "wave_number": 3,
+      "letters": ["A", "B", "C", "D", "E"],
+      "enemies": {
+        "slime": 2,
+        "skeleton": 2,
+        "undine": 1
+      }
+    }
+  ],
+  "time_between_waves_seconds": 5
+}

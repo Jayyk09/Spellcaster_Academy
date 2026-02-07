@@ -80,12 +80,6 @@ class Player(AnimatedSprite):
         if self.input_vector.length() > 0:
             self.input_vector = self.input_vector.normalize()
     
-    def handle_spell_input(self, key) -> SpellProjectile | None:
-        """Handle spell casting input (spacebar). Returns a spell if cast."""
-        if key == pygame.K_SPACE and self.state != self.STATE_DEAD:
-            if self.spell_cooldown <= 0:
-                return self.cast_spell()
-        return None
     
     def cast_spell(self) -> SpellProjectile:
         """Cast the current spell and return the projectile."""

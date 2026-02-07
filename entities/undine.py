@@ -36,13 +36,16 @@ class Undine:
                 cls._letter_backdrop.fill((20, 40, 50, 200))
         return cls._letter_backdrop
     
-    def __init__(self, x, y, screen_width, screen_height):
+    def __init__(self, x, y, screen_width, screen_height, letter: str | None = None):
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.speed = 70
         
-        # Assign random letter (A-E for testing)
-        self.letter = random.choice(['A', 'B', 'C', 'D', 'E'])
+        # Assign letter (use provided letter or random A-E as fallback)
+        if letter is not None:
+            self.letter = letter.upper()
+        else:
+            self.letter = random.choice(['A', 'B', 'C', 'D', 'E'])
         self._letter_surface = None  # Pre-rendered letter surface
         self._render_letter_surface()
         
@@ -257,18 +260,26 @@ class UndineManager:
         self.screen_height = screen_height
         self.undines = []
     
-    def spawn_undine(self, x, y):
+    def spawn_undine(self, x, y, letter: str | None = None):
         """Spawn a new undine at the specified position."""
-        undine = Undine(x, y, self.screen_width, self.screen_height)
+        undine = Undine(x, y, self.screen_width, self.screen_height, letter=letter)
         self.undines.append(undine)
         return undine
     
-    def spawn_random(self, count=1, margin=50):
-        """Spawn undines at random positions, avoiding screen edges."""
+    def spawn_random(self, count=1, margin=50, letters: list[str] | None = None):
+        """
+        Spawn undines at random positions, avoiding screen edges.
+        
+        Args:
+            count: Number of undines to spawn
+            margin: Minimum distance from screen edges
+            letters: Optional list of letters to assign (randomly picked from pool)
+        """
         for _ in range(count):
             x = random.randint(margin, self.screen_width - margin)
             y = random.randint(margin, self.screen_height - margin)
-            self.spawn_undine(x, y)
+            letter = random.choice(letters) if letters else None
+            self.spawn_undine(x, y, letter=letter)
     
     def update(self, dt, player=None):
         """Update all undines. They collide with each other but fly through obstacles."""
