@@ -4,6 +4,7 @@ from core.scene import Scene
 from core.game_state import game_state
 from entities.player import Player
 from entities.enemy import Slime
+from entities.collectibles import Mushroom
 from config.settings import SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_ATTACK_DAMAGE
 
 
@@ -21,11 +22,17 @@ class WorldScene(Scene):
         self.enemies = pygame.sprite.Group()
         self._spawn_enemies()
         
+        # Create collectibles
+        self.mushrooms: list[Mushroom] = []
+        self._spawn_mushrooms()
+        
         # All sprites for rendering
         self.all_sprites = pygame.sprite.Group()
         self.all_sprites.add(self.player)
         for enemy in self.enemies:
             self.all_sprites.add(enemy)
+        for mushroom in self.mushrooms:
+            self.all_sprites.add(mushroom)
         
         # Scene exit area (to camp)
         self.exit_to_camp = pygame.Rect(0, 100, 20, 100)  # Left edge
@@ -45,6 +52,19 @@ class WorldScene(Scene):
             slime = Slime(x, y)
             slime.set_target(self.player)
             self.enemies.add(slime)
+    
+    def _spawn_mushrooms(self):
+        """Spawn collectible mushrooms."""
+        mushroom_positions = [
+            (350, 100),
+            (650, 200),
+            (150, 350),
+            (450, 450),
+        ]
+        
+        for x, y in mushroom_positions:
+            mushroom = Mushroom(x, y)
+            self.mushrooms.append(mushroom)
     
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -77,6 +97,18 @@ class WorldScene(Scene):
         
         # Check combat
         self._check_combat()
+        
+        # Update mushrooms
+        attack_hitbox = self.player.get_attack_hitbox()
+        for mushroom in list(self.mushrooms):
+            # Try to harvest if player is attacking
+            mushroom.try_harvest(attack_hitbox)
+            chunks = mushroom.update(dt)
+            if chunks > 0:
+                game_state.shroom_chunks += chunks
+            if mushroom.is_fully_collected():
+                self.mushrooms.remove(mushroom)
+                self.all_sprites.remove(mushroom)
         
         # Clean up dead enemies
         for enemy in list(self.enemies):
@@ -148,7 +180,7 @@ class WorldScene(Scene):
     def _draw_ui(self, screen):
         # State info
         state_text = self.font.render(
-            f"HP: {self.player.health}/{self.player.max_health} | EXP: {game_state.player_exp}", 
+            f"HP: {self.player.health}/{self.player.max_health} | EXP: {game_state.player_exp} | Shrooms: {game_state.shroom_chunks}", 
             True, (255, 255, 255)
         )
         screen.blit(state_text, (10, 10))
@@ -163,5 +195,6 @@ class WorldScene(Scene):
         
         # Enemy count
         enemy_count = len([e for e in self.enemies if e.is_alive])
-        enemy_text = self.font.render(f"Enemies: {enemy_count}", True, (255, 255, 255))
+        mushroom_count = len([m for m in self.mushrooms if not m.collected])
+        enemy_text = self.font.render(f"Enemies: {enemy_count} | Mushrooms: {mushroom_count}", True, (255, 255, 255))
         screen.blit(enemy_text, (10, 35))
