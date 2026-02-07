@@ -417,9 +417,6 @@ class WorldScene(Scene):
                 self.wave_in_transition = True
                 self.wave_transition_timer = self.time_between_waves
         
-        # Check scene transitions
-        self._check_transitions()
-        
         # Check for player death
         if not self.player.is_alive and self.player.is_animation_finished():
             if not self.show_death_dialog:

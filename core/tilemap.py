@@ -143,7 +143,7 @@ class TileMap:
     3. ysort - Objects that y-sort with entities (trees, rocks, bushes)
     """
     
-    LAYER_ORDER = ['ground', 'objects', 'ysort']
+    LAYER_ORDER = ['ground', 'decorations', 'objects', 'ysort']
     
     def __init__(self, width: int, height: int, tile_size: int = 16):
         """
