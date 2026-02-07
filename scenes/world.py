@@ -357,7 +357,7 @@ class WorldScene(Scene):
                             self.spells.remove(spell)
                         if spell in self.all_sprites:
                             self.all_sprites.remove(spell)
-                        break  # Spell can only hit one enemy
+                        break  # Spell can only hit one undine
     
     def _check_transitions(self):
         """Check if player entered a transition area."""
@@ -469,7 +469,7 @@ class WorldScene(Scene):
                 self._draw_health_bar(screen, enemy_screen_x, enemy_screen_y,
                                      enemy.health, enemy.max_health, width=30, height=4)
         
-        # Undine health bars (blue color)
+        # Undine health bars
         for undine in self.undine_manager.undines:
             if undine.alive and undine.health < undine.max_health:
                 undine_screen_x, undine_screen_y = self.camera.world_to_screen(
