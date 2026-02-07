@@ -16,7 +16,7 @@ class Game:
         
         # Display setup
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-        pygame.display.set_caption("Die Insel - Pygame")
+        pygame.display.set_caption("Spellcaster Academy")
         
         self.clock = pygame.time.Clock()
         self.running = True
