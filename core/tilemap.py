@@ -190,7 +190,7 @@ class TileMap:
         self.tileset_manager.load_tileset('water', 'water-sheet.png', 16)
         self.tileset_manager.load_tileset('decor16', 'decor_16x16.png', 16)
         self.tileset_manager.load_tileset('decor8', 'decor_8x8.png', 8)
-        self.tileset_manager.load_tileset('flooring', 'flooring.png', 16)
+        self.tileset_manager.load_tileset('flooring', 'floors/flooring.png', 16)
     
     def get_layer(self, name: str) -> Optional[TileMapLayer]:
         """Get a layer by name."""
