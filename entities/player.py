@@ -20,7 +20,6 @@ class Player(AnimatedSprite):
     # States
     STATE_IDLE = 'idle'
     STATE_WALKING = 'walking'
-    STATE_CASTING = 'casting'
     STATE_DEAD = 'dead'
     
     def __init__(self, x: float, y: float):
@@ -39,9 +38,6 @@ class Player(AnimatedSprite):
         self.spell_cooldown = 0.0
         self.spell_cooldown_duration = SPELL_COOLDOWN
         self.current_spell_index = 0
-        self.is_casting = False
-        self.cast_timer = 0.0
-        self.cast_duration = 0.3  # Brief casting animation
         
         # Health
         self.max_health = PLAYER_MAX_HEALTH
@@ -63,7 +59,7 @@ class Player(AnimatedSprite):
     
     def handle_input(self, keys):
         """Process keyboard input for movement."""
-        if self.state == self.STATE_DEAD or self.state == self.STATE_CASTING:
+        if self.state == self.STATE_DEAD:
             self.input_vector = pygame.Vector2(0, 0)
             return
         
@@ -87,16 +83,12 @@ class Player(AnimatedSprite):
     def handle_spell_input(self, key) -> SpellProjectile | None:
         """Handle spell casting input (spacebar). Returns a spell if cast."""
         if key == pygame.K_SPACE and self.state != self.STATE_DEAD:
-            if not self.is_casting and self.spell_cooldown <= 0:
+            if self.spell_cooldown <= 0:
                 return self.cast_spell()
         return None
     
     def cast_spell(self) -> SpellProjectile:
         """Cast the current spell and return the projectile."""
-        self.is_casting = True
-        self.cast_timer = self.cast_duration
-        self.state = self.STATE_CASTING
-        
         # Get current spell type and cycle to next
         spell_type = SPELL_TYPES[self.current_spell_index]
         self.current_spell_index = (self.current_spell_index + 1) % len(SPELL_TYPES)
@@ -111,11 +103,9 @@ class Player(AnimatedSprite):
         
         spell = SpellProjectile(spawn_x, spawn_y, spell_type, direction)
         
-        # Play casting animation (use attack animation)
-        anim_name = f'attack_{self.direction}'
-        self.play(anim_name, reset=True)
-        if anim_name in self.animations:
-            self.animations[anim_name].loop = False
+        # Set cooldown but don't change state or play animation
+        # The spell projectile is the visual feedback, not a player animation
+        self.spell_cooldown = self.spell_cooldown_duration
         
         return spell
     
@@ -137,16 +127,8 @@ class Player(AnimatedSprite):
         if self.spell_cooldown > 0:
             self.spell_cooldown -= dt
         
-        # Handle casting state
-        if self.is_casting:
-            self.cast_timer -= dt
-            if self.cast_timer <= 0:
-                self.is_casting = False
-                self.spell_cooldown = self.spell_cooldown_duration
-                self.state = self.STATE_IDLE
-        
-        # Update movement if not casting or dead
-        if self.state not in (self.STATE_CASTING, self.STATE_DEAD):
+        # Update movement if not dead
+        if self.state != self.STATE_DEAD:
             self._update_movement(dt)
         
         # Update health regeneration
@@ -198,10 +180,6 @@ class Player(AnimatedSprite):
             self.play('death')
             return
         
-        if self.state == self.STATE_CASTING:
-            # Casting animation is already set in cast_spell
-            return
-        
         if self.state == self.STATE_WALKING:
             anim_name = f'walk_{self.direction}'
         else:
@@ -238,8 +216,6 @@ class Player(AnimatedSprite):
         self.health = self.max_health
         self._alive = True
         self.state = self.STATE_IDLE
-        self.is_casting = False
-        self.cast_timer = 0.0
         self.spell_cooldown = 0.0
         self.play('idle_front', reset=True)
     
