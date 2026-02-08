@@ -12,28 +12,32 @@ from config.settings import SPRITES_DIR
 # Mappings based on actual objects.png tileset layout
 OBJECTS_REGIONS = {
     # === ENVIRONMENT (nature objects) ===
-    (0, 5): (3, 3, 15, True),      # tree_green (3x3, foot_offset=2)
-    (3, 5): (3, 3, 15, True),      # tree_apple (3x3, foot_offset=2)
+    (0, 5): (3, 4, 15, True),      # tree_green (3x4, foot_offset=2)
+    (3, 5): (3, 4, 15, True),      # tree_apple (3x4, foot_offset=2)
+    (0, 9): (3, 4, 15, True),      # tree_green_long (3x4, foot_offset=2)
+    (3, 9): (3, 4, 15, True),      # tree_apple_long (3x4, foot_offset=2)
     (6, 7): (2, 2, 15, True),      # bush_large (2x2, foot_offset=1)
-    (6, 5): (2, 1, 15, False),     # log_mushroom (2x1, no collision)
-    (6, 6): (2, 1, 15, False),     # log_hollow (2x1, no collision)
-    (6, 9): (3, 1, 15, False),     # log_long (3x1, no collision)
+    (6, 5): (2, 1, 15, True),      # log_mushroom (2x1)
+    (6, 6): (2, 1, 15, True),      # log_hollow (2x1)
+    (6, 9): (3, 1, 15, True),      # log_long (3x1)
+    (8, 6): (2, 3, 15, True),      # small_tree (2x3, foot_offset=1)
+    (10, 7): (2, 2, 15, True),     # trunk_large (2x2, foot_offset=1)
     
     # === PROPS (small objects) ===
     (0, 0): (1, 1, 15, True),      # signpost
-    (1, 0): (1, 1, 15, True),      # well_bucket
     (0, 1): (1, 1, 15, True),      # rock_medium
     (1, 1): (1, 1, 15, True),      # rock_small_a
     (2, 1): (1, 1, 15, True),      # rock_small_b
-    
-    # === FURNITURE (indoor objects) ===
-    (9, 0): (3, 2, 31, True),      # table_long (3x2, foot_offset=1)
-    (3, 1): (2, 1, 15, True),      # bench_wooden
-    (12, 2): (1, 2, 15, True),     # bed_red
-    (13, 2): (1, 2, 15, True),     # bookshelf
-    (10, 2): (1, 2, 15, True),     # plant_potted
+    (6, 0): (1, 1, 15, True),      # tombstone
+    (8, 0): (1, 1, 15, True),      # skull
+    (8, 1): (1, 1, 15, True),      # ditch
 }
 
+FENCES_REGIONS = {
+    (0, 0): (1, 3, 15, False),      # fence_vertical
+    (1, 3): (3, 1, 15, False),      # fence_horizontal
+    (0, 3): (1, 1, 15, False),      # singular_fence_post
+}
 
 class TileSet:
     """
