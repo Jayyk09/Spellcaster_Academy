@@ -118,14 +118,18 @@ class Lich(AnimatedSprite):
                 cls._letter_backdrop.fill((20, 40, 50, 200))
         return cls._letter_backdrop
 
-    def __init__(self, x: float, y: float, letter: str | None = None):
+    def __init__(self, x: float, y: float, letter: str | None = None,
+                 wave_letters: list[str] | None = None):
         super().__init__(x, y, LICH_SPRITE_CONFIG)
+
+        # Available letters for this wave (used to rotate letter on hit & for summoned skeletons)
+        self.wave_letters = wave_letters if wave_letters else ['A', 'B', 'C', 'D', 'E']
 
         # Letter assignment
         if letter is not None:
             self.letter = letter.upper()
         else:
-            self.letter = random.choice(['A', 'B', 'C', 'D', 'E'])
+            self.letter = random.choice(self.wave_letters)
         self._letter_surface = None
         self._render_letter_surface()
 
@@ -337,7 +341,7 @@ class Lich(AnimatedSprite):
             # Clamp to world bounds
             sx = max(32, min(WORLD_WIDTH - 32, sx))
             sy = max(32, min(WORLD_HEIGHT - 32, sy))
-            skeleton = Skeleton(sx, sy, letter=self.letter)
+            skeleton = Skeleton(sx, sy, letter=random.choice(self.wave_letters))
             skeleton.set_target(self.target)
             self.summoned_skeletons.append(skeleton)
             self.pending_skeletons.append(skeleton)
@@ -356,6 +360,14 @@ class Lich(AnimatedSprite):
             self.health = 0
             self.die()
         else:
+            # Change to a different letter on each hit
+            other_letters = [l for l in self.wave_letters if l != self.letter]
+            if other_letters:
+                self.letter = random.choice(other_letters)
+            else:
+                self.letter = random.choice(self.wave_letters)
+            self._render_letter_surface()
+
             self.state = self.STATE_HURT
             self._hurt_timer = self._hurt_duration
             self.play('hurt', reset=True)

@@ -369,7 +369,7 @@ class WorldScene(Scene):
         for _ in range(lich_count):
             x, y = self._get_random_spawn_position(region_index=wave_index)
             letter = random.choice(letters)
-            enemy = Lich(x, y, letter=letter)
+            enemy = Lich(x, y, letter=letter, wave_letters=letters)
             enemy.set_target(self.player)
             self.enemies.add(enemy)
             self.all_sprites.add(enemy)
@@ -506,16 +506,25 @@ class WorldScene(Scene):
             enemy.pos.x = max(enemy_margin, min(self.world_pixel_width - enemy_margin, enemy.pos.x))
             enemy.pos.y = max(enemy_margin, min(self.world_pixel_height - enemy_margin, enemy.pos.y))
 
-            # Clamp enemy to their spawn region
+            # Clamp enemy to their spawn region (only if the barrier into that region is still active)
             enemy_id = id(enemy)
             if enemy_id in self.enemy_region_map:
                 region_idx = self.enemy_region_map[enemy_id]
-                if region_idx < len(self.regions):
-                    region = self.regions[region_idx]
-                    enemy.pos.x = max(region['min_x'] + enemy_margin,
-                                      min(region['max_x'] - enemy_margin, enemy.pos.x))
-                    enemy.pos.y = max(region['min_y'] + enemy_margin,
-                                      min(region['max_y'] - enemy_margin, enemy.pos.y))
+                # The barrier at index (region_idx - 1) separates the previous region from this one.
+                # Only clamp if that barrier is still active (or if it's region 0 which has no prior barrier).
+                barrier_idx = region_idx - 1
+                barrier_still_active = (
+                    barrier_idx >= 0
+                    and barrier_idx < len(self.barriers)
+                    and self.barriers[barrier_idx]['active']
+                )
+                if barrier_still_active or region_idx == 0:
+                    if region_idx < len(self.regions):
+                        region = self.regions[region_idx]
+                        enemy.pos.x = max(region['min_x'] + enemy_margin,
+                                          min(region['max_x'] - enemy_margin, enemy.pos.x))
+                        enemy.pos.y = max(region['min_y'] + enemy_margin,
+                                          min(region['max_y'] - enemy_margin, enemy.pos.y))
 
             # Check tile collision for enemies
             if self._check_tile_collision(enemy):
