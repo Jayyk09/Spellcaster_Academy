@@ -323,6 +323,14 @@ class Player(AnimatedSprite):
             self.collision_radius * 2
         )
     
+    def get_hitbox(self) -> pygame.Rect:
+        """Get hitbox for combat collision detection (64x72)."""
+        return pygame.Rect(
+            self.pos.x - 32,
+            self.pos.y - 46,
+            64, 72
+        )
+    
     def get_current_spell_name(self) -> str:
         """Get the name of the next spell that will be cast."""
         return SPELL_TYPES[self.current_spell_index]

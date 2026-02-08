@@ -19,7 +19,7 @@ from config.settings import (
     TILE_SIZE, SCALE, WORLD_WIDTH, WORLD_HEIGHT,
     WORLD_WIDTH_TILES, WORLD_HEIGHT_TILES, CAMERA_DRAG_MARGIN,
     SPELL_DAMAGE, CAMERA_ENABLED, CAMERA_DEFAULT_SPELL,
-    SPELL_TYPES
+    SPELL_TYPES, DEBUG_SHOW_HITBOXES
 )
 
 
@@ -817,7 +817,7 @@ class WorldScene(Scene):
                 continue
             
             spell_hitbox = spell.get_hitbox()
-            player_hitbox = self.player.rect
+            player_hitbox = self.player.get_hitbox()
             
             if spell_hitbox.colliderect(player_hitbox):
                 if self.player.is_blocking:
@@ -843,18 +843,60 @@ class WorldScene(Scene):
                 if not bolt.is_alive:
                     continue
                 bolt_hitbox = bolt.get_hitbox()
-                player_hitbox = self.player.rect
+                player_hitbox = self.player.get_hitbox()
+                # First do broad phase AABB check
                 if bolt_hitbox.colliderect(player_hitbox):
-                    if self.player.is_blocking:
-                        bolt.destroy()
-                        if bolt in enemy.lightning_bolts:
-                            enemy.lightning_bolts.remove(bolt)
-                    else:
-                        self.player.take_damage(bolt.damage)
-                        bolt.destroy()
-                        if bolt in enemy.lightning_bolts:
-                            enemy.lightning_bolts.remove(bolt)
-                    break  # One bolt hit per frame
+                    # Then do precise rotated hitbox check
+                    if self._check_rotated_collision(bolt.get_hitbox_corners(), player_hitbox):
+                        if self.player.is_blocking:
+                            bolt.destroy()
+                            if bolt in enemy.lightning_bolts:
+                                enemy.lightning_bolts.remove(bolt)
+                        else:
+                            self.player.take_damage(bolt.damage)
+                            bolt.destroy()
+                            if bolt in enemy.lightning_bolts:
+                                enemy.lightning_bolts.remove(bolt)
+                        break  # One bolt hit per frame
+    
+    def _check_rotated_collision(self, polygon_corners: list[tuple[float, float]], rect: pygame.Rect) -> bool:
+        """Check if a rotated polygon collides with an axis-aligned rect using SAT."""
+        # Convert rect to corners
+        rect_corners = [
+            (rect.left, rect.top),
+            (rect.right, rect.top),
+            (rect.right, rect.bottom),
+            (rect.left, rect.bottom),
+        ]
+        
+        # Get axes to test (normals of all edges)
+        def get_axes(corners):
+            axes = []
+            for i in range(len(corners)):
+                p1 = corners[i]
+                p2 = corners[(i + 1) % len(corners)]
+                edge = (p2[0] - p1[0], p2[1] - p1[1])
+                # Normal (perpendicular)
+                normal = (-edge[1], edge[0])
+                # Normalize
+                length = (normal[0]**2 + normal[1]**2) ** 0.5
+                if length > 0:
+                    axes.append((normal[0] / length, normal[1] / length))
+            return axes
+        
+        def project(corners, axis):
+            dots = [c[0] * axis[0] + c[1] * axis[1] for c in corners]
+            return min(dots), max(dots)
+        
+        # Test all axes from both shapes
+        for axis in get_axes(polygon_corners) + get_axes(rect_corners):
+            min1, max1 = project(polygon_corners, axis)
+            min2, max2 = project(rect_corners, axis)
+            # Check for gap
+            if max1 < min2 or max2 < min1:
+                return False  # Separating axis found, no collision
+        
+        return True  # No separating axis, collision detected
 
     def _process_camera_input(self, dt: float):
         """Process camera input for ASL letter detection."""
@@ -1077,6 +1119,10 @@ class WorldScene(Scene):
         # Draw entity health bars (in screen space)
         self._draw_entity_health_bars(screen)
         
+        # Draw debug hitboxes if enabled
+        if DEBUG_SHOW_HITBOXES:
+            self._draw_debug_hitboxes(screen)
+        
         # Draw HUD (fixed to screen, not affected by camera)
         self.hud.draw(screen, self.player, game_state)
         
@@ -1171,6 +1217,57 @@ class WorldScene(Scene):
         pygame.draw.rect(surface, (80, 20, 20), (x - width/2, y, width, height))
         pygame.draw.rect(surface, (50, 180, 50), (x - width/2, y, width * health_ratio, height))
         pygame.draw.rect(surface, (40, 40, 40), (x - width/2, y, width, height), 1)
+    
+    def _draw_debug_hitboxes(self, screen: pygame.Surface):
+        """Draw hitboxes for debugging."""
+        # Player hitbox (green)
+        player_hitbox = self.player.get_hitbox()
+        screen_x, screen_y = self.camera.world_to_screen(player_hitbox.x, player_hitbox.y)
+        pygame.draw.rect(screen, (0, 255, 0), 
+                        (screen_x, screen_y, player_hitbox.width, player_hitbox.height), 2)
+        
+        # Enemy hitboxes (red)
+        for enemy in self.enemies:
+            if enemy.is_alive:
+                hitbox = enemy.get_hitbox()
+                screen_x, screen_y = self.camera.world_to_screen(hitbox.x, hitbox.y)
+                pygame.draw.rect(screen, (255, 0, 0), 
+                                (screen_x, screen_y, hitbox.width, hitbox.height), 2)
+                
+                # If lich, also draw lightning bolt hitboxes (yellow) - rotated polygon
+                if isinstance(enemy, Lich):
+                    for bolt in enemy.lightning_bolts:
+                        if bolt.is_alive:
+                            # Get rotated hitbox corners and convert to screen space
+                            world_corners = bolt.get_hitbox_corners()
+                            screen_corners = [
+                                self.camera.world_to_screen(wx, wy)
+                                for wx, wy in world_corners
+                            ]
+                            pygame.draw.polygon(screen, (255, 255, 0), screen_corners, 2)
+        
+        # Undine hitboxes (magenta)
+        for undine in self.undine_manager.undines:
+            if undine.alive:
+                screen_x, screen_y = self.camera.world_to_screen(undine.rect.x, undine.rect.y)
+                pygame.draw.rect(screen, (255, 0, 255), 
+                                (screen_x, screen_y, undine.rect.width, undine.rect.height), 2)
+        
+        # Undine spell hitboxes (cyan)
+        for spell in self.undine_manager.spells:
+            if spell.is_alive:
+                spell_hitbox = spell.get_hitbox()
+                screen_x, screen_y = self.camera.world_to_screen(spell_hitbox.x, spell_hitbox.y)
+                pygame.draw.rect(screen, (0, 255, 255), 
+                                (screen_x, screen_y, spell_hitbox.width, spell_hitbox.height), 2)
+        
+        # Player spell hitboxes (blue)
+        for sprite in self.all_sprites:
+            if isinstance(sprite, SpellProjectile) and sprite.is_alive:
+                spell_hitbox = sprite.get_hitbox()
+                screen_x, screen_y = self.camera.world_to_screen(spell_hitbox.x, spell_hitbox.y)
+                pygame.draw.rect(screen, (0, 100, 255), 
+                                (screen_x, screen_y, spell_hitbox.width, spell_hitbox.height), 2)
     
     def _draw_camera_startup_overlay(self, screen: pygame.Surface):
         """Draw overlay while waiting for camera to be ready."""

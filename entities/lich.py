@@ -67,12 +67,42 @@ class LichLightning(AnimatedSprite):
             self.rect = self.image.get_rect(center=(int(self.pos.x), int(self.pos.y)))
 
     def get_hitbox(self) -> pygame.Rect:
-        size = self.collision_radius * 2
-        return pygame.Rect(
-            self.pos.x - self.collision_radius,
-            self.pos.y - self.collision_radius,
-            size, size,
-        )
+        """Get axis-aligned bounding box (for broad phase collision)."""
+        # Return AABB that contains the rotated hitbox
+        corners = self.get_hitbox_corners()
+        xs = [c[0] for c in corners]
+        ys = [c[1] for c in corners]
+        min_x, max_x = min(xs), max(xs)
+        min_y, max_y = min(ys), max(ys)
+        return pygame.Rect(min_x, min_y, max_x - min_x, max_y - min_y)
+    
+    def get_hitbox_corners(self) -> list[tuple[float, float]]:
+        """Get the 4 corners of the rotated hitbox (64x10)."""
+        # Hitbox dimensions: 64 long x 10 tall
+        half_length = 32
+        half_height = 5
+        
+        # Rotation angle in radians (same as sprite rotation)
+        angle_rad = math.radians(-self.rotation_angle)
+        cos_a = math.cos(angle_rad)
+        sin_a = math.sin(angle_rad)
+        
+        # Local corners (unrotated, centered at origin)
+        local_corners = [
+            (-half_length, -half_height),
+            (half_length, -half_height),
+            (half_length, half_height),
+            (-half_length, half_height),
+        ]
+        
+        # Rotate and translate to world position
+        world_corners = []
+        for lx, ly in local_corners:
+            wx = self.pos.x + lx * cos_a - ly * sin_a
+            wy = self.pos.y + lx * sin_a + ly * cos_a
+            world_corners.append((wx, wy))
+        
+        return world_corners
 
     def destroy(self):
         self.alive = False
@@ -297,10 +327,10 @@ class Lich(AnimatedSprite):
             self._finish_attack()
             return
 
-        # Lightning attack: fire bolt halfway through animation
+        # Lightning attack: fire bolt at the end of the animation (full startup warning)
         if self.state == self.STATE_ATTACKING and not self._lightning_fired:
             total_frames = len(anim.frames)
-            if anim.current_frame >= total_frames // 2:
+            if anim.current_frame >= total_frames - 1:
                 self._fire_lightning()
                 self._lightning_fired = True
 
@@ -321,12 +351,21 @@ class Lich(AnimatedSprite):
     # ── Effects ─────────────────────────────────────────────────────────
 
     def _fire_lightning(self):
-        """Spawn a lightning bolt that fires rightward with a random diagonal angle."""
-        # Random vertical offset for diagonal shots (-30° to +30°)
-        angle_offset = random.uniform(-0.5, 0.5)  # roughly ±28 degrees in radians
-        direction = pygame.Vector2(1, angle_offset)
+        """Spawn a lightning bolt that fires toward the player's current position."""
+        if not self.target:
+            return
+        
+        # Calculate direction toward player
+        direction = pygame.Vector2(
+            self.target.pos.x - self.pos.x,
+            self.target.pos.y - self.pos.y
+        )
         if direction.length() > 0:
             direction = direction.normalize()
+        else:
+            # Fallback to rightward if somehow at same position
+            direction = pygame.Vector2(1, 0)
+        
         bolt = LichLightning(self.pos.x + 60, self.pos.y, direction)
         self.lightning_bolts.append(bolt)
 
