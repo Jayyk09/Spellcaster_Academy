@@ -555,7 +555,17 @@ class WorldScene(Scene):
         
         # Update undines
         self.undine_manager.update(dt, self.player)
-        
+
+        # Apply barrier collision to undines (keep them in their region)
+        if self.active_region_index < len(self.barriers):
+            barrier = self.barriers[self.active_region_index]
+            if barrier['active']:
+                for undine in self.undine_manager.undines:
+                    if undine.alive and undine.pos.y < barrier['y']:
+                        # Undine tried to cross barrier - push it back
+                        undine.pos.y = barrier['y']
+                        undine.direction.y = abs(undine.direction.y)  # Bounce downward
+
         # Check spell-undine combat
         self._check_spell_undine_combat()
         
