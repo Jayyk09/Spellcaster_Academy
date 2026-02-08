@@ -721,6 +721,7 @@ class WorldScene(Scene):
             if not self.show_death_dialog:
                 self.show_death_dialog = True
                 self.death_panel.show_death()
+                sound_manager.play_game_over()
     
     def _check_tile_collision(self, entity) -> bool:
         """
