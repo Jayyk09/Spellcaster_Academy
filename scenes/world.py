@@ -62,8 +62,8 @@ class WorldScene(Scene):
         start_y = player_spawn['y'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
         self.player = Player(start_x, start_y)
         
-        # Set camera to follow player
-        self.camera.set_target(self.player.pos)
+        # Set camera to follow player with velocity for directional offset
+        self.camera.set_target(self.player.pos, self.player.velocity)
         self.camera.center_on(self.player.pos.x, self.player.pos.y)
         
         # Initialize enemy groups (populated by wave system)
