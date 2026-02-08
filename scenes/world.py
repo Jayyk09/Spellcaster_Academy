@@ -878,7 +878,7 @@ class WorldScene(Scene):
         alpha = int(100 + pulse * 100)  # 100 to 200, very visible
 
         # Draw shiny gradient wall across entire screen
-        barrier_height = 32
+        barrier_height = 8
         screen_width = screen.get_width()
         barrier_surface = pygame.Surface((screen_width, barrier_height), pygame.SRCALPHA)
 
