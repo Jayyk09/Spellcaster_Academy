@@ -19,7 +19,7 @@ from config.settings import (
     TILE_SIZE, SCALE, WORLD_WIDTH, WORLD_HEIGHT,
     WORLD_WIDTH_TILES, WORLD_HEIGHT_TILES, CAMERA_DRAG_MARGIN,
     SPELL_DAMAGE, CAMERA_ENABLED, CAMERA_DEFAULT_SPELL,
-    SPELL_TYPES
+    SPELL_TYPES, DEBUG_SHOW_HITBOXES
 )
 
 
@@ -1077,6 +1077,10 @@ class WorldScene(Scene):
         # Draw entity health bars (in screen space)
         self._draw_entity_health_bars(screen)
         
+        # Draw debug hitboxes if enabled
+        if DEBUG_SHOW_HITBOXES:
+            self._draw_debug_hitboxes(screen)
+        
         # Draw HUD (fixed to screen, not affected by camera)
         self.hud.draw(screen, self.player, game_state)
         
@@ -1171,6 +1175,54 @@ class WorldScene(Scene):
         pygame.draw.rect(surface, (80, 20, 20), (x - width/2, y, width, height))
         pygame.draw.rect(surface, (50, 180, 50), (x - width/2, y, width * health_ratio, height))
         pygame.draw.rect(surface, (40, 40, 40), (x - width/2, y, width, height), 1)
+    
+    def _draw_debug_hitboxes(self, screen: pygame.Surface):
+        """Draw hitboxes for debugging."""
+        # Player hitbox (green)
+        player_hitbox = self.player.rect
+        screen_x, screen_y = self.camera.world_to_screen(player_hitbox.x, player_hitbox.y)
+        pygame.draw.rect(screen, (0, 255, 0), 
+                        (screen_x, screen_y, player_hitbox.width, player_hitbox.height), 2)
+        
+        # Enemy hitboxes (red)
+        for enemy in self.enemies:
+            if enemy.is_alive:
+                hitbox = enemy.get_hitbox()
+                screen_x, screen_y = self.camera.world_to_screen(hitbox.x, hitbox.y)
+                pygame.draw.rect(screen, (255, 0, 0), 
+                                (screen_x, screen_y, hitbox.width, hitbox.height), 2)
+                
+                # If lich, also draw lightning bolt hitboxes (yellow)
+                if isinstance(enemy, Lich):
+                    for bolt in enemy.lightning_bolts:
+                        if bolt.is_alive:
+                            bolt_hitbox = bolt.get_hitbox()
+                            bx, by = self.camera.world_to_screen(bolt_hitbox.x, bolt_hitbox.y)
+                            pygame.draw.rect(screen, (255, 255, 0), 
+                                            (bx, by, bolt_hitbox.width, bolt_hitbox.height), 2)
+        
+        # Undine hitboxes (magenta)
+        for undine in self.undine_manager.undines:
+            if undine.alive:
+                screen_x, screen_y = self.camera.world_to_screen(undine.rect.x, undine.rect.y)
+                pygame.draw.rect(screen, (255, 0, 255), 
+                                (screen_x, screen_y, undine.rect.width, undine.rect.height), 2)
+        
+        # Undine spell hitboxes (cyan)
+        for spell in self.undine_manager.spells:
+            if spell.is_alive:
+                spell_hitbox = spell.get_hitbox()
+                screen_x, screen_y = self.camera.world_to_screen(spell_hitbox.x, spell_hitbox.y)
+                pygame.draw.rect(screen, (0, 255, 255), 
+                                (screen_x, screen_y, spell_hitbox.width, spell_hitbox.height), 2)
+        
+        # Player spell hitboxes (blue)
+        for sprite in self.all_sprites:
+            if isinstance(sprite, SpellProjectile) and sprite.is_alive:
+                spell_hitbox = sprite.get_hitbox()
+                screen_x, screen_y = self.camera.world_to_screen(spell_hitbox.x, spell_hitbox.y)
+                pygame.draw.rect(screen, (0, 100, 255), 
+                                (screen_x, screen_y, spell_hitbox.width, spell_hitbox.height), 2)
     
     def _draw_camera_startup_overlay(self, screen: pygame.Surface):
         """Draw overlay while waiting for camera to be ready."""

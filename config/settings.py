@@ -1,6 +1,9 @@
 """Game configuration settings."""
 import os
 
+# Debug settings
+DEBUG_SHOW_HITBOXES = True  # Draw hitboxes for debugging
+
 # Paths
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ASSETS_DIR = os.path.join(BASE_DIR, 'assets')
@@ -196,7 +199,7 @@ SKELETON_SPRITE_CONFIG = {
 
 # Lich boss settings
 LICH_MAX_HEALTH = 5  # Takes 5 hits to kill
-LICH_X_OFFSET = 250  # Stay 250 pixels to the left of the player
+LICH_X_OFFSET = 312  # Stay ~312 pixels to the left of the player (25% further than before)
 LICH_SPEED_FACTOR = 0.6  # 60% of player speed
 LICH_ATTACK_COOLDOWN_MIN = 3.0  # Min seconds between attacks
 LICH_ATTACK_COOLDOWN_MAX = 5.0  # Max seconds between attacks

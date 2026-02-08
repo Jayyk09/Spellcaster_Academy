@@ -297,10 +297,10 @@ class Lich(AnimatedSprite):
             self._finish_attack()
             return
 
-        # Lightning attack: fire bolt halfway through animation
+        # Lightning attack: fire bolt at the end of the animation (full startup warning)
         if self.state == self.STATE_ATTACKING and not self._lightning_fired:
             total_frames = len(anim.frames)
-            if anim.current_frame >= total_frames // 2:
+            if anim.current_frame >= total_frames - 1:
                 self._fire_lightning()
                 self._lightning_fired = True
 
@@ -321,12 +321,21 @@ class Lich(AnimatedSprite):
     # ── Effects ─────────────────────────────────────────────────────────
 
     def _fire_lightning(self):
-        """Spawn a lightning bolt that fires rightward with a random diagonal angle."""
-        # Random vertical offset for diagonal shots (-30° to +30°)
-        angle_offset = random.uniform(-0.5, 0.5)  # roughly ±28 degrees in radians
-        direction = pygame.Vector2(1, angle_offset)
+        """Spawn a lightning bolt that fires toward the player's current position."""
+        if not self.target:
+            return
+        
+        # Calculate direction toward player
+        direction = pygame.Vector2(
+            self.target.pos.x - self.pos.x,
+            self.target.pos.y - self.pos.y
+        )
         if direction.length() > 0:
             direction = direction.normalize()
+        else:
+            # Fallback to rightward if somehow at same position
+            direction = pygame.Vector2(1, 0)
+        
         bolt = LichLightning(self.pos.x + 60, self.pos.y, direction)
         self.lightning_bolts.append(bolt)
 
