@@ -124,6 +124,59 @@ class DeathPanel(Panel):
         )
 
 
+class VictoryPanel(Panel):
+    """Panel shown when the player defeats the final wave."""
+
+    def __init__(self):
+        width, height = 380, 200
+        x = (SCREEN_WIDTH - width) // 2
+        y = (SCREEN_HEIGHT - height) // 2
+        super().__init__(x, y, width, height)
+        # Use a larger font for the title
+        try:
+            font_path = os.path.join(FONTS_DIR, 'Comicoro.ttf')
+            self.title_font = pygame.font.Font(font_path, 32)
+        except Exception:
+            self.title_font = pygame.font.Font(None, 36)
+
+    def show_victory(self):
+        """Show the victory screen."""
+        self.show(
+            title="Congratulations!",
+            message="You defeated the Lich and saved the Academy!",
+            options=["[N] New Game", "[Q] Quit to Menu"]
+        )
+
+    def draw(self, screen: pygame.Surface):
+        """Draw the victory panel with a golden title."""
+        if not self.visible:
+            return
+
+        # Draw background
+        pygame.draw.rect(screen, self.bg_color, self.rect)
+        pygame.draw.rect(screen, (200, 180, 80), self.rect, 3)  # Gold border
+
+        # Draw title in gold
+        if self.title:
+            title_surf = self.title_font.render(self.title, True, (255, 215, 0))
+            title_rect = title_surf.get_rect(centerx=self.rect.centerx, top=self.rect.top + 20)
+            screen.blit(title_surf, title_rect)
+
+        # Draw message
+        if self.message:
+            msg_surf = self.small_font.render(self.message, True, self.text_color)
+            msg_rect = msg_surf.get_rect(centerx=self.rect.centerx, top=self.rect.top + 70)
+            screen.blit(msg_surf, msg_rect)
+
+        # Draw options
+        if self.options:
+            option_y = self.rect.bottom - 50
+            for i, option in enumerate(self.options):
+                opt_surf = self.small_font.render(option, True, (180, 180, 100))
+                opt_rect = opt_surf.get_rect(centerx=self.rect.centerx, top=option_y - len(self.options) * 20 + i * 25)
+                screen.blit(opt_surf, opt_rect)
+
+
 class HUD:
     """Heads-up display with player stats."""
     

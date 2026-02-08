@@ -32,8 +32,8 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
 # Player settings
-PLAYER_SPEED = 100
-PLAYER_MAX_HEALTH = 1000
+PLAYER_SPEED = 120
+PLAYER_MAX_HEALTH = 100
 PLAYER_ATTACK_DAMAGE = 40
 PLAYER_ATTACK_DURATION = 0.8  # seconds
 PLAYER_HEALTH_REGEN = 5
@@ -67,21 +67,21 @@ PLAYER_SPRITE_CONFIG = {
             'frame_width': 270,
             'frame_height': 540,
             'row': 0, 'frames': 1, 'fps': 5,
-            'scale': 0.25
+            'scale': 0.3125
         },
         'walk_down': {
             'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'walking_down.png'),
             'frame_width': 270,
             'frame_height': 540,
             'row': 0, 'frames': 4, 'fps': 5,
-            'scale': 0.25
+            'scale': 0.3125
         },
         'walk_left': {
             'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'walking_right.png'),
             'frame_width': 270,
             'frame_height': 528,
             'row': 0, 'frames': 4, 'fps': 5,
-            'scale': 0.25,
+            'scale': 0.3125,
             'allow_flip': True
         },
         'walk_right': {
@@ -89,7 +89,7 @@ PLAYER_SPRITE_CONFIG = {
             'frame_width': 270,
             'frame_height': 528,
             'row': 0, 'frames': 4, 'fps': 5,
-            'scale': 0.25,
+            'scale': 0.3125,
             'allow_flip': True
         },
         'walk_up': {
@@ -97,21 +97,21 @@ PLAYER_SPRITE_CONFIG = {
             'frame_width': 270,
             'frame_height': 534,
             'row': 0, 'frames': 4, 'fps': 5,
-            'scale': 0.25
+            'scale': 0.3125
         },
         'cast_down': {
             'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'cast_down.png'),
             'frame_width': 270,
             'frame_height': 534,
             'row': 0, 'frames': 4, 'fps': 5,
-            'scale': 0.25
+            'scale': 0.3125
         },
         'cast_left': {
             'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'cast_right.png'),
             'frame_width': 280,
             'frame_height': 534,
             'row': 0, 'frames': 4, 'fps': 5,
-            'scale': 0.25,
+            'scale': 0.3125,
             'allow_flip': True
         },
         'cast_right': {
@@ -119,21 +119,21 @@ PLAYER_SPRITE_CONFIG = {
             'frame_width': 280,
             'frame_height': 534,
             'row': 0, 'frames': 4, 'fps': 5,
-            'scale': 0.25
+            'scale': 0.3125
         },
         'cast_up': {
             'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'walking_up.png'),
             'frame_width': 270,
             'frame_height': 534,
             'row': 0, 'frames': 4, 'fps': 5,
-            'scale': 0.25
+            'scale': 0.3125
         },
         'death': {
             'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'walking_down.png'),
             'frame_width': 270,
             'frame_height': 540,
             'row': 0, 'frames': 1, 'fps': 5,
-            'scale': 0.25,
+            'scale': 0.3125,
             'loop': False
         },
         'block': {
@@ -142,7 +142,7 @@ PLAYER_SPRITE_CONFIG = {
             'frame_height': 258,
             'row': 0, 'frames': 4, 'fps': 10,
             'rows': 2,  # 2 rows of 4 frames = 8 frames total
-            'scale': 0.39,
+            'scale': 0.4875,
             'loop': False,
             'frame_durations': [0.075, 0.075, 0.5, 0.5, 0.075, 0.075, 0.075, 0.075],
         },
@@ -154,19 +154,19 @@ SLIME_SPRITE_CONFIG = {
     'frame_width': 32,
     'frame_height': 32,
     'animations': {
-        'idle_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 0, 'frames': 4, 'fps': 5, 'scale': 2.0},
-        'idle_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 1, 'frames': 4, 'fps': 5, 'scale': 2.0},
-        'idle_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 2, 'frames': 4, 'fps': 5, 'scale': 2.0},
-        'walk_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 3, 'frames': 6, 'fps': 5, 'scale': 2.0},
-        'walk_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 4, 'frames': 6, 'fps': 5, 'scale': 2.0},
-        'walk_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 5, 'frames': 6, 'fps': 5, 'scale': 2.0},
-        'attack_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 6, 'frames': 4, 'fps': 8, 'scale': 2.0},
-        'attack_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 7, 'frames': 4, 'fps': 8, 'scale': 2.0},
-        'attack_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 8, 'frames': 4, 'fps': 8, 'scale': 2.0},
-        'damaged_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 9, 'frames': 3, 'fps': 8, 'scale': 2.0},
-        'damaged_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 10, 'frames': 3, 'fps': 8, 'scale': 2.0},
-        'damaged_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 11, 'frames': 3, 'fps': 8, 'scale': 2.0},
-        'death': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 12, 'frames': 5, 'fps': 5, 'scale': 2.0},
+        'idle_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 0, 'frames': 4, 'fps': 5, 'scale': 2.5},
+        'idle_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 1, 'frames': 4, 'fps': 5, 'scale': 2.5},
+        'idle_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 2, 'frames': 4, 'fps': 5, 'scale': 2.5},
+        'walk_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 3, 'frames': 6, 'fps': 5, 'scale': 2.5},
+        'walk_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 4, 'frames': 6, 'fps': 5, 'scale': 2.5},
+        'walk_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 5, 'frames': 6, 'fps': 5, 'scale': 2.5},
+        'attack_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 6, 'frames': 4, 'fps': 8, 'scale': 2.5},
+        'attack_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 7, 'frames': 4, 'fps': 8, 'scale': 2.5},
+        'attack_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 8, 'frames': 4, 'fps': 8, 'scale': 2.5},
+        'damaged_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 9, 'frames': 3, 'fps': 8, 'scale': 2.5},
+        'damaged_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 10, 'frames': 3, 'fps': 8, 'scale': 2.5},
+        'damaged_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 11, 'frames': 3, 'fps': 8, 'scale': 2.5},
+        'death': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 12, 'frames': 5, 'fps': 5, 'scale': 2.5},
     }
 }
 
@@ -176,19 +176,19 @@ SKELETON_SPRITE_CONFIG = {
     'frame_width': 48,
     'frame_height': 48,
     'animations': {
-        'idle_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 0, 'frames': 6, 'fps': 5, 'scale': 2.0},
-        'idle_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 1, 'frames': 6, 'fps': 5, 'scale': 2.0},
-        'idle_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 2, 'frames': 6, 'fps': 5, 'scale': 2.0},
-        'walk_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 3, 'frames': 6, 'fps': 5, 'scale': 2.0},
-        'walk_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 4, 'frames': 6, 'fps': 5, 'scale': 2.0},
-        'walk_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 5, 'frames': 6, 'fps': 5, 'scale': 2.0},
-        'attack_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 6, 'frames': 4, 'fps': 8, 'scale': 2.0},
-        'attack_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 7, 'frames': 4, 'fps': 8, 'scale': 2.0},
-        'attack_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 8, 'frames': 4, 'fps': 8, 'scale': 2.0},
-        'damaged_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 9, 'frames': 3, 'fps': 8, 'scale': 2.0},
-        'damaged_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 10, 'frames': 3, 'fps': 8, 'scale': 2.0},
-        'damaged_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 11, 'frames': 3, 'fps': 8, 'scale': 2.0},
-        'death': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 12, 'frames': 5, 'fps': 5, 'scale': 2.0},
+        'idle_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 0, 'frames': 6, 'fps': 5, 'scale': 2.5},
+        'idle_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 1, 'frames': 6, 'fps': 5, 'scale': 2.5},
+        'idle_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 2, 'frames': 6, 'fps': 5, 'scale': 2.5},
+        'walk_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 3, 'frames': 6, 'fps': 5, 'scale': 2.5},
+        'walk_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 4, 'frames': 6, 'fps': 5, 'scale': 2.5},
+        'walk_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 5, 'frames': 6, 'fps': 5, 'scale': 2.5},
+        'attack_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 6, 'frames': 4, 'fps': 8, 'scale': 2.5},
+        'attack_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 7, 'frames': 4, 'fps': 8, 'scale': 2.5},
+        'attack_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 8, 'frames': 4, 'fps': 8, 'scale': 2.5},
+        'damaged_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 9, 'frames': 3, 'fps': 8, 'scale': 2.5},
+        'damaged_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 10, 'frames': 3, 'fps': 8, 'scale': 2.5},
+        'damaged_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 11, 'frames': 3, 'fps': 8, 'scale': 2.5},
+        'death': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 12, 'frames': 5, 'fps': 5, 'scale': 2.5},
     }
 }
 
@@ -215,7 +215,7 @@ LICH_SPRITE_CONFIG = {
             'path': os.path.join(_LICH_DIR, 'Lich_magenta_idle.png'),
             'frame_width': 176, 'frame_height': 128,
             'row': 0, 'frames': 8, 'rows': 2, 'fps': 8,
-            'scale': 1.5,
+            'scale': 1.875,
         },
         # Casting (summon skeletons): 4 rows; rows 0-2 have 7 valid frames, row 3 has 8
         # We load all 8 per row (32 total) and skip blank frames in code
@@ -223,47 +223,47 @@ LICH_SPRITE_CONFIG = {
             'path': os.path.join(_LICH_DIR, 'Lich_magenta_casting.png'),
             'frame_width': 176, 'frame_height': 128,
             'row': 0, 'frames': 8, 'rows': 4, 'fps': 12,
-            'scale': 1.5, 'loop': False,
+            'scale': 1.875, 'loop': False,
         },
         # Third attack (lightning): 2 rows x 8 cols = 16 frames
         'third_attack': {
             'path': os.path.join(_LICH_DIR, 'Lich_magenta_third_attack.png'),
             'frame_width': 176, 'frame_height': 128,
             'row': 0, 'frames': 8, 'rows': 2, 'fps': 12,
-            'scale': 1.5, 'loop': False,
+            'scale': 1.875, 'loop': False,
         },
         # Long spin attack (block/defense): 4 rows x 8 cols = 32 frames
         'long_spin_attack': {
             'path': os.path.join(_LICH_DIR, 'Lich_magenta_long_spin_attack.png'),
             'frame_width': 176, 'frame_height': 128,
             'row': 0, 'frames': 8, 'rows': 4, 'fps': 12,
-            'scale': 1.5, 'loop': False,
+            'scale': 1.875, 'loop': False,
         },
         'long_spin_ghosts': {
             'path': os.path.join(_LICH_DIR, 'Lich_magenta_long_spin_with_ghosts_attack.png'),
             'frame_width': 176, 'frame_height': 128,
             'row': 0, 'frames': 8, 'rows': 4, 'fps': 12,
-            'scale': 1.5, 'loop': False,
+            'scale': 1.875, 'loop': False,
         },
         'long_spin_symbols': {
             'path': os.path.join(_LICH_DIR, 'Lich_magenta_long_spin_with_symbols_attack.png'),
             'frame_width': 176, 'frame_height': 128,
             'row': 0, 'frames': 8, 'rows': 4, 'fps': 12,
-            'scale': 1.5, 'loop': False,
+            'scale': 1.875, 'loop': False,
         },
         # Hurt: 1 row x 2 cols = 2 frames
         'hurt': {
             'path': os.path.join(_LICH_DIR, 'Lich_magenta_hurt.png'),
             'frame_width': 176, 'frame_height': 128,
             'row': 0, 'frames': 2, 'fps': 6,
-            'scale': 1.5, 'loop': False,
+            'scale': 1.875, 'loop': False,
         },
         # Death: 2 rows x 6 cols = 12 frames
         'death': {
             'path': os.path.join(_LICH_DIR, 'Lich_magenta_death.png'),
             'frame_width': 176, 'frame_height': 128,
             'row': 0, 'frames': 6, 'rows': 2, 'fps': 8,
-            'scale': 1.5, 'loop': False,
+            'scale': 1.875, 'loop': False,
         },
     }
 }
@@ -278,7 +278,7 @@ LICH_LIGHTNING_CONFIG = {
             'path': os.path.join(_LICH_LIGHTNING_DIR, 'Lightning_magenta-Sheet.png'),
             'frame_width': 32, 'frame_height': 32,
             'row': 0, 'frames': 8, 'rows': 5, 'fps': 14,
-            'scale': 2.0,
+            'scale': 2.5,
         },
     }
 }
@@ -318,14 +318,14 @@ NPC_SPRITE_CONFIG = {
     'path': os.path.join(SPRITES_DIR, 'characters', 'mage_guardian.png'),
     'frame_width': 64,
     'frame_height': 64,
-    'scale': 2.0,
+    'scale': 2.5,
     'animations': {
         'idle': {
             'row': 0, 'frames': 14, 'fps': 8,
             'path': os.path.join(SPRITES_DIR, 'characters', 'mage_guardian.png'),
             'frame_width': 64,
             'frame_height': 64,
-            'scale': 2.0,
+            'scale': 2.5,
         },
     }
 }
