@@ -137,6 +137,16 @@ PLAYER_SPRITE_CONFIG = {
             'scale': 0.25,
             'loop': False
         },
+        'block': {
+            'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'block.png'),
+            'frame_width': 270,
+            'frame_height': 258,
+            'row': 0, 'frames': 4, 'fps': 10,
+            'rows': 2,  # 2 rows of 4 frames = 8 frames total
+            'scale': 0.39,
+            'loop': False,
+            'frame_durations': [0.075, 0.075, 0.5, 0.5, 0.075, 0.075, 0.075, 0.075],
+        },
     }
 }
 
