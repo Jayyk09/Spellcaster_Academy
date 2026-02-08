@@ -311,3 +311,21 @@ CAMERA_HOLD_TIME = 0.5          # Seconds to hold a letter before it fires
 CAMERA_CONFIDENCE = 0.8         # Minimum confidence for hand detection
 CAMERA_DEFAULT_SPELL = 'arcane' # Spell type used for camera-triggered spells
 CAMERA_SHOW_PREVIEW = True      # Show camera preview window for debugging
+
+# NPC settings
+NPC_INTERACTION_RADIUS = 80     # pixels - auto-show panel when player is within this distance
+NPC_SPRITE_CONFIG = {
+    'path': os.path.join(SPRITES_DIR, 'characters', 'mage_guardian.png'),
+    'frame_width': 64,
+    'frame_height': 64,
+    'scale': 2.0,
+    'animations': {
+        'idle': {
+            'row': 0, 'frames': 14, 'fps': 8,
+            'path': os.path.join(SPRITES_DIR, 'characters', 'mage_guardian.png'),
+            'frame_width': 64,
+            'frame_height': 64,
+            'scale': 2.0,
+        },
+    }
+}

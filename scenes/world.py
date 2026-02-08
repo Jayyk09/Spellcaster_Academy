@@ -6,13 +6,14 @@ import json
 import random
 from core.scene import Scene
 from core.game_state import game_state
-from core.ui import HUD, DeathPanel, HealthBar, CameraLetterDisplay, WaveDisplay, ASLPopup
+from core.ui import HUD, DeathPanel, HealthBar, CameraLetterDisplay, WaveDisplay, ASLPopup, SignReferencePanel
 from core.camera import Camera
 from core.map_loader import load_map_data, create_tilemap_from_data, get_spawn_points
 from entities.player import Player
 from entities.enemy import Slime, Skeleton, find_closest_enemy_by_letter
 from entities.undine import UndineManager
 from entities.spell import SpellProjectile
+from entities.npc import MageGuardian
 from config.settings import (
     SCREEN_WIDTH, SCREEN_HEIGHT, SPRITES_DIR,
     TILE_SIZE, SCALE, WORLD_WIDTH, WORLD_HEIGHT,
@@ -130,6 +131,16 @@ class WorldScene(Scene):
         
         # Spell type cycling - rotate through spell types each cast
         self._spell_type_index = 0
+        
+        # NPC - Mage Guardian
+        npc_spawn = spawn_points.get('npc_start', {'x': 35, 'y': 25})
+        npc_x = npc_spawn['x'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
+        npc_y = npc_spawn['y'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
+        self.npc = MageGuardian(npc_x, npc_y)
+        self.all_sprites.add(self.npc)
+        
+        # Sign reference panel (shown when near NPC)
+        self.sign_panel = SignReferencePanel()
     
     def _render_scaled_background(self):
         """Pre-render and scale the tilemap background."""
@@ -192,7 +203,7 @@ class WorldScene(Scene):
                 'waves': [
                     {
                         'wave_number': 1,
-                        'letters': ['A', 'B', 'C', 'D', 'E'],
+                        'letters': ['A', 'C', 'D', 'E'],
                         'enemies': {'slime': 2, 'skeleton': 1, 'undine': 1}
                     }
                 ],
@@ -295,7 +306,7 @@ class WorldScene(Scene):
         y = (min_y + max_y) // 2
         return (x, y)
     
-    def _show_asl_popup_for_letters(self, letters: list[str]):
+    def _show_asl_popup_for_letters(self, letters: list[str], subtitle: str = ""):
         """Show ASL popup for new letters that haven't been learned yet."""
         # Filter to only letters A-F that are in our sprites
         valid_letters = [l.upper() for l in letters if l.upper() in ['A', 'B', 'C', 'D', 'E', 'F']]
@@ -307,7 +318,7 @@ class WorldScene(Scene):
             # Add new letters to learned set
             self._letters_learned.update(new_letters)
             # Show popup with only the NEW letters
-            self.asl_popup.show(new_letters)
+            self.asl_popup.show(new_letters, subtitle)
             self._showing_asl_popup = True
             return True
         
@@ -386,10 +397,16 @@ class WorldScene(Scene):
         
         # Check if there are new letters to learn
         wave_data = self._get_wave_data(self.current_wave_index)
-        letters = wave_data.get('letters', [])
         
-        # Show ASL popup for new letters before spawning
-        showing_popup = self._show_asl_popup_for_letters(letters)
+        # Before wave 2, prepend B (block) so it shows as B, C in the popup
+        if self.current_wave_index == 1:
+            letters = ['B'] + wave_data.get('letters', [])
+            showing_popup = self._show_asl_popup_for_letters(
+                letters, "Sign B to Block!"
+            )
+        else:
+            letters = wave_data.get('letters', [])
+            showing_popup = self._show_asl_popup_for_letters(letters)
         
         # Only spawn if popup is not showing (otherwise wait for ready)
         if not showing_popup:
@@ -426,9 +443,6 @@ class WorldScene(Scene):
             
             if event.key == pygame.K_ESCAPE:
                 self.next_scene = 'menu'
-            
-            # Block (spacebar)
-            self.player.handle_block_input(event.key)
             
             # Debug: respawn
             if event.key == pygame.K_r and self.map_data:
@@ -564,6 +578,21 @@ class WorldScene(Scene):
         
         # Check lich lightning collisions with player
         self._check_lich_lightning_player_combat()
+        
+        # Update NPC and sign reference panel
+        self.npc.update(dt, self.player)
+        if self.npc.is_player_nearby():
+            # Build list of all active letters (learned so far + B for block if wave >= 2)
+            active_letters = sorted(self._letters_learned)
+            labels = {}
+            if self.current_wave_index >= 1 and 'B' not in active_letters:
+                active_letters = sorted(active_letters | {'B'})
+            if 'B' in active_letters:
+                labels['B'] = 'Block'
+            self.sign_panel.set_letters(active_letters, labels)
+            self.sign_panel.show()
+        else:
+            self.sign_panel.hide()
         
         # Mushrooms disabled - sprite removed
         
@@ -783,9 +812,16 @@ class WorldScene(Scene):
         """
         Handle a confirmed letter from camera input.
         
-        Finds the closest enemy with matching letter and fires a spell at it.
+        'B' is reserved for blocking (unlocked from wave 2 onward).
+        All other letters find the closest enemy and fire a spell at it.
         """
         if not self.player.is_alive:
+            return
+        
+        # B is always the block command (unlocked at wave 2)
+        if letter.upper() == 'B':
+            if self.current_wave_index >= 1:  # wave 2 = index 1
+                self.player.start_block()
             return
         
         # Find closest enemy with matching letter
@@ -1020,6 +1056,9 @@ class WorldScene(Scene):
         # ASL Popup (shown over everything else)
         if self._showing_asl_popup:
             self.asl_popup.draw(screen)
+        
+        # Sign reference panel (NPC interaction)
+        self.sign_panel.draw(screen)
     
     def _draw_entity_health_bars(self, screen):
         """Draw health bars and letters above entities (in screen space)."""
