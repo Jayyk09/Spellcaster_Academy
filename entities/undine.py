@@ -129,8 +129,8 @@ class Undine:
     def update(self, dt, player=None, other_undines=None):
         """
         Update undine position and behavior.
-        Flies through obstacles but cannot overlap with other undines.
         Keeps distance from player and casts spells.
+        Note: Collision detection is handled by the world scene.
         
         Args:
             dt: Delta time in seconds
@@ -192,7 +192,7 @@ class Undine:
                 self._choose_random_direction()
                 self.wander_timer = 0
         
-        # Calculate movement - no collision detection, flies through everything
+        # Calculate movement
         if self.direction.length() > 0:
             # Move faster when chasing
             current_speed = self.speed * 1.5 if self.is_chasing else self.speed
@@ -200,10 +200,6 @@ class Undine:
             
             self.pos.x += movement.x
             self.pos.y += movement.y
-        
-        # Keep undine on screen (screen boundaries act as walls)
-        self.pos.x = max(self.rect.width / 2, min(self.screen_width - self.rect.width / 2, self.pos.x))
-        self.pos.y = max(self.rect.height / 2, min(self.screen_height - self.rect.height / 2, self.pos.y))
         
         self.rect.center = self.pos
         
@@ -341,30 +337,42 @@ class UndineManager:
             letter = random.choice(letters) if letters else None
             self.spawn_undine(x, y, letter=letter)
     
-    def spawn_near(self, count=1, center_x=0, center_y=0, radius=200, letters: list[str] | None = None):
+    def spawn_near(self, count=1, center_x=0, center_y=0, radius=200, letters: list[str] | None = None, region_bounds: dict | None = None):
         """
-        Spawn undines near a specific position.
-        
+        Spawn undines near a specific position within optional region bounds.
+
         Args:
             count: Number of undines to spawn
             center_x: Center x position
-            center_y: Center y position  
+            center_y: Center y position
             radius: Maximum distance from center
             letters: Optional list of letters to assign (randomly picked from pool)
+            region_bounds: Optional dict with 'min_x', 'max_x', 'min_y', 'max_y' to constrain spawn
         """
+        spawned = []
         for _ in range(count):
             # Random position within radius of center
             angle = random.uniform(0, 2 * 3.14159)
             dist = random.uniform(50, radius)
             x = center_x + math.cos(angle) * dist
             y = center_y + math.sin(angle) * dist
-            
-            # Clamp to screen bounds
-            x = max(50, min(self.screen_width - 50, x))
-            y = max(50, min(self.screen_height - 50, y))
-            
+
+            # Clamp to region bounds if provided
+            if region_bounds:
+                margin = 50
+                x = max(region_bounds['min_x'] + margin, min(region_bounds['max_x'] - margin, x))
+                y = max(region_bounds['min_y'] + margin, min(region_bounds['max_y'] - margin, y))
+            else:
+                # Clamp to screen bounds
+                x = max(50, min(self.screen_width - 50, x))
+                y = max(50, min(self.screen_height - 50, y))
+
             letter = random.choice(letters) if letters else None
-            self.spawn_undine(x, y, letter=letter)
+            undine = self.spawn_undine(x, y, letter=letter)
+            if undine:
+                spawned.append(undine)
+
+        return spawned
     
     def update(self, dt, player=None):
         """Update all undines and their spells. They collide with each other but fly through obstacles."""

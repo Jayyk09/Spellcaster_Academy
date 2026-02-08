@@ -359,21 +359,11 @@ class WorldScene(Scene):
 
         # Spawn undines within region
         undine_count = enemies_config.get('undine', 0)
-        if undine_count > 0 and wave_index < len(self.regions):
-            region = self.regions[wave_index]
-            center_x = (region['min_x'] + region['max_x']) / 2
-            center_y = (region['min_y'] + region['max_y']) / 2
-            undines = self.undine_manager.spawn_near(
-                undine_count,
-                center_x=center_x,
-                center_y=center_y,
-                radius=100,
-                letters=letters
-            )
-            # Track undine regions (if undine_manager supports returning spawned undines)
-            for undine in undines if undines else []:
-                if hasattr(undine, '_region_index'):
-                    undine._region_index = wave_index
+        for _ in range(undine_count):
+            x, y = self._get_random_spawn_position(region_index=wave_index)
+            letter = random.choice(letters)
+            undine = self.undine_manager.spawn_undine(x, y, letter=letter)
+            undine._region_index = wave_index
 
         lich_count = enemies_config.get('lich', 0)
         for _ in range(lich_count):
@@ -554,7 +544,39 @@ class WorldScene(Scene):
         self._check_spell_combat()
         
         # Update undines
+        for undine in self.undine_manager.undines:
+            old_undine_pos = pygame.Vector2(undine.pos)
+            
         self.undine_manager.update(dt, self.player)
+        
+        # Apply collision and region clamping to undines
+        for undine in self.undine_manager.undines:
+            if not undine.alive:
+                continue
+            
+            old_undine_pos = pygame.Vector2(undine.pos)
+            
+            # Clamp undine to world bounds
+            undine_margin = 32  # Half of undine size
+            undine.pos.x = max(undine_margin, min(self.world_pixel_width - undine_margin, undine.pos.x))
+            undine.pos.y = max(undine_margin, min(self.world_pixel_height - undine_margin, undine.pos.y))
+            
+            # Clamp undine to their spawn region
+            if hasattr(undine, '_region_index'):
+                region_idx = undine._region_index
+                if region_idx < len(self.regions):
+                    region = self.regions[region_idx]
+                    undine.pos.x = max(region['min_x'] + undine_margin,
+                                      min(region['max_x'] - undine_margin, undine.pos.x))
+                    undine.pos.y = max(region['min_y'] + undine_margin,
+                                      min(region['max_y'] - undine_margin, undine.pos.y))
+            
+            # Check tile collision for undines (same as other enemies)
+            if self._check_tile_collision(undine):
+                undine.pos.x = old_undine_pos.x
+                undine.pos.y = old_undine_pos.y
+            
+            undine.rect.center = undine.pos
 
         # Apply barrier collision to undines (keep them in their region)
         if self.active_region_index < len(self.barriers):
@@ -565,6 +587,7 @@ class WorldScene(Scene):
                         # Undine tried to cross barrier - push it back
                         undine.pos.y = barrier['y']
                         undine.direction.y = abs(undine.direction.y)  # Bounce downward
+                        undine.rect.center = undine.pos
 
         # Check spell-undine combat
         self._check_spell_undine_combat()
