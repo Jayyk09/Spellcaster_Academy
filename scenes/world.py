@@ -91,7 +91,7 @@ class WorldScene(Scene):
         self.active_region_index = 0
         self.region_cleared = [False] * len(self.regions)
         self.wave_cleared_timer = 0.0  # Timer for "Wave Cleared!" notification
-        self.wave_cleared_duration = 3.0  # Show notification for 3 seconds
+        self.wave_cleared_duration = 5.0  # Show countdown for 5 seconds before barrier drops
 
         # Track which enemies belong to which region (for clamping)
         self.enemy_region_map = {}  # enemy id -> region_index
@@ -431,13 +431,8 @@ class WorldScene(Scene):
             
             # Handle death dialog input
             if self.show_death_dialog:
-                if event.key == pygame.K_y and game_state.game_has_savegame:
-                    # Load save and restart world
-                    game_state.load_game()
-                    self.next_scene = 'world'
-                elif event.key == pygame.K_n:
-                    # Quit to menu
-                    self.next_scene = 'menu'
+                # Quit to menu
+                self.next_scene = 'menu'
                 return
             
             
@@ -586,7 +581,7 @@ class WorldScene(Scene):
             active_letters = sorted(self._letters_learned)
             labels = {}
             if self.current_wave_index >= 1 and 'B' not in active_letters:
-                active_letters = sorted(active_letters | {'B'})
+                active_letters = sorted(set(active_letters) | {'B'})
             if 'B' in active_letters:
                 labels['B'] = 'Block'
             self.sign_panel.set_letters(active_letters, labels)
@@ -608,13 +603,20 @@ class WorldScene(Scene):
                 # Mark region as cleared
                 self.region_cleared[self.active_region_index] = True
                 self.wave_cleared_timer = self.wave_cleared_duration
-                # Deactivate barrier for this region (if any)
-                if self.active_region_index < len(self.barriers):
-                    self.barriers[self.active_region_index]['active'] = False
+                # Barrier stays active until countdown finishes
         else:
             # Decrement wave cleared notification timer
             if self.wave_cleared_timer > 0:
                 self.wave_cleared_timer -= dt
+                # Drop the barrier and start next wave when countdown reaches zero
+                if self.wave_cleared_timer <= 0:
+                    self.wave_cleared_timer = 0
+                    if self.active_region_index < len(self.barriers):
+                        self.barriers[self.active_region_index]['active'] = False
+                    # Advance to the next region and spawn the next wave automatically
+                    if self.active_region_index < len(self.regions) - 1:
+                        self.active_region_index += 1
+                        self._start_next_wave()
 
         # Check barrier collision for player (only the current active barrier)
         if self.active_region_index < len(self.barriers):
@@ -629,26 +631,25 @@ class WorldScene(Scene):
                     # Block the player at the barrier line
                     self.player.pos.y = barrier_y
 
-        # Check if player crossed into next region
+        # Check if player crossed into next region (update region tracking only, wave already spawned)
         if self.active_region_index < len(self.regions) - 1:
             next_region = self.regions[self.active_region_index + 1]
             if self.player.pos.y < next_region['max_y']:
-                # Player entered next region
-                self.active_region_index += 1
-                self.current_wave_index += 1
-                # Show ASL popup for new letters
-                wave_data = self._get_wave_data(self.current_wave_index)
-                letters = wave_data.get('letters', [])
-                showing_popup = self._show_asl_popup_for_letters(letters)
-                # Only spawn if popup is not showing
-                if not showing_popup:
-                    self._spawn_wave(self.current_wave_index)
+                # Player entered next region — if wave wasn't spawned yet, do it now
+                if not self.region_cleared[self.active_region_index]:
+                    self.active_region_index += 1
+                    self.current_wave_index += 1
+                    wave_data = self._get_wave_data(self.current_wave_index)
+                    letters = wave_data.get('letters', [])
+                    showing_popup = self._show_asl_popup_for_letters(letters)
+                    if not showing_popup:
+                        self._spawn_wave(self.current_wave_index)
         
         # Check for player death
         if not self.player.is_alive and self.player.is_animation_finished():
             if not self.show_death_dialog:
                 self.show_death_dialog = True
-                self.death_panel.show_death(game_state.game_has_savegame)
+                self.death_panel.show_death()
     
     def _check_tile_collision(self, entity) -> bool:
         """
@@ -1020,7 +1021,8 @@ class WorldScene(Scene):
         self.wave_display.draw(
             screen,
             self._get_current_wave_number(),
-            wave_cleared_notification
+            wave_cleared_notification,
+            self.wave_cleared_timer
         )
         
         # Controls

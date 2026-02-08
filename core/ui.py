@@ -114,17 +114,13 @@ class DeathPanel(Panel):
         y = (SCREEN_HEIGHT - height) // 2
         super().__init__(x, y, width, height)
     
-    def show_death(self, has_save: bool = False):
+    def show_death(self):
         """Show death dialog."""
-        if has_save:
-            options = ["[Y] Load Last Save", "[N] Quit to Menu"]
-        else:
-            options = ["[N] Quit to Menu"]
         
         self.show(
             title="You Died",
             message="Your spirit lingers...",
-            options=options
+            options=["[N] Quit to Menu"]
         )
 
 
@@ -539,7 +535,7 @@ class WaveDisplay:
             self.countdown_font = pygame.font.Font(None, 24)
     
     def draw(self, screen: pygame.Surface, current_wave: int,
-             wave_cleared: bool = False):
+             wave_cleared: bool = False, countdown: float = 0.0):
         """
         Draw the wave display.
 
@@ -547,6 +543,7 @@ class WaveDisplay:
             screen: Surface to draw on
             current_wave: Current wave number (1-indexed)
             wave_cleared: Whether to show "Wave Cleared!" notification
+            countdown: Seconds remaining before barrier drops
         """
         # Draw wave number
         wave_text = f"Wave {current_wave}"
@@ -558,8 +555,8 @@ class WaveDisplay:
         panel_height = wave_surf.get_height() + 10
 
         if wave_cleared:
-            # Larger panel for cleared message
-            panel_height += 40
+            # Larger panel for cleared message + countdown below
+            panel_height += 80
             panel_width = max(panel_width, 280)
 
         panel_rect = pygame.Rect(
@@ -594,7 +591,7 @@ class WaveDisplay:
             countdown_int = int(countdown) + 1  # Show ceiling value (5, 4, 3, 2, 1)
             countdown_text = f"Next wave in {countdown_int}..."
             countdown_surf = self.countdown_font.render(countdown_text, True, self.countdown_color)
-            countdown_rect = countdown_surf.get_rect(centerx=self.x, top=complete_rect.bottom + 3)
+            countdown_rect = countdown_surf.get_rect(centerx=self.x, top=path_rect.bottom + 3)
             screen.blit(countdown_surf, countdown_rect)
 
 
