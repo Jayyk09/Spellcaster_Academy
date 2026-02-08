@@ -31,10 +31,10 @@
 				"C"
 			],
 			"enemies": {
-				"slime": 0,
+				"slime": 2,
 				"skeleton": 0,
-				"undine": 0,
-				"lich": 1
+				"undine": 1,
+				"lich": 0
 			}
 		},
 		{

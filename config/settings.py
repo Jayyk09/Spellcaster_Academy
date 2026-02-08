@@ -2,7 +2,7 @@
 import os
 
 # Debug settings
-DEBUG_SHOW_HITBOXES = True  # Draw hitboxes for debugging
+DEBUG_SHOW_HITBOXES = False# Draw hitboxes for debugging
 
 # Paths
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

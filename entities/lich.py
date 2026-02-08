@@ -67,12 +67,42 @@ class LichLightning(AnimatedSprite):
             self.rect = self.image.get_rect(center=(int(self.pos.x), int(self.pos.y)))
 
     def get_hitbox(self) -> pygame.Rect:
-        size = self.collision_radius * 2
-        return pygame.Rect(
-            self.pos.x - self.collision_radius,
-            self.pos.y - self.collision_radius,
-            size, size,
-        )
+        """Get axis-aligned bounding box (for broad phase collision)."""
+        # Return AABB that contains the rotated hitbox
+        corners = self.get_hitbox_corners()
+        xs = [c[0] for c in corners]
+        ys = [c[1] for c in corners]
+        min_x, max_x = min(xs), max(xs)
+        min_y, max_y = min(ys), max(ys)
+        return pygame.Rect(min_x, min_y, max_x - min_x, max_y - min_y)
+    
+    def get_hitbox_corners(self) -> list[tuple[float, float]]:
+        """Get the 4 corners of the rotated hitbox (64x10)."""
+        # Hitbox dimensions: 64 long x 10 tall
+        half_length = 32
+        half_height = 5
+        
+        # Rotation angle in radians (same as sprite rotation)
+        angle_rad = math.radians(-self.rotation_angle)
+        cos_a = math.cos(angle_rad)
+        sin_a = math.sin(angle_rad)
+        
+        # Local corners (unrotated, centered at origin)
+        local_corners = [
+            (-half_length, -half_height),
+            (half_length, -half_height),
+            (half_length, half_height),
+            (-half_length, half_height),
+        ]
+        
+        # Rotate and translate to world position
+        world_corners = []
+        for lx, ly in local_corners:
+            wx = self.pos.x + lx * cos_a - ly * sin_a
+            wy = self.pos.y + lx * sin_a + ly * cos_a
+            world_corners.append((wx, wy))
+        
+        return world_corners
 
     def destroy(self):
         self.alive = False
