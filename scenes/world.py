@@ -587,17 +587,17 @@ class WorldScene(Scene):
             if self.wave_cleared_timer > 0:
                 self.wave_cleared_timer -= dt
 
-        # Check barrier collision for player (only active barriers)
-        for barrier in self.barriers:
+        # Check barrier collision for player (only the current active barrier)
+        if self.active_region_index < len(self.barriers):
+            barrier = self.barriers[self.active_region_index]
             if barrier['active']:
                 # Check if player is crossing the barrier (moving upward through it)
                 player_y = self.player.pos.y
                 barrier_y = barrier['y']
                 player_x = self.player.pos.x
-                # Player must be within corridor X range and trying to cross upward
-                if (barrier['min_x'] <= player_x <= barrier['max_x'] and
-                    old_pos.y >= barrier_y and player_y < barrier_y):
-                    # Block the player
+                # Block player from crossing upward past the barrier
+                if old_pos.y >= barrier_y and player_y < barrier_y:
+                    # Block the player at the barrier line
                     self.player.pos.y = barrier_y
 
         # Check if player crossed into next region
