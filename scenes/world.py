@@ -184,7 +184,7 @@ class WorldScene(Scene):
                 'waves': [
                     {
                         'wave_number': 1,
-                        'letters': ['A', 'B', 'C', 'D', 'E'],
+                        'letters': ['A', 'C', 'D', 'E'],
                         'enemies': {'slime': 2, 'skeleton': 1, 'undine': 1}
                     }
                 ],
@@ -246,7 +246,7 @@ class WorldScene(Scene):
         y = max(margin, min(self.world_pixel_height - margin, y))
         return (x, y)
     
-    def _show_asl_popup_for_letters(self, letters: list[str]):
+    def _show_asl_popup_for_letters(self, letters: list[str], subtitle: str = ""):
         """Show ASL popup for new letters that haven't been learned yet."""
         # Filter to only letters A-F that are in our sprites
         valid_letters = [l.upper() for l in letters if l.upper() in ['A', 'B', 'C', 'D', 'E', 'F']]
@@ -258,7 +258,7 @@ class WorldScene(Scene):
             # Add new letters to learned set
             self._letters_learned.update(new_letters)
             # Show popup with only the NEW letters
-            self.asl_popup.show(new_letters)
+            self.asl_popup.show(new_letters, subtitle)
             self._showing_asl_popup = True
             return True
         
@@ -330,10 +330,16 @@ class WorldScene(Scene):
         
         # Check if there are new letters to learn
         wave_data = self._get_wave_data(self.current_wave_index)
-        letters = wave_data.get('letters', [])
         
-        # Show ASL popup for new letters before spawning
-        showing_popup = self._show_asl_popup_for_letters(letters)
+        # Before wave 2, prepend B (block) so it shows as B, C in the popup
+        if self.current_wave_index == 1:
+            letters = ['B'] + wave_data.get('letters', [])
+            showing_popup = self._show_asl_popup_for_letters(
+                letters, "Sign B to Block!"
+            )
+        else:
+            letters = wave_data.get('letters', [])
+            showing_popup = self._show_asl_popup_for_letters(letters)
         
         # Only spawn if popup is not showing (otherwise wait for ready)
         if not showing_popup:
@@ -370,9 +376,6 @@ class WorldScene(Scene):
             
             if event.key == pygame.K_ESCAPE:
                 self.next_scene = 'menu'
-            
-            # Block (spacebar)
-            self.player.handle_block_input(event.key)
             
             # Debug: respawn
             if event.key == pygame.K_r and self.map_data:
@@ -686,9 +689,16 @@ class WorldScene(Scene):
         """
         Handle a confirmed letter from camera input.
         
-        Finds the closest enemy with matching letter and fires a spell at it.
+        'B' is reserved for blocking (unlocked from wave 2 onward).
+        All other letters find the closest enemy and fire a spell at it.
         """
         if not self.player.is_alive:
+            return
+        
+        # B is always the block command (unlocked at wave 2)
+        if letter.upper() == 'B':
+            if self.current_wave_index >= 1:  # wave 2 = index 1
+                self.player.start_block()
             return
         
         # Find closest enemy with matching letter
