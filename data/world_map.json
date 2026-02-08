@@ -81,8 +81,8 @@
         "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl  Dc  Dr  G   G   G   G   G   G   G   G   G ",
         "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl  Dc  Dc  Dt  Dt  Dt  Dt  Dt  Dt  Dtr G   G ",
         "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl  Dc  Dc  Dc  Dc  Dc  Dc  Dc  Dc  Dr  G   G ",
-        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dbl Db  Db  Db  Db  Db  Db  Dc  Dc  Dr  G   G ",
-        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dbl Db  Dbr G   G ",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dbl Db  Db  Db  Db  Db  Db  Db  Db  Dbr  G   G ",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G ",
         "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G "
       ]
     },
@@ -110,11 +110,11 @@
         ".   .   .   .   .   f0  .   r1  .   .   .   .   .   .   .   .   .   g1  .   .   .   .   .   .   .   .   .   .   .   .   .   .   d0  .   .   .   f2  .   r2  .   .   .   .   g0  .   .  ",
         ".   .   r0  .   .   .   .   .   .   .   .   f1  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   f1  .   .   .   .   .  ",
         ".   .   .   .   g3  .   .   .   .   .   .   .   .   .   r2  .   .   .   .   f2  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   d3  .   f0  .   .   .   .   r1  .   .   f0 ",
-        ".   .   f1  .   .   .   .   r0  .   .   .   .   .   .   .   .   g0  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   d1  .   .   .   .   f1  .  ",
+        ".   .   f1  .   .   .   .   r0  .   .   .   .   .   .   .   .   g0  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   f2  .   .   .   .   f1  .  ",
         ".   .   .   .   .   f0  .   .   .   g1  .   .   .   .   .   .   .   .   .   r1  .   .   f1  .   .   .   .   .   .   .   .   .   .   .   .   .   d2  .   .   .   .   .   .   .   f2  .  ",
         ".   .   .   g2  .   .   .   .   f2  .   .   .   .   r0  .   .   .   .   f0  .   .   .   .   .   .   .   g3  .   .   .   .   .   .   .   .   .   .   .   .   d0  .   .   .   .   f0  .  ",
         ".   .   .   .   .   .   r2  .   .   .   .   f1  .   .   .   .   .   .   .   .   .   g0  .   .   .   f0  .   .   .   .   r1  .   .   .   .   .   .   .   .   .   .   .   d3  .   f1  .  ",
-        ".   .   f0  .   .   .   .   .   .   .   g1  .   .   .   .   r1  .   .   .   .   f2  .   .   .   .   .   .   .   f1  .   .   .   .   .   .   .   .   .   .   .   .   d1  .   .   f2  g2 ",
+        ".   .   f0  .   .   .   .   .   .   .   g1  .   .   .   .   r1  .   .   .   .   f2  .   .   .   .   .   .   .   f1  .   .   .   .   .   .   .   .   .   .   .   .   f2  .   .   f2  g2 ",
         ".   .   .   .   g0  .   .   f1  .   .   .   .   r0  .   .   .   .   f0  .   .   .   .   .   g2  .   .   .   f2  .   .   .   r2  .   .   .   .   .   f1  .   .   .   .   .   .   .   .  "
       ]
     },
@@ -188,7 +188,7 @@
       "y": 25
     },
     "npc_start": {
-      "x": 35,
+      "x": 33,
       "y": 23
     }
   }

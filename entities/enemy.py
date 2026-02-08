@@ -13,6 +13,7 @@ from config.settings import (
     ENEMY_LETTER_OFFSET_Y, FONTS_DIR,
     ENEMY_LETTER_BACKDROP_PATH
 )
+from core.sound_manager import sound_manager
 
 
 class Enemy(AnimatedSprite):
@@ -322,23 +323,30 @@ class Slime(Enemy):
 
 class Skeleton(Enemy):
     """Skeleton enemy - stronger melee enemy with more health."""
-    
+
     def __init__(self, x: float, y: float, letter: str | None = None):
         super().__init__(x, y, SKELETON_SPRITE_CONFIG, letter=letter)
-        
+
         # Skeleton is tougher than slime
         self.max_health = int(ENEMY_MAX_HEALTH * 1.5)  # 150 HP
         self.health = self.max_health
         self.chase_speed = ENEMY_CHASE_SPEED * 1.1  # Slightly faster
-        
+
         # Skeleton-specific combat stats
         self.detection_radius = 500   # Chase player within 500px
         self.attack_range = 40        # Melee attack range
         self.attack_damage = 20       # 20 damage per hit
-        
+
         # Larger collision for skeleton
         self.collision_radius = 10
         self.hitbox_radius = 16
+
+    def _try_attack_target(self):
+        """Try to deal damage to target. Plays sword attack sound on hit."""
+        if self.damage_cooldown <= 0 and self.target:
+            self.target.take_damage(self.attack_damage)
+            self.damage_cooldown = self.damage_cooldown_duration
+            sound_manager.play_sword_attack()
 
 
 def find_enemies_by_letter(enemies, letter: str) -> list:

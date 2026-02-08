@@ -4,6 +4,7 @@ import os
 from core.scene import Scene
 from core.game_state import game_state
 from config.settings import SCREEN_WIDTH, SCREEN_HEIGHT, SPRITES_DIR, FONTS_DIR
+from core.sound_manager import sound_manager
 
 
 class MainMenuScene(Scene):
@@ -13,10 +14,16 @@ class MainMenuScene(Scene):
         super().__init__(game)
         
         # Load background
-        bg_path = os.path.join(SPRITES_DIR, 'ui', 'background.png')
+        bg_path = os.path.join(SPRITES_DIR, '..', 'home_page.png')
         try:
-            self.background = pygame.image.load(bg_path).convert()
-            self.background = pygame.transform.scale(self.background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+            raw = pygame.image.load(bg_path).convert()
+            # Scale to fill screen height, keeping aspect ratio
+            scale = SCREEN_HEIGHT / raw.get_height()
+            scaled_w = int(raw.get_width() * scale)
+            scaled = pygame.transform.scale(raw, (scaled_w, SCREEN_HEIGHT))
+            # Crop from the right side (anchor right edge)
+            crop_x = max(0, scaled_w - SCREEN_WIDTH)
+            self.background = scaled.subsurface((crop_x, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
         except pygame.error as e:
             print(f"Warning: Could not load background: {e}")
             self.background = None
@@ -42,6 +49,10 @@ class MainMenuScene(Scene):
         self.color_selected = (255, 255, 100)
         self.color_disabled = (100, 100, 100)
     
+    def on_enter(self):
+        """Resume theme music whenever we return to the menu."""
+        sound_manager.play_theme()
+
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:

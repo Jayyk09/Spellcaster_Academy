@@ -5,6 +5,7 @@ import random
 import string
 from config.settings import FONTS_DIR, ENEMY_LETTER_OFFSET_Y, ENEMY_LETTER_BACKDROP_PATH, SPELL_SPEED, SPELL_DAMAGE
 from entities.spell import SpellProjectile
+from core.sound_manager import sound_manager
 
 
 class Undine:
@@ -244,6 +245,7 @@ class Undine:
         
         self.spells_cast.append(spell)
         self.cast_cooldown = self.cast_interval
+        sound_manager.play_undine_spell()
     
     def take_damage(self, amount):
         """Apply damage to the undine."""
