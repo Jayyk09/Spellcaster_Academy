@@ -883,11 +883,11 @@ class WorldScene(Scene):
         self.hud.draw(screen, self.player, game_state)
         
         # Draw wave display (top center)
+        wave_cleared_notification = self.wave_cleared_timer > 0
         self.wave_display.draw(
             screen,
             self._get_current_wave_number(),
-            self.wave_in_transition,
-            self.wave_transition_timer
+            wave_cleared_notification
         )
         
         # Controls
