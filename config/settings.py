@@ -9,9 +9,9 @@ TILESETS_DIR = os.path.join(SPRITES_DIR, 'tilesets')
 FONTS_DIR = os.path.join(ASSETS_DIR, 'fonts')
 
 # Display settings
-SCREEN_WIDTH = 896
-SCREEN_HEIGHT = 600
-SCALE = 4  # Pixel art scaling
+SCREEN_WIDTH = 1125
+SCREEN_HEIGHT = 750
+SCALE = 5  # Pixel art scaling
 FPS = 60
 
 # World/Tilemap settings (matching world_map.json dimensions)
@@ -33,7 +33,7 @@ BLUE = (0, 0, 255)
 
 # Player settings
 PLAYER_SPEED = 100
-PLAYER_MAX_HEALTH = 100
+PLAYER_MAX_HEALTH = 1000
 PLAYER_ATTACK_DAMAGE = 40
 PLAYER_ATTACK_DURATION = 0.8  # seconds
 PLAYER_HEALTH_REGEN = 5
