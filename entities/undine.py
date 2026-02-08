@@ -103,6 +103,7 @@ class Undine:
         # Spell casting
         self.cast_cooldown = 0.0
         self.cast_interval = 3.0  # Cast every 3 seconds
+        self.initial_attack_delay = 3.0  # Wait 3 seconds before first attack
         self.spell_damage = int(SPELL_DAMAGE * 0.5)  # 50% of player spell damage (75)
         self.spell_type = 'air'  # Use air spells
         self.spells_cast = []  # List of spells cast by this undine
@@ -146,9 +147,11 @@ class Undine:
             self.current_frame = (self.current_frame + 1) % self.frame_count
             self.image = self.frames[self.current_frame]
         
-        # Update spell cooldown
+        # Update spell cooldown and initial attack delay
         if self.cast_cooldown > 0:
             self.cast_cooldown -= dt
+        if self.initial_attack_delay > 0:
+            self.initial_attack_delay -= dt
         
         # AI behavior: keep distance and cast spells
         if player is not None:
@@ -171,8 +174,8 @@ class Undine:
                     # At ideal distance - stop moving
                     self.direction = pygame.Vector2(0, 0)
                     
-                # Try to cast spell at player
-                if self.cast_cooldown <= 0:
+                # Try to cast spell at player (only after initial delay)
+                if self.cast_cooldown <= 0 and self.initial_attack_delay <= 0:
                     self._cast_spell_at_player(player_pos)
             else:
                 self.is_chasing = False
