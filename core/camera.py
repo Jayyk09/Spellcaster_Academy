@@ -45,6 +45,11 @@ class Camera:
         
         # Target to follow
         self._target_pos: Optional[pygame.Vector2] = None
+        
+        # Velocity-based offset - show more in direction of movement
+        # Offset as fraction of viewport (0.3 = player is at 30% from edge when moving)
+        self.velocity_offset = 0.3
+        self._target_velocity: Optional[pygame.Vector2] = None
     
     @property
     def rect(self) -> pygame.Rect:
@@ -58,16 +63,18 @@ class Camera:
         return (self.x + self.viewport_width / 2, 
                 self.y + self.viewport_height / 2)
     
-    def set_target(self, pos: pygame.Vector2):
-        """Set the position to follow."""
+    def set_target(self, pos: pygame.Vector2, velocity: Optional[pygame.Vector2] = None):
+        """Set the position and velocity to follow."""
         self._target_pos = pos
+        self._target_velocity = velocity
     
     def update(self, dt: float = 0.0):
         """
         Update camera position to follow target.
         
-        Uses drag margins so the camera only moves when the target
-        approaches the edge of the "safe zone".
+        Uses velocity-based offset to show more of the map in the
+        direction the target is moving (player at bottom when going up,
+        at top when going down, etc.).
         
         Args:
             dt: Delta time (unused for now, for future smoothing)
@@ -78,26 +85,38 @@ class Camera:
         target_x = self._target_pos.x
         target_y = self._target_pos.y
         
-        # Calculate the drag margin bounds in screen space
-        margin_x = self.viewport_width * self.drag_margin
-        margin_y = self.viewport_height * self.drag_margin
+        # Calculate velocity-based offset
+        # Show more in the direction we're moving
+        offset_x = 0.0
+        offset_y = 0.0
+        if self._target_velocity is not None:
+            # Normalize velocity to get direction
+            vel_x = self._target_velocity.x
+            vel_y = self._target_velocity.y
+            
+            # Calculate offset - camera shifts to show more in movement direction
+            # Moving up (negative Y velocity) -> camera shifts up -> player at bottom
+            # Moving right (positive X velocity) -> camera shifts right -> player at left
+            offset_x = vel_x * self.velocity_offset if abs(vel_x) > 0.1 else 0
+            offset_y = vel_y * self.velocity_offset if abs(vel_y) > 0.1 else 0
+            
+            # Clamp offset to reasonable range
+            max_offset_x = self.viewport_width * 0.25
+            max_offset_y = self.viewport_height * 0.25
+            offset_x = max(-max_offset_x, min(max_offset_x, offset_x))
+            offset_y = max(-max_offset_y, min(max_offset_y, offset_y))
         
-        # The "safe zone" where target can move without camera following
-        safe_left = self.x + margin_x
-        safe_right = self.x + self.viewport_width - margin_x
-        safe_top = self.y + margin_y
-        safe_bottom = self.y + self.viewport_height - margin_y
+        # Calculate desired camera position (centered on target + offset)
+        desired_x = target_x - self.viewport_width / 2 + offset_x
+        desired_y = target_y - self.viewport_height / 2 + offset_y
         
-        # Move camera if target is outside the safe zone
-        if target_x < safe_left:
-            self.x = target_x - margin_x
-        elif target_x > safe_right:
-            self.x = target_x - (self.viewport_width - margin_x)
-        
-        if target_y < safe_top:
-            self.y = target_y - margin_y
-        elif target_y > safe_bottom:
-            self.y = target_y - (self.viewport_height - margin_y)
+        # Apply smoothing if enabled
+        if self.smoothing > 0 and dt > 0:
+            self.x += (desired_x - self.x) * (1 - self.smoothing) * dt * 60
+            self.y += (desired_y - self.y) * (1 - self.smoothing) * dt * 60
+        else:
+            self.x = desired_x
+            self.y = desired_y
         
         # Clamp camera to world bounds
         self._clamp_to_bounds()
