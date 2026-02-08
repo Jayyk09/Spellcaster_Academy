@@ -82,10 +82,18 @@ class WorldScene(Scene):
         # Wave system
         self.wave_config = self._load_wave_config()
         self.current_wave_index = 0
-        self.wave_transition_timer = 0.0
-        self.wave_in_transition = False
-        self.time_between_waves = self.wave_config.get('time_between_waves_seconds', 5.0)
         self.wave_display = WaveDisplay()
+
+        # Region-based wave system
+        self.regions = self._build_regions()
+        self.barriers = self._build_barriers()
+        self.active_region_index = 0
+        self.region_cleared = [False] * len(self.regions)
+        self.wave_cleared_timer = 0.0  # Timer for "Wave Cleared!" notification
+        self.wave_cleared_duration = 3.0  # Show notification for 3 seconds
+
+        # Track which enemies belong to which region (for clamping)
+        self.enemy_region_map = {}  # enemy id -> region_index
         
         # Spell projectiles
         self.spells = pygame.sprite.Group()
@@ -191,6 +199,36 @@ class WorldScene(Scene):
                 'time_between_waves_seconds': 5
             }
     
+    def _build_regions(self) -> list[dict]:
+        """Build region definitions from wave config, converting tile coords to pixels."""
+        regions = []
+        waves = self.wave_config.get('waves', [])
+        tile_px = TILE_SIZE * SCALE
+        for wave in waves:
+            region = wave.get('region', {})
+            regions.append({
+                'min_y': region.get('min_y', 0) * tile_px,
+                'max_y': region.get('max_y', WORLD_HEIGHT_TILES) * tile_px,
+                'min_x': region.get('min_x', 0) * tile_px,
+                'max_x': region.get('max_x', WORLD_WIDTH_TILES) * tile_px,
+            })
+        return regions
+
+    def _build_barriers(self) -> list[dict]:
+        """Build barrier objects from wave config."""
+        barriers = []
+        tile_px = TILE_SIZE * SCALE
+        barrier_defs = self.wave_config.get('barriers', [])
+        for i, bdef in enumerate(barrier_defs):
+            barriers.append({
+                'y': bdef['y'] * tile_px,
+                'min_x': bdef['min_x'] * tile_px,
+                'max_x': (bdef['max_x'] + 1) * tile_px,  # +1 to include the tile
+                'active': True,
+                'wave_index': i,  # Barrier i is removed when wave i is cleared
+            })
+        return barriers
+
     def _get_wave_data(self, wave_index: int) -> dict:
         """
         Get wave data for a specific index.
@@ -205,45 +243,56 @@ class WorldScene(Scene):
         actual_index = min(wave_index, len(waves) - 1)
         return waves[actual_index]
     
-    def _get_random_spawn_position(self, min_distance_from_player: float = 150) -> tuple[float, float]:
+    def _get_random_spawn_position(self, min_distance_from_player: float = 150, region_index: int | None = None) -> tuple[float, float]:
         """
-        Get a random valid spawn position.
-        
+        Get a random valid spawn position within a region.
+
         Args:
             min_distance_from_player: Minimum distance from player position
-            
+            region_index: Region to constrain spawn to (uses self.active_region_index if None)
+
         Returns:
             (x, y) tuple of world coordinates
         """
+        if region_index is None:
+            region_index = self.active_region_index
+
+        region = self.regions[region_index] if region_index < len(self.regions) else None
         margin = 80  # Stay away from world edges
         max_attempts = 50
-        
+
+        if region:
+            min_x = max(margin, region['min_x'] + margin)
+            max_x = min(self.world_pixel_width - margin, region['max_x'] - margin)
+            min_y = max(margin, region['min_y'] + margin)
+            max_y = min(self.world_pixel_height - margin, region['max_y'] - margin)
+        else:
+            min_x = margin
+            max_x = self.world_pixel_width - margin
+            min_y = margin
+            max_y = self.world_pixel_height - margin
+
         for _ in range(max_attempts):
-            x = random.randint(margin, self.world_pixel_width - margin)
-            y = random.randint(margin, self.world_pixel_height - margin)
-            
+            x = random.randint(int(min_x), int(max_x))
+            y = random.randint(int(min_y), int(max_y))
+
             # Check distance from player
             player_dist = ((x - self.player.pos.x) ** 2 + (y - self.player.pos.y) ** 2) ** 0.5
             if player_dist < min_distance_from_player:
                 continue
-            
+
             # Create a temporary test entity to check collision
             class TempEntity:
                 def __init__(self, px, py):
                     self.pos = pygame.Vector2(px, py)
-            
+
             temp = TempEntity(x, y)
             if not self._check_tile_collision(temp):
                 return (x, y)
-        
-        # Fallback: return a position far from player, even if it might collide
-        # This ensures we always get a position
-        angle = random.uniform(0, 2 * 3.14159)
-        dist = min_distance_from_player + 50
-        x = self.player.pos.x + dist * (angle % 1)
-        y = self.player.pos.y + dist * ((angle + 0.5) % 1)
-        x = max(margin, min(self.world_pixel_width - margin, x))
-        y = max(margin, min(self.world_pixel_height - margin, y))
+
+        # Fallback: return center of region
+        x = (min_x + max_x) // 2
+        y = (min_y + max_y) // 2
         return (x, y)
     
     def _show_asl_popup_for_letters(self, letters: list[str]):
