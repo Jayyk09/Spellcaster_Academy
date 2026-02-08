@@ -59,7 +59,7 @@ ANIMATION_FPS = 5
 
 # Sprite sheet configurations
 PLAYER_SPRITE_CONFIG = {
-    'path': os.path.join(SPRITES_DIR, 'characters', 'player.png'),
+    'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'walking_down.png'),
     'frame_width': 48,
     'frame_height': 48,
     'animations': {
@@ -155,19 +155,19 @@ SLIME_SPRITE_CONFIG = {
     'frame_width': 32,
     'frame_height': 32,
     'animations': {
-        'idle_front': {'row': 0, 'frames': 4, 'fps': 5},
-        'idle_side': {'row': 1, 'frames': 4, 'fps': 5},
-        'idle_back': {'row': 2, 'frames': 4, 'fps': 5},
-        'walk_front': {'row': 3, 'frames': 6, 'fps': 5},
-        'walk_side': {'row': 4, 'frames': 6, 'fps': 5},
-        'walk_back': {'row': 5, 'frames': 6, 'fps': 5},
-        'attack_front': {'row': 6, 'frames': 4, 'fps': 8},
-        'attack_side': {'row': 7, 'frames': 4, 'fps': 8},
-        'attack_back': {'row': 8, 'frames': 4, 'fps': 8},
-        'damaged_front': {'row': 9, 'frames': 3, 'fps': 8},
-        'damaged_side': {'row': 10, 'frames': 3, 'fps': 8},
-        'damaged_back': {'row': 11, 'frames': 3, 'fps': 8},
-        'death': {'row': 12, 'frames': 5, 'fps': 5},
+        'idle_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 0, 'frames': 4, 'fps': 5, 'scale': 2.0},
+        'idle_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 1, 'frames': 4, 'fps': 5, 'scale': 2.0},
+        'idle_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 2, 'frames': 4, 'fps': 5, 'scale': 2.0},
+        'walk_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 3, 'frames': 6, 'fps': 5, 'scale': 2.0},
+        'walk_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 4, 'frames': 6, 'fps': 5, 'scale': 2.0},
+        'walk_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 5, 'frames': 6, 'fps': 5, 'scale': 2.0},
+        'attack_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 6, 'frames': 4, 'fps': 8, 'scale': 2.0},
+        'attack_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 7, 'frames': 4, 'fps': 8, 'scale': 2.0},
+        'attack_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 8, 'frames': 4, 'fps': 8, 'scale': 2.0},
+        'damaged_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 9, 'frames': 3, 'fps': 8, 'scale': 2.0},
+        'damaged_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 10, 'frames': 3, 'fps': 8, 'scale': 2.0},
+        'damaged_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 11, 'frames': 3, 'fps': 8, 'scale': 2.0},
+        'death': {'path': os.path.join(SPRITES_DIR, 'characters', 'slime.png'), 'frame_width': 32, 'frame_height': 32, 'row': 12, 'frames': 5, 'fps': 5, 'scale': 2.0},
     }
 }
 
