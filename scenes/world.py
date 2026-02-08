@@ -316,56 +316,63 @@ class WorldScene(Scene):
     def _spawn_wave(self, wave_index: int):
         """
         Spawn enemies for a specific wave.
-        
+
         Args:
             wave_index: 0-based wave index
         """
         wave_data = self._get_wave_data(wave_index)
         letters = wave_data.get('letters', ['A', 'B', 'C', 'D', 'E'])
         enemies_config = wave_data.get('enemies', {})
-        
+
         # Spawn slimes
         slime_count = enemies_config.get('slime', 0)
         for _ in range(slime_count):
-            x, y = self._get_random_spawn_position()
+            x, y = self._get_random_spawn_position(region_index=wave_index)
             letter = random.choice(letters)
             enemy = Slime(x, y, letter=letter)
             enemy.set_target(self.player)
             self.enemies.add(enemy)
             self.all_sprites.add(enemy)
-        
+            self.enemy_region_map[id(enemy)] = wave_index
+
         # Spawn skeletons
         skeleton_count = enemies_config.get('skeleton', 0)
         for _ in range(skeleton_count):
-            x, y = self._get_random_spawn_position()
+            x, y = self._get_random_spawn_position(region_index=wave_index)
             letter = random.choice(letters)
             enemy = Skeleton(x, y, letter=letter)
             enemy.set_target(self.player)
             self.enemies.add(enemy)
             self.all_sprites.add(enemy)
-        
-        # Spawn undines near player
+            self.enemy_region_map[id(enemy)] = wave_index
+
+        # Spawn undines within region
         undine_count = enemies_config.get('undine', 0)
-        self.undine_manager.spawn_near(
-            undine_count, 
-            center_x=self.player.pos.x, 
-            center_y=self.player.pos.y, 
-            radius=300, 
-            letters=letters
-        )
+        if undine_count > 0 and wave_index < len(self.regions):
+            region = self.regions[wave_index]
+            center_x = (region['min_x'] + region['max_x']) / 2
+            center_y = (region['min_y'] + region['max_y']) / 2
+            undines = self.undine_manager.spawn_near(
+                undine_count,
+                center_x=center_x,
+                center_y=center_y,
+                radius=100,
+                letters=letters
+            )
+            # Track undine regions (if undine_manager supports returning spawned undines)
+            for undine in undines if undines else []:
+                if hasattr(undine, '_region_index'):
+                    undine._region_index = wave_index
 
         lich_count = enemies_config.get('lich', 0)
         for _ in range(lich_count):
-            x, y = self._get_random_spawn_position()
+            x, y = self._get_random_spawn_position(region_index=wave_index)
             letter = random.choice(letters)
             enemy = Lich(x, y, letter=letter)
             enemy.set_target(self.player)
             self.enemies.add(enemy)
             self.all_sprites.add(enemy)
-        
-        # Reset transition state
-        self.wave_in_transition = False
-        self.wave_transition_timer = 0.0
+            self.enemy_region_map[id(enemy)] = wave_index
     
     def _check_wave_completion(self) -> bool:
         """Check if all enemies in the current wave are defeated."""
@@ -494,12 +501,23 @@ class WorldScene(Scene):
         for enemy in self.enemies:
             old_enemy_pos = pygame.Vector2(enemy.pos)
             enemy.update(dt)
-            
+
             # Clamp enemy to world bounds
             enemy_margin = 16 * SCALE // 3
             enemy.pos.x = max(enemy_margin, min(self.world_pixel_width - enemy_margin, enemy.pos.x))
             enemy.pos.y = max(enemy_margin, min(self.world_pixel_height - enemy_margin, enemy.pos.y))
-            
+
+            # Clamp enemy to their spawn region
+            enemy_id = id(enemy)
+            if enemy_id in self.enemy_region_map:
+                region_idx = self.enemy_region_map[enemy_id]
+                if region_idx < len(self.regions):
+                    region = self.regions[region_idx]
+                    enemy.pos.x = max(region['min_x'] + enemy_margin,
+                                      min(region['max_x'] - enemy_margin, enemy.pos.x))
+                    enemy.pos.y = max(region['min_y'] + enemy_margin,
+                                      min(region['max_y'] - enemy_margin, enemy.pos.y))
+
             # Check tile collision for enemies
             if self._check_tile_collision(enemy):
                 enemy.pos.x = old_enemy_pos.x
@@ -555,17 +573,47 @@ class WorldScene(Scene):
                 self.enemies.remove(enemy)
                 self.all_sprites.remove(enemy)
         
-        # Wave system: check for wave completion and handle transitions
-        if self.wave_in_transition:
-            # Count down timer
-            self.wave_transition_timer -= dt
-            if self.wave_transition_timer <= 0:
-                self._start_next_wave()
-        else:
-            # Check if wave is complete
+        # Wave system: check for wave completion and handle barrier removal
+        if not self.region_cleared[self.active_region_index]:
             if self._check_wave_completion():
-                self.wave_in_transition = True
-                self.wave_transition_timer = self.time_between_waves
+                # Mark region as cleared
+                self.region_cleared[self.active_region_index] = True
+                self.wave_cleared_timer = self.wave_cleared_duration
+                # Deactivate barrier for this region (if any)
+                if self.active_region_index < len(self.barriers):
+                    self.barriers[self.active_region_index]['active'] = False
+        else:
+            # Decrement wave cleared notification timer
+            if self.wave_cleared_timer > 0:
+                self.wave_cleared_timer -= dt
+
+        # Check barrier collision for player (only active barriers)
+        for barrier in self.barriers:
+            if barrier['active']:
+                # Check if player is crossing the barrier (moving upward through it)
+                player_y = self.player.pos.y
+                barrier_y = barrier['y']
+                player_x = self.player.pos.x
+                # Player must be within corridor X range and trying to cross upward
+                if (barrier['min_x'] <= player_x <= barrier['max_x'] and
+                    old_pos.y >= barrier_y and player_y < barrier_y):
+                    # Block the player
+                    self.player.pos.y = barrier_y
+
+        # Check if player crossed into next region
+        if self.active_region_index < len(self.regions) - 1:
+            next_region = self.regions[self.active_region_index + 1]
+            if self.player.pos.y < next_region['max_y']:
+                # Player entered next region
+                self.active_region_index += 1
+                self.current_wave_index += 1
+                # Show ASL popup for new letters
+                wave_data = self._get_wave_data(self.current_wave_index)
+                letters = wave_data.get('letters', [])
+                showing_popup = self._show_asl_popup_for_letters(letters)
+                # Only spawn if popup is not showing
+                if not showing_popup:
+                    self._spawn_wave(self.current_wave_index)
         
         # Check for player death
         if not self.player.is_alive and self.player.is_animation_finished():
@@ -809,13 +857,58 @@ class WorldScene(Scene):
         
         return closest
     
+    def _draw_barriers(self, screen: pygame.Surface):
+        """Draw active magic barriers as glowing horizontal walls."""
+        import math
+        time = pygame.time.get_ticks() / 1000.0
+
+        for barrier in self.barriers:
+            if not barrier['active']:
+                continue
+
+            # Get screen coordinates
+            screen_x1, screen_y = self.camera.world_to_screen(barrier['min_x'], barrier['y'])
+            screen_x2, _ = self.camera.world_to_screen(barrier['max_x'], barrier['y'])
+            width = screen_x2 - screen_x1
+
+            # Pulsing effect
+            pulse = (math.sin(time * 3) + 1) / 2  # 0 to 1
+            alpha = int(100 + pulse * 80)  # 100 to 180
+
+            # Draw barrier wall
+            barrier_height = 24
+            barrier_surface = pygame.Surface((width, barrier_height), pygame.SRCALPHA)
+
+            # Gradient from purple to blue
+            for y in range(barrier_height):
+                ratio = y / barrier_height
+                r = int(120 + ratio * 40)
+                g = int(40 + ratio * 80)
+                b = int(200 + ratio * 55)
+                color = (r, g, b, alpha)
+                pygame.draw.line(barrier_surface, color, (0, y), (width, y))
+
+            screen.blit(barrier_surface, (screen_x1, screen_y - barrier_height // 2))
+
+            # Draw sparkling particles
+            num_sparkles = 5
+            for i in range(num_sparkles):
+                sparkle_x = screen_x1 + (width * i / num_sparkles) + math.sin(time * 2 + i) * 5
+                sparkle_y = screen_y - barrier_height // 2 + math.cos(time * 3 + i) * 8
+                sparkle_alpha = int(150 + pulse * 105)
+                pygame.draw.circle(screen, (200, 150, 255, sparkle_alpha),
+                                   (int(sparkle_x), int(sparkle_y)), 3)
+
     def draw(self, screen: pygame.Surface):
         # Clear screen
         screen.fill((20, 30, 20))
         
         # Draw tilemap background with camera offset
         self.camera.apply_to_surface(self.background, screen)
-        
+
+        # Draw active barriers (magic walls)
+        self._draw_barriers(screen)
+
         # Build combined list of sprites and decorations for y-sorting
         # Each item: (sort_y, type, data)
         # type 'sprite': data = sprite
