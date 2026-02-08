@@ -858,46 +858,36 @@ class WorldScene(Scene):
         return closest
     
     def _draw_barriers(self, screen: pygame.Surface):
-        """Draw active magic barriers as glowing horizontal walls."""
+        """Draw the active barrier for the current region as a subtle magic line."""
         import math
         time = pygame.time.get_ticks() / 1000.0
 
-        for barrier in self.barriers:
-            if not barrier['active']:
-                continue
+        # Only draw the barrier for the current active region
+        if self.active_region_index >= len(self.barriers):
+            return
 
-            # Get screen coordinates
-            screen_x1, screen_y = self.camera.world_to_screen(barrier['min_x'], barrier['y'])
-            screen_x2, _ = self.camera.world_to_screen(barrier['max_x'], barrier['y'])
-            width = screen_x2 - screen_x1
+        barrier = self.barriers[self.active_region_index]
+        if not barrier['active']:
+            return
 
-            # Pulsing effect
-            pulse = (math.sin(time * 3) + 1) / 2  # 0 to 1
-            alpha = int(100 + pulse * 80)  # 100 to 180
+        # Get screen Y position (barrier spans full screen width)
+        _, screen_y = self.camera.world_to_screen(0, barrier['y'])
 
-            # Draw barrier wall
-            barrier_height = 24
-            barrier_surface = pygame.Surface((width, barrier_height), pygame.SRCALPHA)
+        # Very subtle slow pulse
+        pulse = (math.sin(time * 1.5) + 1) / 2  # 0 to 1, slower
+        alpha = int(40 + pulse * 40)  # 40 to 80, very subtle
 
-            # Gradient from purple to blue
-            for y in range(barrier_height):
-                ratio = y / barrier_height
-                r = int(120 + ratio * 40)
-                g = int(40 + ratio * 80)
-                b = int(200 + ratio * 55)
-                color = (r, g, b, alpha)
-                pygame.draw.line(barrier_surface, color, (0, y), (width, y))
+        # Draw thin subtle line across entire screen
+        line_color = (100, 150, 200, alpha)  # Soft blue
+        pygame.draw.line(screen, line_color, (0, screen_y), (screen.get_width(), screen_y), 2)
 
-            screen.blit(barrier_surface, (screen_x1, screen_y - barrier_height // 2))
-
-            # Draw sparkling particles
-            num_sparkles = 5
-            for i in range(num_sparkles):
-                sparkle_x = screen_x1 + (width * i / num_sparkles) + math.sin(time * 2 + i) * 5
-                sparkle_y = screen_y - barrier_height // 2 + math.cos(time * 3 + i) * 8
-                sparkle_alpha = int(150 + pulse * 105)
-                pygame.draw.circle(screen, (200, 150, 255, sparkle_alpha),
-                                   (int(sparkle_x), int(sparkle_y)), 3)
+        # Occasional subtle shimmer dots (fewer, smaller)
+        num_shimmers = 3
+        for i in range(num_shimmers):
+            shimmer_x = (screen.get_width() * (i + 0.5) / num_shimmers) + math.sin(time * 0.5 + i) * 20
+            shimmer_alpha = int(60 + pulse * 40)
+            pygame.draw.circle(screen, (150, 180, 220, shimmer_alpha),
+                               (int(shimmer_x), int(screen_y)), 2)
 
     def draw(self, screen: pygame.Surface):
         # Clear screen
