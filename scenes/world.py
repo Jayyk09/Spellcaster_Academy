@@ -6,13 +6,14 @@ import json
 import random
 from core.scene import Scene
 from core.game_state import game_state
-from core.ui import HUD, DeathPanel, HealthBar, CameraLetterDisplay, WaveDisplay, ASLPopup
+from core.ui import HUD, DeathPanel, HealthBar, CameraLetterDisplay, WaveDisplay, ASLPopup, SignReferencePanel
 from core.camera import Camera
 from core.map_loader import load_map_data, create_tilemap_from_data, get_spawn_points
 from entities.player import Player
 from entities.enemy import Slime, Skeleton, find_closest_enemy_by_letter
 from entities.undine import UndineManager
 from entities.spell import SpellProjectile
+from entities.npc import MageGuardian
 from config.settings import (
     SCREEN_WIDTH, SCREEN_HEIGHT, SPRITES_DIR,
     TILE_SIZE, SCALE, WORLD_WIDTH, WORLD_HEIGHT,
@@ -122,6 +123,16 @@ class WorldScene(Scene):
         
         # Spell type cycling - rotate through spell types each cast
         self._spell_type_index = 0
+        
+        # NPC - Mage Guardian
+        npc_spawn = spawn_points.get('npc_start', {'x': 35, 'y': 25})
+        npc_x = npc_spawn['x'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
+        npc_y = npc_spawn['y'] * TILE_SIZE * SCALE + (TILE_SIZE * SCALE // 2)
+        self.npc = MageGuardian(npc_x, npc_y)
+        self.all_sprites.add(self.npc)
+        
+        # Sign reference panel (shown when near NPC)
+        self.sign_panel = SignReferencePanel()
     
     def _render_scaled_background(self):
         """Pre-render and scale the tilemap background."""
@@ -500,6 +511,21 @@ class WorldScene(Scene):
         
         # Check lich lightning collisions with player
         self._check_lich_lightning_player_combat()
+        
+        # Update NPC and sign reference panel
+        self.npc.update(dt, self.player)
+        if self.npc.is_player_nearby():
+            # Build list of all active letters (learned so far + B for block if wave >= 2)
+            active_letters = sorted(self._letters_learned)
+            labels = {}
+            if self.current_wave_index >= 1 and 'B' not in active_letters:
+                active_letters = sorted(active_letters | {'B'})
+            if 'B' in active_letters:
+                labels['B'] = 'Block'
+            self.sign_panel.set_letters(active_letters, labels)
+            self.sign_panel.show()
+        else:
+            self.sign_panel.hide()
         
         # Mushrooms disabled - sprite removed
         
@@ -884,6 +910,9 @@ class WorldScene(Scene):
         # ASL Popup (shown over everything else)
         if self._showing_asl_popup:
             self.asl_popup.draw(screen)
+        
+        # Sign reference panel (NPC interaction)
+        self.sign_panel.draw(screen)
     
     def _draw_entity_health_bars(self, screen):
         """Draw health bars and letters above entities (in screen space)."""
