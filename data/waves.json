@@ -7,8 +7,9 @@
 			],
 			"enemies": {
 				"slime": 1,
-				"skeleton": 0,
-				"undine": 0
+				"skeleton": 1,
+				"undine": 0,
+				"lich": 0
 			}
 		},
 		{
@@ -21,7 +22,8 @@
 			"enemies": {
 				"slime": 2,
 				"skeleton": 0,
-				"undine": 1
+				"undine": 1,
+				"lich": 0
 			}
 		},
 		{
@@ -35,7 +37,8 @@
 			"enemies": {
 				"slime": 2,
 				"skeleton": 1,
-				"undine": 1
+				"undine": 1,
+				"lich": 0
 			}
 		},
 		{
@@ -50,7 +53,24 @@
 			"enemies": {
 				"slime": 2,
 				"skeleton": 2,
-				"undine": 2
+				"undine": 2,
+				"lich": 0
+			}
+		},
+		{
+			"wave_number": 5,
+			"letters": [
+				"A",
+				"B",
+				"C",
+				"D",
+				"E"
+			],
+			"enemies": {
+				"slime": 0,
+				"skeleton": 0,
+				"undine": 0,
+				"lich": 1
 			}
 		}
 	],

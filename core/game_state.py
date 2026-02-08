@@ -8,8 +8,6 @@ class GameState:
     
     def __init__(self):
         # Player stats
-        self.player_exp = 0
-        self.player_level = 1
         self.shroom_chunks = 0
         
         # Game flags
@@ -30,8 +28,6 @@ class GameState:
     def save_game(self):
         """Save game state to file."""
         data = {
-            'player_exp': self.player_exp,
-            'player_level': self.player_level,
             'shroom_chunks': self.shroom_chunks,
             'game_has_savegame': True,
         }
@@ -54,8 +50,6 @@ class GameState:
             with open(self.save_file, 'r') as f:
                 data = json.load(f)
             
-            self.player_exp = data.get('player_exp', 0)
-            self.player_level = data.get('player_level', 1)
             self.shroom_chunks = data.get('shroom_chunks', 0)
             self.game_has_savegame = data.get('game_has_savegame', False)
             return True
@@ -70,8 +64,6 @@ class GameState:
     
     def reset(self):
         """Reset to default state."""
-        self.player_exp = 0
-        self.player_level = 1
         self.shroom_chunks = 0
 
 

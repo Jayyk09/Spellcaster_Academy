@@ -1,4 +1,5 @@
 """World scene - main gameplay area with tilemap and camera."""
+from entities.lich import Lich, LichLightning
 import pygame
 import os
 import json
@@ -16,7 +17,8 @@ from config.settings import (
     SCREEN_WIDTH, SCREEN_HEIGHT, SPRITES_DIR,
     TILE_SIZE, SCALE, WORLD_WIDTH, WORLD_HEIGHT,
     WORLD_WIDTH_TILES, WORLD_HEIGHT_TILES, CAMERA_DRAG_MARGIN,
-    SPELL_DAMAGE, CAMERA_ENABLED, CAMERA_DEFAULT_SPELL
+    SPELL_DAMAGE, CAMERA_ENABLED, CAMERA_DEFAULT_SPELL,
+    SPELL_TYPES
 )
 
 
@@ -117,6 +119,9 @@ class WorldScene(Scene):
         # Camera startup pause - will be set after ASL popup closes
         self._waiting_for_camera_ready = False
         self._camera_ready_font = pygame.font.Font(None, 36)
+        
+        # Spell type cycling - rotate through spell types each cast
+        self._spell_type_index = 0
     
     def _render_scaled_background(self):
         """Pre-render and scale the tilemap background."""
@@ -299,6 +304,15 @@ class WorldScene(Scene):
             radius=300, 
             letters=letters
         )
+
+        lich_count = enemies_config.get('lich', 0)
+        for _ in range(lich_count):
+            x, y = self._get_random_spawn_position()
+            letter = random.choice(letters)
+            enemy = Lich(x, y, letter=letter)
+            enemy.set_target(self.player)
+            self.enemies.add(enemy)
+            self.all_sprites.add(enemy)
         
         # Reset transition state
         self.wave_in_transition = False
@@ -467,12 +481,28 @@ class WorldScene(Scene):
         # Check undine spell collisions with player
         self._check_undine_spell_player_combat()
         
+        # Lich integration: pick up summoned skeletons and update lightning bolts
+        for enemy in self.enemies:
+            if isinstance(enemy, Lich):
+                # Add any pending summoned skeletons to the world
+                for skel in enemy.pending_skeletons:
+                    self.enemies.add(skel)
+                    self.all_sprites.add(skel)
+                enemy.pending_skeletons.clear()
+                # Update lightning bolts
+                for bolt in list(enemy.lightning_bolts):
+                    bolt.update(dt)
+                    if not bolt.is_alive:
+                        enemy.lightning_bolts.remove(bolt)
+        
+        # Check lich lightning collisions with player
+        self._check_lich_lightning_player_combat()
+        
         # Mushrooms disabled - sprite removed
         
         # Clean up dead enemies
         for enemy in list(self.enemies):
             if not enemy.is_alive and enemy.is_animation_finished():
-                game_state.player_exp += enemy.xp_value
                 self.enemies.remove(enemy)
                 self.all_sprites.remove(enemy)
         
@@ -613,6 +643,28 @@ class WorldScene(Scene):
                         self.undine_manager.spells.remove(spell)
                 break  # Spell can only hit once
     
+    def _check_lich_lightning_player_combat(self):
+        """Check for lich lightning bolt collisions with player."""
+        for enemy in self.enemies:
+            if not isinstance(enemy, Lich):
+                continue
+            for bolt in list(enemy.lightning_bolts):
+                if not bolt.is_alive:
+                    continue
+                bolt_hitbox = bolt.get_hitbox()
+                player_hitbox = self.player.rect
+                if bolt_hitbox.colliderect(player_hitbox):
+                    if self.player.is_blocking:
+                        bolt.destroy()
+                        if bolt in enemy.lightning_bolts:
+                            enemy.lightning_bolts.remove(bolt)
+                    else:
+                        self.player.take_damage(bolt.damage)
+                        bolt.destroy()
+                        if bolt in enemy.lightning_bolts:
+                            enemy.lightning_bolts.remove(bolt)
+                    break  # One bolt hit per frame
+
     def _process_camera_input(self, dt: float):
         """Process camera input for ASL letter detection."""
         # Update no-target feedback timer
@@ -656,20 +708,22 @@ class WorldScene(Scene):
         
         # Fire at target
         if target:
+            spell_type = self._next_spell_type()
             spell = SpellProjectile.create_targeted(
                 self.player.pos,
                 target.pos,
-                CAMERA_DEFAULT_SPELL,
+                spell_type,
                 letter
             )
             self.spells.add(spell)
             self.all_sprites.add(spell)
             self.player.play_cast_toward(target.pos)
         elif target_undine:
+            spell_type = self._next_spell_type()
             spell = SpellProjectile.create_targeted(
                 self.player.pos,
                 target_undine.pos,
-                CAMERA_DEFAULT_SPELL,
+                spell_type,
                 letter
             )
             self.spells.add(spell)
@@ -679,6 +733,12 @@ class WorldScene(Scene):
             # No target found - show feedback
             self._no_target_timer = 1.5  # Show "No Target" for 1.5 seconds
             self._no_target_letter = letter
+    
+    def _next_spell_type(self) -> str:
+        """Get the next spell type in the rotation and advance the index."""
+        spell_type = SPELL_TYPES[self._spell_type_index]
+        self._spell_type_index = (self._spell_type_index + 1) % len(SPELL_TYPES)
+        return spell_type
     
     def _find_closest_undine_by_letter(self, letter: str):
         """Find the closest alive undine with matching letter."""
@@ -727,6 +787,13 @@ class WorldScene(Scene):
         for spell in self.undine_manager.spells:
             if spell.is_alive:
                 y_sort_items.append((spell.pos.y, 'spell', spell))
+        
+        # Add lich lightning bolts
+        for enemy in self.enemies:
+            if isinstance(enemy, Lich):
+                for bolt in enemy.lightning_bolts:
+                    if bolt.is_alive:
+                        y_sort_items.append((bolt.pos.y, 'spell', bolt))
         
         # Add decorations
         for surface, world_x, world_y, sort_y in self.decorations:

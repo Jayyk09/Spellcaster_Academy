@@ -9,7 +9,7 @@ from config.settings import (
     SLIME_SPRITE_CONFIG, SKELETON_SPRITE_CONFIG,
     ENEMY_CHASE_SPEED, ENEMY_IDLE_SPEED,
     ENEMY_MAX_HEALTH, ENEMY_ATTACK_DAMAGE, ENEMY_DETECTION_RADIUS,
-    ENEMY_ATTACK_RANGE, ENEMY_DAMAGE_COOLDOWN, ENEMY_XP_VALUE,
+    ENEMY_ATTACK_RANGE, ENEMY_DAMAGE_COOLDOWN,
     ENEMY_LETTER_OFFSET_Y, FONTS_DIR,
     ENEMY_LETTER_BACKDROP_PATH
 )
@@ -87,7 +87,6 @@ class Enemy(AnimatedSprite):
         self.attack_range = ENEMY_ATTACK_RANGE
         self.damage_cooldown = 0.0
         self.damage_cooldown_duration = ENEMY_DAMAGE_COOLDOWN
-        self.xp_value = ENEMY_XP_VALUE
         
         # AI behavior timers
         self.wander_timer = 0.0
@@ -314,6 +313,11 @@ class Slime(Enemy):
     
     def __init__(self, x: float, y: float, letter: str | None = None):
         super().__init__(x, y, SLIME_SPRITE_CONFIG, letter=letter)
+        
+        # Slime-specific combat stats
+        self.detection_radius = 300   # Chase player within 300px
+        self.attack_range = 35        # Melee attack range
+        self.attack_damage = 25       # 25 damage per hit
 
 
 class Skeleton(Enemy):
@@ -325,9 +329,12 @@ class Skeleton(Enemy):
         # Skeleton is tougher than slime
         self.max_health = int(ENEMY_MAX_HEALTH * 1.5)  # 150 HP
         self.health = self.max_health
-        self.attack_damage = int(ENEMY_ATTACK_DAMAGE * 1.2)  # 60 damage
         self.chase_speed = ENEMY_CHASE_SPEED * 1.1  # Slightly faster
-        self.xp_value = ENEMY_XP_VALUE * 2  # 20 XP
+        
+        # Skeleton-specific combat stats
+        self.detection_radius = 500   # Chase player within 500px
+        self.attack_range = 40        # Melee attack range
+        self.attack_damage = 20       # 20 damage per hit
         
         # Larger collision for skeleton
         self.collision_radius = 10
