@@ -593,3 +593,115 @@ class WaveDisplay:
             countdown_surf = self.countdown_font.render(countdown_text, True, self.countdown_color)
             countdown_rect = countdown_surf.get_rect(centerx=self.x, top=complete_rect.bottom + 3)
             screen.blit(countdown_surf, countdown_rect)
+
+
+class SignReferencePanel:
+    """
+    Floating panel that shows all active ASL letter signs when the player
+    is near the Mage Guardian NPC. Auto-shows/hides based on proximity.
+    """
+
+    def __init__(self):
+        self.visible = False
+        self.letters: list[str] = []  # Current active letters to display
+        self.labels: dict[str, str] = {}  # Optional label per letter (e.g. B -> "Block")
+
+        # Colors
+        self.bg_color = (25, 30, 50, 210)
+        self.border_color = (120, 110, 90)
+        self.title_color = (255, 255, 255)
+        self.letter_color = (255, 255, 255)
+        self.label_color = (200, 200, 100)
+
+        # Fonts
+        try:
+            font_path = os.path.join(FONTS_DIR, 'Alkhemikal.ttf')
+            self.title_font = pygame.font.Font(font_path, 30)
+            self.letter_font = pygame.font.Font(font_path, 20)
+        except Exception:
+            self.title_font = pygame.font.Font(None, 34)
+            self.letter_font = pygame.font.Font(None, 22)
+
+        # Load ASL sprites (same sheet as ASLPopup)
+        self.asl_sprites: dict[str, pygame.Surface] = {}
+        self._load_asl_sprites()
+
+    def _load_asl_sprites(self):
+        """Load ASL letter sprites from the shared spritesheet."""
+        try:
+            sprite_path = os.path.join(SPRITES_DIR, 'ui', 'asl-sprites.png')
+            spritesheet = pygame.image.load(sprite_path).convert_alpha()
+            sheet_w, sheet_h = spritesheet.get_size()
+            all_letters = ['A', 'B', 'C', 'D', 'E', 'F']
+            sprite_w = sheet_w // len(all_letters)
+            for i, letter in enumerate(all_letters):
+                sub = spritesheet.subsurface(pygame.Rect(i * sprite_w, 0, sprite_w, sheet_h))
+                scaled = pygame.transform.scale(sub, (sprite_w * 2, sheet_h * 2))
+                self.asl_sprites[letter] = scaled
+        except Exception as e:
+            print(f"Warning: SignReferencePanel could not load ASL sprites: {e}")
+            for letter in ['A', 'B', 'C', 'D', 'E', 'F']:
+                ph = pygame.Surface((100, 100), pygame.SRCALPHA)
+                pygame.draw.rect(ph, (100, 100, 100), (0, 0, 100, 100), 2)
+                txt = self.letter_font.render(letter, True, (200, 200, 200))
+                ph.blit(txt, txt.get_rect(center=(50, 50)))
+                self.asl_sprites[letter] = ph
+
+    def set_letters(self, letters: list[str], labels: dict[str, str] | None = None):
+        """Set which letters to display, with optional per-letter labels."""
+        self.letters = [l.upper() for l in letters if l.upper() in self.asl_sprites]
+        self.labels = labels or {}
+
+    def show(self):
+        self.visible = True
+
+    def hide(self):
+        self.visible = False
+
+    def draw(self, screen: pygame.Surface):
+        if not self.visible or not self.letters:
+            return
+
+        num = len(self.letters)
+        sprite_w = 100
+        spacing = 16
+        total_w = num * sprite_w + (num - 1) * spacing + 40  # 40 padding
+        panel_h = 200
+        panel_w = max(total_w, 260)
+
+        # Position at top-center
+        panel_x = (SCREEN_WIDTH - panel_w) // 2
+        panel_y = 60
+
+        # Background
+        bg = pygame.Surface((panel_w, panel_h), pygame.SRCALPHA)
+        bg.fill(self.bg_color)
+        screen.blit(bg, (panel_x, panel_y))
+        pygame.draw.rect(screen, self.border_color,
+                         pygame.Rect(panel_x, panel_y, panel_w, panel_h), 3)
+
+        # Title
+        title = self.title_font.render("Sign Reference", True, self.title_color)
+        screen.blit(title, title.get_rect(centerx=SCREEN_WIDTH // 2, top=panel_y + 10))
+
+        # Letters row
+        row_start_x = SCREEN_WIDTH // 2 - (num * (sprite_w + spacing) - spacing) // 2
+        row_y = panel_y + 50
+
+        for i, letter in enumerate(self.letters):
+            cx = row_start_x + i * (sprite_w + spacing) + sprite_w // 2
+
+            # Letter label
+            lbl_text = letter
+            if letter in self.labels:
+                lbl_text = f"{letter} ({self.labels[letter]})"
+            lbl = self.letter_font.render(lbl_text, True,
+                                          self.label_color if letter in self.labels else self.letter_color)
+            screen.blit(lbl, lbl.get_rect(centerx=cx, top=row_y))
+
+            # Sprite
+            if letter in self.asl_sprites:
+                spr = self.asl_sprites[letter]
+                # Scale down a bit to fit in panel
+                thumb = pygame.transform.scale(spr, (80, 80))
+                screen.blit(thumb, thumb.get_rect(centerx=cx, top=row_y + 25))
