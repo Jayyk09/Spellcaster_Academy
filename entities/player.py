@@ -22,6 +22,7 @@ class Player(AnimatedSprite):
     STATE_IDLE = 'idle'
     STATE_WALKING = 'walking'
     STATE_CASTING = 'casting'
+    STATE_BLOCKING = 'blocking'
     STATE_DEAD = 'dead'
     
     def __init__(self, x: float, y: float):
@@ -60,6 +61,11 @@ class Player(AnimatedSprite):
         self.cast_anim_timer = 0.0
         self.cast_anim_duration = 0.4  # seconds to show cast animation
         
+        # Blocking
+        self.is_blocking = False  # True while block animation is playing
+        self.block_cooldown = 0.0
+        self.block_cooldown_duration = 0.5  # seconds before can block again
+        
         # Play initial animation
         self.play('idle_down')
     
@@ -87,11 +93,24 @@ class Player(AnimatedSprite):
             self.input_vector = self.input_vector.normalize()
     
     def handle_spell_input(self, key) -> SpellProjectile | None:
-        """Handle spell casting input (spacebar). Returns a spell if cast."""
-        if key == pygame.K_SPACE and self.state != self.STATE_DEAD:
-            if self.spell_cooldown <= 0:
-                return self.cast_spell()
+        """Handle spell casting input. Returns a spell if cast."""
+        # Spacebar is now used for blocking, not casting
         return None
+    
+    def handle_block_input(self, key) -> bool:
+        """Handle block input (spacebar). Returns True if block started."""
+        if key == pygame.K_SPACE and self.state not in (self.STATE_DEAD, self.STATE_BLOCKING, self.STATE_CASTING):
+            if self.block_cooldown <= 0:
+                return self.start_block()
+        return False
+    
+    def start_block(self) -> bool:
+        """Start the blocking animation. Returns True if block started."""
+        self.state = self.STATE_BLOCKING
+        self.is_blocking = True
+        self.velocity = pygame.Vector2(0, 0)
+        self.play('block', reset=True)
+        return True
     
     def cast_spell(self) -> SpellProjectile:
         """Cast the current spell and return the projectile."""
@@ -165,14 +184,25 @@ class Player(AnimatedSprite):
         if self.spell_cooldown > 0:
             self.spell_cooldown -= dt
         
+        # Update block cooldown
+        if self.block_cooldown > 0:
+            self.block_cooldown -= dt
+        
         # Update cast animation timer
         if self.cast_anim_timer > 0:
             self.cast_anim_timer -= dt
             if self.cast_anim_timer <= 0:
                 self.state = self.STATE_IDLE
         
-        # Update movement if not dead or casting
-        if self.state not in (self.STATE_DEAD, self.STATE_CASTING):
+        # Check if block animation finished
+        if self.state == self.STATE_BLOCKING:
+            if self.is_animation_finished():
+                self.is_blocking = False
+                self.state = self.STATE_IDLE
+                self.block_cooldown = self.block_cooldown_duration
+        
+        # Update movement if not dead, casting, or blocking
+        if self.state not in (self.STATE_DEAD, self.STATE_CASTING, self.STATE_BLOCKING):
             self._update_movement(dt)
         
         # Update health regeneration
@@ -226,6 +256,10 @@ class Player(AnimatedSprite):
         """Update current animation based on state and direction."""
         if self.state == self.STATE_DEAD:
             self.play('death')
+            return
+        
+        if self.state == self.STATE_BLOCKING:
+            # Block animation is already playing, don't override it
             return
         
         if self.state == self.STATE_CASTING:

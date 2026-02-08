@@ -357,6 +357,9 @@ class WorldScene(Scene):
             if event.key == pygame.K_ESCAPE:
                 self.next_scene = 'menu'
             
+            # Block (spacebar)
+            self.player.handle_block_input(event.key)
+            
             # Debug: respawn
             if event.key == pygame.K_r and self.map_data:
                 spawn_points = get_spawn_points(self.map_data)
@@ -596,12 +599,18 @@ class WorldScene(Scene):
             player_hitbox = self.player.rect
             
             if spell_hitbox.colliderect(player_hitbox):
-                # Undine spell hits player
-                self.player.take_damage(spell.damage)
-                spell.destroy()
-                # Remove spell from manager
-                if spell in self.undine_manager.spells:
-                    self.undine_manager.spells.remove(spell)
+                if self.player.is_blocking:
+                    # Player is blocking - destroy the spell without taking damage
+                    spell.destroy()
+                    if spell in self.undine_manager.spells:
+                        self.undine_manager.spells.remove(spell)
+                else:
+                    # Undine spell hits player
+                    self.player.take_damage(spell.damage)
+                    spell.destroy()
+                    # Remove spell from manager
+                    if spell in self.undine_manager.spells:
+                        self.undine_manager.spells.remove(spell)
                 break  # Spell can only hit once
     
     def _process_camera_input(self, dt: float):

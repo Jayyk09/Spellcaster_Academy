@@ -36,15 +36,24 @@ class SpriteSheet:
 class Animation:
     """Manages a single animation sequence."""
     
-    def __init__(self, frames: list[pygame.Surface], fps: float = 5.0, loop: bool = True):
+    def __init__(self, frames: list[pygame.Surface], fps: float = 5.0, loop: bool = True,
+                 frame_durations: list[float] | None = None):
         self.frames = frames
         self.fps = fps
         self.loop = loop
         self.frame_duration = 1.0 / fps if fps > 0 else 1.0
+        # Per-frame durations override uniform fps timing
+        self.frame_durations = frame_durations  # e.g. [0.05, 0.05, 0.5, 0.5, 0.05, 0.05, 0.05, 0.05]
         self.current_frame = 0
         self.elapsed_time = 0.0
         self.finished = False
         self.disable_flip = False  # Set to True for custom animations that shouldn't be flipped
+    
+    def _get_current_frame_duration(self) -> float:
+        """Get duration for the current frame."""
+        if self.frame_durations and self.current_frame < len(self.frame_durations):
+            return self.frame_durations[self.current_frame]
+        return self.frame_duration
     
     def reset(self):
         """Reset animation to the beginning."""
@@ -59,8 +68,9 @@ class Animation:
         
         self.elapsed_time += dt
         
-        while self.elapsed_time >= self.frame_duration:
-            self.elapsed_time -= self.frame_duration
+        duration = self._get_current_frame_duration()
+        while self.elapsed_time >= duration:
+            self.elapsed_time -= duration
             self.current_frame += 1
             
             if self.current_frame >= len(self.frames):
@@ -69,6 +79,8 @@ class Animation:
                 else:
                     self.current_frame = len(self.frames) - 1
                     self.finished = True
+                    break
+            duration = self._get_current_frame_duration()
     
     def get_current_frame(self) -> pygame.Surface:
         """Get the current frame surface."""
@@ -117,10 +129,13 @@ class AnimatedSprite(pygame.sprite.Sprite):
                     anim_data.get('frame_width', config['frame_width']),
                     anim_data.get('frame_height', config['frame_height'])
                 )
-                frames = anim_sheet.get_animation_frames(
-                    anim_data.get('row', 0),
-                    anim_data['frames']
-                )
+                # Support multi-row animations via 'rows' parameter
+                rows = anim_data.get('rows', 1)
+                frames_per_row = anim_data['frames']
+                frames = []
+                for r in range(rows):
+                    row_index = anim_data.get('row', 0) + r
+                    frames.extend(anim_sheet.get_animation_frames(row_index, frames_per_row))
                 # Scale frames if 'scale' is specified
                 if 'scale' in anim_data:
                     s = anim_data['scale']
@@ -134,7 +149,8 @@ class AnimatedSprite(pygame.sprite.Sprite):
                     anim_data['frames']
                 )
             loop = anim_data.get('loop', True)
-            animation = Animation(frames, anim_data['fps'], loop)
+            frame_durations = anim_data.get('frame_durations', None)
+            animation = Animation(frames, anim_data['fps'], loop, frame_durations)
             # Mark animations with custom paths to not be flipped (unless allow_flip is True)
             animation.disable_flip = has_custom_path and not anim_data.get('allow_flip', False)
             self.animations[anim_name] = animation
