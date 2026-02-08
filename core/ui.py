@@ -401,10 +401,11 @@ class ASLPopup:
                 placeholder.blit(text, text_rect)
                 self.asl_sprites[letter] = placeholder
     
-    def show(self, letters: list[str]):
-        """Show the popup with the specified letters."""
+    def show(self, letters: list[str], subtitle: str = ""):
+        """Show the popup with the specified letters and optional subtitle."""
         self.visible = True
         self.letters = [l.upper() for l in letters if l.upper() in self.asl_sprites]
+        self.subtitle = subtitle
         self.ready = False
     
     def hide(self):
@@ -461,6 +462,14 @@ class ASLPopup:
         title_rect = title_text.get_rect(centerx=SCREEN_WIDTH // 2, top=self.panel_rect.top + 20)
         screen.blit(title_text, title_rect)
         
+        # Draw optional subtitle
+        subtitle_offset = 0
+        if hasattr(self, 'subtitle') and self.subtitle:
+            sub_text = self.letter_font.render(self.subtitle, True, (200, 200, 100))
+            sub_rect = sub_text.get_rect(centerx=SCREEN_WIDTH // 2, top=title_rect.bottom + 5)
+            screen.blit(sub_text, sub_rect)
+            subtitle_offset = sub_text.get_height() + 5
+        
         # Draw ASL examples for each letter
         if self.letters:
             # Calculate layout
@@ -471,7 +480,7 @@ class ASLPopup:
             
             total_width = num_letters * sprite_width + (num_letters - 1) * spacing
             start_x = SCREEN_WIDTH // 2 - total_width // 2 + sprite_width // 2
-            start_y = self.panel_rect.top + 80
+            start_y = self.panel_rect.top + 80 + subtitle_offset
             
             for i, letter in enumerate(self.letters):
                 x = start_x + i * (sprite_width + spacing)

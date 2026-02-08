@@ -16,7 +16,6 @@
 			"wave_number": 2,
 			"letters": [
 				"A",
-				"B",
 				"C"
 			],
 			"enemies": {
@@ -30,7 +29,6 @@
 			"wave_number": 3,
 			"letters": [
 				"A",
-				"B",
 				"C",
 				"D"
 			],
@@ -45,7 +43,6 @@
 			"wave_number": 4,
 			"letters": [
 				"A",
-				"B",
 				"C",
 				"D",
 				"E"
@@ -61,7 +58,6 @@
 			"wave_number": 5,
 			"letters": [
 				"A",
-				"B",
 				"C",
 				"D",
 				"E"

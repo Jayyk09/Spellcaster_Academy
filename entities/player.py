@@ -98,10 +98,7 @@ class Player(AnimatedSprite):
         return None
     
     def handle_block_input(self, key) -> bool:
-        """Handle block input (spacebar). Returns True if block started."""
-        if key == pygame.K_SPACE and self.state not in (self.STATE_DEAD, self.STATE_BLOCKING, self.STATE_CASTING):
-            if self.block_cooldown <= 0:
-                return self.start_block()
+        """Handle block input. Returns True if block started."""
         return False
     
     def start_block(self) -> bool:
