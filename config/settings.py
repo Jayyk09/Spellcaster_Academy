@@ -47,7 +47,6 @@ ENEMY_ATTACK_DAMAGE = 50
 ENEMY_DETECTION_RADIUS = 51
 ENEMY_ATTACK_RANGE = 12
 ENEMY_DAMAGE_COOLDOWN = 0.8  # seconds
-ENEMY_XP_VALUE = 10
 
 # Enemy letter display settings
 ENEMY_LETTER_FONT_SIZE = 16
@@ -177,19 +176,110 @@ SKELETON_SPRITE_CONFIG = {
     'frame_width': 48,
     'frame_height': 48,
     'animations': {
-        'idle_front': {'row': 0, 'frames': 6, 'fps': 5},
-        'idle_side': {'row': 1, 'frames': 6, 'fps': 5},
-        'idle_back': {'row': 2, 'frames': 6, 'fps': 5},
-        'walk_front': {'row': 3, 'frames': 6, 'fps': 5},
-        'walk_side': {'row': 4, 'frames': 6, 'fps': 5},
-        'walk_back': {'row': 5, 'frames': 6, 'fps': 5},
-        'attack_front': {'row': 6, 'frames': 4, 'fps': 8},
-        'attack_side': {'row': 7, 'frames': 4, 'fps': 8},
-        'attack_back': {'row': 8, 'frames': 4, 'fps': 8},
-        'damaged_front': {'row': 9, 'frames': 3, 'fps': 8},
-        'damaged_side': {'row': 10, 'frames': 3, 'fps': 8},
-        'damaged_back': {'row': 11, 'frames': 3, 'fps': 8},
-        'death': {'row': 12, 'frames': 5, 'fps': 5},
+        'idle_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 0, 'frames': 6, 'fps': 5, 'scale': 2.0},
+        'idle_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 1, 'frames': 6, 'fps': 5, 'scale': 2.0},
+        'idle_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 2, 'frames': 6, 'fps': 5, 'scale': 2.0},
+        'walk_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 3, 'frames': 6, 'fps': 5, 'scale': 2.0},
+        'walk_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 4, 'frames': 6, 'fps': 5, 'scale': 2.0},
+        'walk_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 5, 'frames': 6, 'fps': 5, 'scale': 2.0},
+        'attack_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 6, 'frames': 4, 'fps': 8, 'scale': 2.0},
+        'attack_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 7, 'frames': 4, 'fps': 8, 'scale': 2.0},
+        'attack_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 8, 'frames': 4, 'fps': 8, 'scale': 2.0},
+        'damaged_front': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 9, 'frames': 3, 'fps': 8, 'scale': 2.0},
+        'damaged_side': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 10, 'frames': 3, 'fps': 8, 'scale': 2.0},
+        'damaged_back': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 11, 'frames': 3, 'fps': 8, 'scale': 2.0},
+        'death': {'path': os.path.join(SPRITES_DIR, 'characters', 'skeleton.png'), 'row': 12, 'frames': 5, 'fps': 5, 'scale': 2.0},
+    }
+}
+
+# Lich boss settings
+LICH_MAX_HEALTH = 5  # Takes 5 hits to kill
+LICH_X_OFFSET = 250  # Stay 250 pixels to the left of the player
+LICH_SPEED_FACTOR = 0.6  # 60% of player speed
+LICH_ATTACK_COOLDOWN_MIN = 3.0  # Min seconds between attacks
+LICH_ATTACK_COOLDOWN_MAX = 5.0  # Max seconds between attacks
+LICH_LIGHTNING_DAMAGE = 75  # Lightning bolt damage
+
+# Lich sprite directory
+_LICH_DIR = os.path.join(SPRITES_DIR, 'monsters', 'Lich', 'Magenta')
+_LICH_LIGHTNING_DIR = os.path.join(SPRITES_DIR, 'monsters', 'Lich', 'Lightning')
+
+# All lich frames are 176x128, scaled to 1.5x (264x192)
+LICH_SPRITE_CONFIG = {
+    'path': os.path.join(_LICH_DIR, 'Lich_magenta_idle.png'),
+    'frame_width': 176,
+    'frame_height': 128,
+    'animations': {
+        # Idle: 2 rows x 8 cols = 16 frames
+        'idle': {
+            'path': os.path.join(_LICH_DIR, 'Lich_magenta_idle.png'),
+            'frame_width': 176, 'frame_height': 128,
+            'row': 0, 'frames': 8, 'rows': 2, 'fps': 8,
+            'scale': 1.5,
+        },
+        # Casting (summon skeletons): 4 rows; rows 0-2 have 7 valid frames, row 3 has 8
+        # We load all 8 per row (32 total) and skip blank frames in code
+        'casting': {
+            'path': os.path.join(_LICH_DIR, 'Lich_magenta_casting.png'),
+            'frame_width': 176, 'frame_height': 128,
+            'row': 0, 'frames': 8, 'rows': 4, 'fps': 12,
+            'scale': 1.5, 'loop': False,
+        },
+        # Third attack (lightning): 2 rows x 8 cols = 16 frames
+        'third_attack': {
+            'path': os.path.join(_LICH_DIR, 'Lich_magenta_third_attack.png'),
+            'frame_width': 176, 'frame_height': 128,
+            'row': 0, 'frames': 8, 'rows': 2, 'fps': 12,
+            'scale': 1.5, 'loop': False,
+        },
+        # Long spin attack (block/defense): 4 rows x 8 cols = 32 frames
+        'long_spin_attack': {
+            'path': os.path.join(_LICH_DIR, 'Lich_magenta_long_spin_attack.png'),
+            'frame_width': 176, 'frame_height': 128,
+            'row': 0, 'frames': 8, 'rows': 4, 'fps': 12,
+            'scale': 1.5, 'loop': False,
+        },
+        'long_spin_ghosts': {
+            'path': os.path.join(_LICH_DIR, 'Lich_magenta_long_spin_with_ghosts_attack.png'),
+            'frame_width': 176, 'frame_height': 128,
+            'row': 0, 'frames': 8, 'rows': 4, 'fps': 12,
+            'scale': 1.5, 'loop': False,
+        },
+        'long_spin_symbols': {
+            'path': os.path.join(_LICH_DIR, 'Lich_magenta_long_spin_with_symbols_attack.png'),
+            'frame_width': 176, 'frame_height': 128,
+            'row': 0, 'frames': 8, 'rows': 4, 'fps': 12,
+            'scale': 1.5, 'loop': False,
+        },
+        # Hurt: 1 row x 2 cols = 2 frames
+        'hurt': {
+            'path': os.path.join(_LICH_DIR, 'Lich_magenta_hurt.png'),
+            'frame_width': 176, 'frame_height': 128,
+            'row': 0, 'frames': 2, 'fps': 6,
+            'scale': 1.5, 'loop': False,
+        },
+        # Death: 2 rows x 6 cols = 12 frames
+        'death': {
+            'path': os.path.join(_LICH_DIR, 'Lich_magenta_death.png'),
+            'frame_width': 176, 'frame_height': 128,
+            'row': 0, 'frames': 6, 'rows': 2, 'fps': 8,
+            'scale': 1.5, 'loop': False,
+        },
+    }
+}
+
+# Lightning projectile: 8 cols at 32x32, use rows 0-4 (5 rows of content, skip blank row 5+)
+LICH_LIGHTNING_CONFIG = {
+    'path': os.path.join(_LICH_LIGHTNING_DIR, 'Lightning_magenta-Sheet.png'),
+    'frame_width': 32,
+    'frame_height': 32,
+    'animations': {
+        'lightning': {
+            'path': os.path.join(_LICH_LIGHTNING_DIR, 'Lightning_magenta-Sheet.png'),
+            'frame_width': 32, 'frame_height': 32,
+            'row': 0, 'frames': 8, 'rows': 5, 'fps': 14,
+            'scale': 2.0,
+        },
     }
 }
 

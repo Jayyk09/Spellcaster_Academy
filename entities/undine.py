@@ -104,7 +104,7 @@ class Undine:
         self.cast_cooldown = 0.0
         self.cast_interval = 3.0  # Cast every 3 seconds
         self.initial_attack_delay = 3.0  # Wait 3 seconds before first attack
-        self.spell_damage = int(SPELL_DAMAGE * 0.5)  # 50% of player spell damage (75)
+        self.spell_damage = int(SPELL_DAMAGE / 3)  # 33% of player spell damage (50)
         self.spell_type = 'air'  # Use air spells
         self.spells_cast = []  # List of spells cast by this undine
         
