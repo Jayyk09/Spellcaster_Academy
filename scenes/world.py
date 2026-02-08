@@ -873,21 +873,21 @@ class WorldScene(Scene):
         # Get screen Y position (barrier spans full screen width)
         _, screen_y = self.camera.world_to_screen(0, barrier['y'])
 
-        # Very subtle slow pulse
+        # Subtle slow pulse
         pulse = (math.sin(time * 1.5) + 1) / 2  # 0 to 1, slower
-        alpha = int(40 + pulse * 40)  # 40 to 80, very subtle
+        alpha = int(60 + pulse * 50)  # 60 to 110
 
-        # Draw thin subtle line across entire screen
-        line_color = (100, 150, 200, alpha)  # Soft blue
-        pygame.draw.line(screen, line_color, (0, screen_y), (screen.get_width(), screen_y), 2)
+        # Draw purple line across entire screen, 10px thick
+        line_color = (140, 100, 180, alpha)  # Subtle purple
+        pygame.draw.line(screen, line_color, (0, screen_y), (screen.get_width(), screen_y), 10)
 
-        # Occasional subtle shimmer dots (fewer, smaller)
+        # Occasional subtle shimmer dots
         num_shimmers = 3
         for i in range(num_shimmers):
             shimmer_x = (screen.get_width() * (i + 0.5) / num_shimmers) + math.sin(time * 0.5 + i) * 20
-            shimmer_alpha = int(60 + pulse * 40)
-            pygame.draw.circle(screen, (150, 180, 220, shimmer_alpha),
-                               (int(shimmer_x), int(screen_y)), 2)
+            shimmer_alpha = int(80 + pulse * 50)
+            pygame.draw.circle(screen, (160, 120, 200, shimmer_alpha),
+                               (int(shimmer_x), int(screen_y)), 3)
 
     def draw(self, screen: pygame.Surface):
         # Clear screen
