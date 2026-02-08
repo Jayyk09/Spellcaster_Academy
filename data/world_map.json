@@ -1,308 +1,757 @@
 {
   "name": "world",
-  "width": 14,
+  "width": 50,
   "height": 25,
   "tile_size": 16,
   "tile_defs": {
     "_comment": "plains.png layout - 6 cols x 12 rows (0-indexed)",
-    
     "_section_vertical_path": "--- Small Vertical Path with grass (col 0, rows 0-2) ---",
-    "Svt": ["plains", 0, 0],
-    "Svm": ["plains", 0, 1],
-    "Svb": ["plains", 0, 2],
-    
+    "Svt": [
+      "plains",
+      0,
+      0
+    ],
+    "Svm": [
+      "plains",
+      0,
+      1
+    ],
+    "Svb": [
+      "plains",
+      0,
+      2
+    ],
     "_section_single_path": "--- Single Path Tile (col 0, row 3) ---",
-    "Sp1": ["plains", 0, 3],
-    
+    "Sp1": [
+      "plains",
+      0,
+      3
+    ],
     "_section_dirt_patch": "--- Big Dirt Patch 3x3 (cols 1-3, rows 0-2) - 2,1 is dirt, others have grass borders ---",
-    "Dtl": ["plains", 1, 0],
-    "Dt":  ["plains", 2, 0],
-    "Dtr": ["plains", 3, 0],
-    "Dl":  ["plains", 1, 1],
-    "Dc":  ["plains", 2, 1],
-    "Dr":  ["plains", 3, 1],
-    "Dbl": ["plains", 1, 2],
-    "Db":  ["plains", 2, 2],
-    "Dbr": ["plains", 3, 2],
-    
+    "Dtl": [
+      "plains",
+      1,
+      0
+    ],
+    "Dt": [
+      "plains",
+      2,
+      0
+    ],
+    "Dtr": [
+      "plains",
+      3,
+      0
+    ],
+    "Dl": [
+      "plains",
+      1,
+      1
+    ],
+    "Dc": [
+      "plains",
+      2,
+      1
+    ],
+    "Dr": [
+      "plains",
+      3,
+      1
+    ],
+    "Dbl": [
+      "plains",
+      1,
+      2
+    ],
+    "Db": [
+      "plains",
+      2,
+      2
+    ],
+    "Dbr": [
+      "plains",
+      3,
+      2
+    ],
     "_section_grass_divided": "--- 4 Grass Tiles Equally Divided (cols 4-5, rows 0-1) ---",
-    "Gd1": ["plains", 4, 0],
-    "Gd2": ["plains", 5, 0],
-    "Gd3": ["plains", 4, 1],
-    "Gd4": ["plains", 5, 1],
-    
+    "Gd1": [
+      "plains",
+      4,
+      0
+    ],
+    "Gd2": [
+      "plains",
+      5,
+      0
+    ],
+    "Gd3": [
+      "plains",
+      4,
+      1
+    ],
+    "Gd4": [
+      "plains",
+      5,
+      1
+    ],
     "_section_elevated_vertical": "--- Elevated Land Vertical (col 0, rows 4-6) ---",
-    "Evt": ["plains", 0, 4],
-    "Evm": ["plains", 0, 5],
-    "Evb": ["plains", 0, 6],
-    
+    "Evt": [
+      "plains",
+      0,
+      4
+    ],
+    "Evm": [
+      "plains",
+      0,
+      5
+    ],
+    "Evb": [
+      "plains",
+      0,
+      6
+    ],
     "_section_plateau": "--- Plateau 3x3 (cols 1-3, rows 4-6) - Always use together ---",
-    "Ptl": ["plains", 1, 4],
-    "Pt":  ["plains", 2, 4],
-    "Ptr": ["plains", 3, 4],
-    "Pl":  ["plains", 1, 5],
-    "Pc":  ["plains", 2, 5],
-    "Pr":  ["plains", 3, 5],
-    "Pbl": ["plains", 1, 6],
-    "Pb":  ["plains", 2, 6],
-    "Pbr": ["plains", 3, 6],
-    
+    "Ptl": [
+      "plains",
+      1,
+      4
+    ],
+    "Pt": [
+      "plains",
+      2,
+      4
+    ],
+    "Ptr": [
+      "plains",
+      3,
+      4
+    ],
+    "Pl": [
+      "plains",
+      1,
+      5
+    ],
+    "Pc": [
+      "plains",
+      2,
+      5
+    ],
+    "Pr": [
+      "plains",
+      3,
+      5
+    ],
+    "Pbl": [
+      "plains",
+      1,
+      6
+    ],
+    "Pb": [
+      "plains",
+      2,
+      6
+    ],
+    "Pbr": [
+      "plains",
+      3,
+      6
+    ],
     "_section_elevated_horizontal": "--- Elevated Land Horizontal (cols 1-3, row 7) ---",
-    "Ehl": ["plains", 1, 7],
-    "Ehm": ["plains", 2, 7],
-    "Ehr": ["plains", 3, 7],
-    
+    "Ehl": [
+      "plains",
+      1,
+      7
+    ],
+    "Ehm": [
+      "plains",
+      2,
+      7
+    ],
+    "Ehr": [
+      "plains",
+      3,
+      7
+    ],
     "_section_hole": "--- Hole in Middle 2x2 (cols 4-5, rows 4-5) ---",
-    "Htl": ["plains", 4, 4],
-    "Htr": ["plains", 5, 4],
-    "Hbl": ["plains", 4, 5],
-    "Hbr": ["plains", 5, 5],
-    
+    "Htl": [
+      "plains",
+      4,
+      4
+    ],
+    "Htr": [
+      "plains",
+      5,
+      4
+    ],
+    "Hbl": [
+      "plains",
+      4,
+      5
+    ],
+    "Hbr": [
+      "plains",
+      5,
+      5
+    ],
     "_section_extra_2x2": "--- Extra 2x2 (cols 4-5, rows 6-7) ---",
-    "E1": ["plains", 4, 6],
-    "E2": ["plains", 5, 6],
-    "E3": ["plains", 4, 7],
-    "E4": ["plains", 5, 7],
-    
+    "E1": [
+      "plains",
+      4,
+      6
+    ],
+    "E2": [
+      "plains",
+      5,
+      6
+    ],
+    "E3": [
+      "plains",
+      4,
+      7
+    ],
+    "E4": [
+      "plains",
+      5,
+      7
+    ],
     "_section_rock_vertical": "--- Rock Patch Vertical (col 0, rows 8-10) ---",
-    "Rvt": ["plains", 0, 8],
-    "Rvm": ["plains", 0, 9],
-    "Rvb": ["plains", 0, 10],
-    
+    "Rvt": [
+      "plains",
+      0,
+      8
+    ],
+    "Rvm": [
+      "plains",
+      0,
+      9
+    ],
+    "Rvb": [
+      "plains",
+      0,
+      10
+    ],
     "_section_single_rock": "--- Single Rock (col 0, row 11) ---",
-    "Rk1": ["plains", 0, 11],
-    
+    "Rk1": [
+      "plains",
+      0,
+      11
+    ],
     "_section_rocky_garden": "--- Rocky Garden 3x3 (cols 1-3, rows 8-10) - Use together ---",
-    "Rgtl": ["plains", 1, 8],
-    "Rgt":  ["plains", 2, 8],
-    "Rgtr": ["plains", 3, 8],
-    "Rgl":  ["plains", 1, 9],
-    "Rgc":  ["plains", 2, 9],
-    "Rgr":  ["plains", 3, 9],
-    "Rgbl": ["plains", 1, 10],
-    "Rgb":  ["plains", 2, 10],
-    "Rgbr": ["plains", 3, 10],
-    
+    "Rgtl": [
+      "plains",
+      1,
+      8
+    ],
+    "Rgt": [
+      "plains",
+      2,
+      8
+    ],
+    "Rgtr": [
+      "plains",
+      3,
+      8
+    ],
+    "Rgl": [
+      "plains",
+      1,
+      9
+    ],
+    "Rgc": [
+      "plains",
+      2,
+      9
+    ],
+    "Rgr": [
+      "plains",
+      3,
+      9
+    ],
+    "Rgbl": [
+      "plains",
+      1,
+      10
+    ],
+    "Rgb": [
+      "plains",
+      2,
+      10
+    ],
+    "Rgbr": [
+      "plains",
+      3,
+      10
+    ],
     "_section_rocks_no_grass": "--- Rocks No Grass 2x3 (cols 4-5, rows 8-10) ---",
-    "Rn1": ["plains", 4, 8],
-    "Rn2": ["plains", 5, 8],
-    "Rn3": ["plains", 4, 9],
-    "Rn4": ["plains", 5, 9],
-    "Rn5": ["plains", 4, 10],
-    "Rn6": ["plains", 5, 10],
-    
+    "Rn1": [
+      "plains",
+      4,
+      8
+    ],
+    "Rn2": [
+      "plains",
+      5,
+      8
+    ],
+    "Rn3": [
+      "plains",
+      4,
+      9
+    ],
+    "Rn4": [
+      "plains",
+      5,
+      9
+    ],
+    "Rn5": [
+      "plains",
+      4,
+      10
+    ],
+    "Rn6": [
+      "plains",
+      5,
+      10
+    ],
     "_section_bottom_row": "--- Bottom Row (cols 1-5, row 11) ---",
-    "B1": ["plains", 1, 11],
-    "B2": ["plains", 2, 11],
-    "B3": ["plains", 3, 11],
-    "B4": ["plains", 4, 11],
-    "B5": ["plains", 5, 11],
-    
+    "B1": [
+      "plains",
+      1,
+      11
+    ],
+    "B2": [
+      "plains",
+      2,
+      11
+    ],
+    "B3": [
+      "plains",
+      3,
+      11
+    ],
+    "B4": [
+      "plains",
+      4,
+      11
+    ],
+    "B5": [
+      "plains",
+      5,
+      11
+    ],
     "_base": "--- Base grass tile ---",
-    "G": ["grass", 0, 0],
-    
+    "G": [
+      "grass",
+      0,
+      0
+    ],
     "_decor": "--- Decorations ---",
-    
     "_decor8_rocks": "--- 8x8 Rocks (row 0) ---",
-    "r0": ["decor8", 0, 0],
-    "r1": ["decor8", 1, 0],
-    "r2": ["decor8", 2, 0],
-    "r3": ["decor8", 3, 0],
-    
+    "r0": [
+      "decor8",
+      0,
+      0
+    ],
+    "r1": [
+      "decor8",
+      1,
+      0
+    ],
+    "r2": [
+      "decor8",
+      2,
+      0
+    ],
+    "r3": [
+      "decor8",
+      3,
+      0
+    ],
     "_decor8_grass": "--- 8x8 Grass decor (row 1) ---",
-    "g0": ["decor8", 0, 1],
-    "g1": ["decor8", 1, 1],
-    "g2": ["decor8", 2, 1],
-    "g3": ["decor8", 3, 1],
-    
+    "g0": [
+      "decor8",
+      0,
+      1
+    ],
+    "g1": [
+      "decor8",
+      1,
+      1
+    ],
+    "g2": [
+      "decor8",
+      2,
+      1
+    ],
+    "g3": [
+      "decor8",
+      3,
+      1
+    ],
     "_decor8_flowers": "--- 8x8 Flowers (row 2) ---",
-    "f0": ["decor8", 0, 2],
-    "f1": ["decor8", 1, 2],
-    "f2": ["decor8", 2, 2],
-    "f3": ["decor8", 3, 2],
-    
+    "f0": [
+      "decor8",
+      0,
+      2
+    ],
+    "f1": [
+      "decor8",
+      1,
+      2
+    ],
+    "f2": [
+      "decor8",
+      2,
+      2
+    ],
+    "f3": [
+      "decor8",
+      3,
+      2
+    ],
     "_decor8_dirt": "--- 8x8 Dirt pattern (row 3) ---",
-    "d0": ["decor8", 0, 3],
-    "d1": ["decor8", 1, 3],
-    "d2": ["decor8", 2, 3],
-    "d3": ["decor8", 3, 3],
-    
+    "d0": [
+      "decor8",
+      0,
+      3
+    ],
+    "d1": [
+      "decor8",
+      1,
+      3
+    ],
+    "d2": [
+      "decor8",
+      2,
+      3
+    ],
+    "d3": [
+      "decor8",
+      3,
+      3
+    ],
     "_decor16_grass": "--- 16x16 Grass (cols 0-1, rows 0-7) ---",
-    "G0": ["decor16", 0, 0],
-    "G1": ["decor16", 0, 1],
-    "G2": ["decor16", 0, 2],
-    "G3": ["decor16", 0, 3],
-    "G4": ["decor16", 0, 4],
-    "G5": ["decor16", 0, 5],
-    "G6": ["decor16", 0, 6],
-    "G7": ["decor16", 0, 7],
-    
+    "G0": [
+      "decor16",
+      0,
+      0
+    ],
+    "G1": [
+      "decor16",
+      0,
+      1
+    ],
+    "G2": [
+      "decor16",
+      0,
+      2
+    ],
+    "G3": [
+      "decor16",
+      0,
+      3
+    ],
+    "G4": [
+      "decor16",
+      0,
+      4
+    ],
+    "G5": [
+      "decor16",
+      0,
+      5
+    ],
+    "G6": [
+      "decor16",
+      0,
+      6
+    ],
+    "G7": [
+      "decor16",
+      0,
+      7
+    ],
     "_decor16_rocks": "--- 16x16 Rocks (cols 2-3, rows 2-7) ---",
-    "R0": ["decor16", 2, 2],
-    "R1": ["decor16", 2, 3],
-    "R2": ["decor16", 2, 4],
-    "R3": ["decor16", 2, 5],
-    "R4": ["decor16", 2, 6],
-    "R5": ["decor16", 2, 7],
-    
+    "R0": [
+      "decor16",
+      2,
+      2
+    ],
+    "R1": [
+      "decor16",
+      2,
+      3
+    ],
+    "R2": [
+      "decor16",
+      2,
+      4
+    ],
+    "R3": [
+      "decor16",
+      2,
+      5
+    ],
+    "R4": [
+      "decor16",
+      2,
+      6
+    ],
+    "R5": [
+      "decor16",
+      2,
+      7
+    ],
     "_decor16_flowers": "--- 16x16 Flowers (cols 4-5, rows 4-7) ---",
-    "F0": ["decor16", 4, 4],
-    "F1": ["decor16", 4, 5],
-    "F2": ["decor16", 4, 6],
-    "F3": ["decor16", 4, 7],
-    
+    "F0": [
+      "decor16",
+      4,
+      4
+    ],
+    "F1": [
+      "decor16",
+      4,
+      5
+    ],
+    "F2": [
+      "decor16",
+      4,
+      6
+    ],
+    "F3": [
+      "decor16",
+      4,
+      7
+    ],
     "_decor16_mushrooms": "--- 16x16 Mushrooms (cols 6-7, rows 6-7) ---",
-    "M0": ["decor16", 6, 6],
-    "M1": ["decor16", 6, 7],
-    
+    "M0": [
+      "decor16",
+      6,
+      6
+    ],
+    "M1": [
+      "decor16",
+      6,
+      7
+    ],
     "_decor16_dirt": "--- 16x16 Dirt (cols 7-9?, rows 8-9?) ---",
-    "D0": ["decor16", 6, 8],
-    "D1": ["decor16", 6, 9],
-    
+    "D0": [
+      "decor16",
+      6,
+      8
+    ],
+    "D1": [
+      "decor16",
+      6,
+      9
+    ],
     "_fence": "--- Fences ---",
-    "Fp": ["fences", 0, 0],
-    "Fh": ["fences", 1, 1],
-    "Fv": ["fences", 0, 1],
-    
+    "Fp": [
+      "fences",
+      0,
+      0
+    ],
+    "Fh": [
+      "fences",
+      1,
+      1
+    ],
+    "Fv": [
+      "fences",
+      0,
+      1
+    ],
     "_objects": "--- Y-Sort Objects ---",
-    "T1": ["objects", 0, 5],
-    "T2": ["objects", 3, 5],
-    "Bu": ["objects", 6, 7],
-    "Rl": ["objects", 0, 1],
-    "Rm": ["objects", 1, 1],
-    "Rs": ["objects", 2, 1],
-    "Lh": ["objects", 6, 5],
-    "Lv": ["objects", 6, 6],
-    "Spo": ["objects", 0, 0]
+    "T1": [
+      "objects",
+      0,
+      5
+    ],
+    "T2": [
+      "objects",
+      3,
+      5
+    ],
+    "Bu": [
+      "objects",
+      6,
+      7
+    ],
+    "Rl": [
+      "objects",
+      0,
+      1
+    ],
+    "Rm": [
+      "objects",
+      1,
+      1
+    ],
+    "Rs": [
+      "objects",
+      2,
+      1
+    ],
+    "Lh": [
+      "objects",
+      6,
+      5
+    ],
+    "Lv": [
+      "objects",
+      6,
+      6
+    ],
+    "Spo": [
+      "objects",
+      0,
+      0
+    ]
   },
   "layers": {
     "ground": {
       "grid": [
-        "G   G   G   G   G   G   G   Dtl Dt  Dtr G   G   G   G",
-        "G   G   G   G   G   G   G   Dl  Dc  Dr  G   G   G   G",
-        "G   G   G   G   G   G   G   Dl  Dc  Dr  G   G   G   G",
-        "G   G   G   G   G   G   G   Dl  Dc  Dc  Dt  Dt  Dtr G",
-        "G   G   G   G   G   G   G   Dbl Db  Db  Dc  Dc  Dr  G",
-        "G   G   G   G   G   G   G   G   G   G   Dl  Dc  Dr  G",
-        "G   G   G   G   G   G   G   G   G   G   Dl  Dc  Dr  G",
-        "G   G   G   G   G   G   G   G   G   G   Dl  Dc  Dr  G",
-        "G   G   G   Dtl Dt  Dt  Dt  Dt  Dt  Dt  Dc  Dc  Dr  G",
-        "G   G   G   Dl  Dc  Dc  Db  Db  Db  Db  Db  Db  Dbr G",
-        "G   G   G   Dl  Dc  Dr  G   G   G   G   G   G   G   G",
-        "G   G   G   Dl  Dc  Dr  G   G   G   G   G   G   G   G",
-        "G   G   G   Dl  Dc  Dr  G   G   G   G   G   G   G   G",
-        "G   G   G   Dl  Dc  Dr  G   G   G   G   G   G   G   G",
-        "G   G   G   Dl  Dc  Dc  Dt  Dt  Dt  Dt  Dt  Dtr G   G",
-        "G   G   G   Dbl Db  Db  Db  Db  Db  Dc  Dc  Dr  G   G",
-        "G   G   G   G   G   G   G   G   G   Dl  Dc  Dr  G   G",
-        "G   G   G   G   G   G   G   G   G   Dl  Dc  Dr  G   G",
-        "G   G   G   G   G   G   G   G   G   Dl  Dc  Dr  G   G",
-        "G   G   G   Dtl Dt  Dt  Dt  Dt  Dt  Dc  Dc  Dr  G   G",
-        "G   G   G   Dl  Dc  Dc  Db  Db  Db  Db  Db  Dbr G   G",
-        "G   G   G   Dl  Dc  Dr  G   G   G   G   G   G   G   G",
-        "G   G   G   Dl  Dc  Dr  G   G   G   G   G   G   G   G",
-        "G   G   G   Dl  Dc  Dr  G   G   G   G   G   G   G   G",
-        "G   G   G   Dbl Db  Dbr G   G   G   G   G   G   G   G"
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G",
+        "G   G   G   G   G   G   Dl   Dt   Dr   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl   Dt   Dr   G   G   G   G   G",
+        "G   G   G   G   G   G   Dl   Dc   Dr   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl   Dc   Dr   G   G   G   G   G",
+        "G   G   G   G   G   G   Dl   Db   Dr   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl   Dt   Dr   G   Dl   Db   Dr   G   G   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   Dl   Dt   Dr   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl   Dc   Dr   G   G   G   Dl   Dt   Dr   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   Dl   Dc   Dr   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl   Db   Dr   G   G   G   Dl   Dc   Dr   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   Dl   Db   Dr   G   G   Dt   Dt   Dt   Dt   Dt   Dt   Dt   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl   Db   Dr   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dc   Dc   Dc   Dc   Dc   Dc   Dc   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Db   Db   Db   Db   Db   Db   Db   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dt   Dt   Dt   Dt   Dl   Dc   Dr   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G",
+        "Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dc   Dc   Dc   Dc   Dc   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   G   G   G   G   G   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt   Dt",
+        "Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Db   Db   Db   Db   Db   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dt   Dt   Dt   Dt   Dt   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc   Dc",
+        "Db   Db   Db   Db   Db   Db   Db   Db   Db   Db   Db   Db   Db   Db   Db   G   G   G   G   G   Db   Db   Db   Db   Db   Db   Db   Db   Db   Db   Dc   Dc   Dc   Dc   Dc   Db   Db   Db   Db   Db   Db   Db   Db   Db   Db   Db   Db   Db   Db   Db",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Db   Db   Db   Db   Dl   Dc   Dr   G   G   G   G   G   G   G   G   G   G   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl   Dc   Dr   G   G   G   G   G   G   G   G   G   G   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl   Dt   Dr   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl   Dc   Dr   G   G   G   G   G   G   G   G   G   G   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl   Dc   Dr   G   G   G   G   G   G   G   G   G   G   G   Dt   Dt   Dt   Dt   Dt   Dt   Dt   G   G   G   G   G   G   G   G   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl   Db   Dr   G   G   G   G   G   G   G   G   G   G   G   Dc   Dc   Dc   Dc   Dc   Dc   Dc   G   G   G   G   G   G   G   G   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl   Dc   Dr   G   G   G   G   G   G   G   G   G   G   G   Db   Db   Db   Db   Db   Db   Db   G   G   G   G   G   G   G   G   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   Dl   Db   Dr   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G",
+        "G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G   G"
       ]
     },
     "decorations": {
       "grid": [
-        "G1  .   g0  F0  .   G2  .   .   .   .   f1  G3  .   r0",
-        ".   g1  .   .   G0  .   f0  .   d0  .   .   g2  .   .",
-        "g1  F1  .   G4  .   .   .   .   d1  .   G5  .   .   g2",
-        "r1  .   G6  .   g3  .   .   .   .   d3  .   g0  .   .",
-        ".   g0  .   f2  .   M0  .   .   .   .   d0  .   .   f3",
-        "G7  .   .   g1  .   .   G0  r2  .   .   .   d2  .   g3",
-        ".   f0  .   g0  .   G1  .   .   F2  .   .   .   .   G2",
-        "r3  .   G3  .   F3  .   g2  .   .   .   .   d0  .   g1",
-        "f1  .   g3  .   .   .   .   .   .   .   .   .   .   g3",
-        "G4  .   .   .   d0  .   d2  .   .   d1  .   d3  .   .",
-        ".   g0  .   .   .   .   .   F0  .   g1  G5  .   .   r0",
-        ".   .   f2  .   d3  .   G6  .   .   g0  .   g2  .   .",
-        "G7  .   .   .   d0  .   .   g3  f3  .   .   M1  .   g1",
-        ".   g2  .   .   .   .   r1  .   .   G0  .   .   f0  .",
-        "r2  .   G1  .   d2  .   .   .   .   .   .   g0  .   F1",
-        "f1  .   .   .   .   d3  .   d1  .   d0  .   .   .   .",
-        "G2  .   g1  g3  F2  .   r3  .   .   .   d1  .   G3  .",
-        ".   f2  .   .   .   G4  .   g0  .   .   .   .   .   r0",
-        "g0  .   G5  .   .   .   f0  .   g2  .   d3  .   g1  .",
-        ".   r1  .   .   .   .   .   .   .   .   .   .   f3  .",
-        "G6  .   .   .   d0  .   d2  .   .   d1  .   .   .   F3",
-        ".   g3  .   .   .   .   .   .   g1  .   M0  .   G7  .",
-        "f1  G0  .   .   d1  .   G1  .   .   g0  .   f2  .   g2",
-        ".   .   r2  .   .   .   .   r3  .   G2  .   .   g3  .",
-        "G3  .   g0  .   .   .   f0  .   g3  .   F0  .   r0  ."
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   f2   .   .   .   .   .   .   .   .   .   .   .   f1   .   .   .   .   .   .   .   .   g3   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   g1   r2   .   d1   g0   .   .   .   .   .   .   d3   .   .   .   .   .   .   .   .   .   r3   .   .   .   .   .   .   .   .   .   .   .   g3   .   .   .",
+        ".   .   .   d1   .   .   .   .   .   .   .   g2   .   .   g1   .   .   .   .   .   .   f3   f3   .   .   .   .   .   r1   .   .   .   .   .   .   .   .   .   .   d1   .   .   .   .   .   .   .   .   .   .",
+        ".   r0   d1   .   .   .   .   .   .   .   .   .   g3   .   d0   .   g3   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   r1   .   d0   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   g0   .   d3   .   .   f2   .   .   .   .   .   .   .   .   .   g1   .   .   .   .   .   .   .   f2   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   d0   .   .   .   .   .   .   .   .   .   .   .   f1   .   g3   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   r0   .   .   .   .   .   .   .   .   .   .   .   g2   .   .",
+        ".   .   .   .   .   .   .   .   .   r1   .   .   .   .   .   .   r2   .   .   .   .   .   f3   .   .   .   .   .   .   .   d0   .   .   .   .   .   g2   .   .   .   .   .   .   d3   .   .   .   .   .   .",
+        ".   .   d3   .   .   .   f2   f3   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   g0   .   .   r0   .   .   d0   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   f0   .   .   .   .   .   r2   .   .   .   .   .   .   .   .   .   g2   .   .   .   .   .   .   f0   g0   .   .   .   .   .   .   d3   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   d1   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   d1   .   .   d1   .   .   .   .   .   .   .   .   .   .   f3   .   d0   .   .   .   g2",
+        ".   .   .   .   g0   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   r0   .   .   .   g2   .   .   .   .   .   .   .   .   d3   .   .   .   r2   g1   .   f2   .   d1   g3   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        "g3   .   .   .   g3   .   .   f0   .   .   g0   .   .   .   .   .   .   f3   .   .   .   .   .   .   .   .   .   .   .   d2   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   d1   d1   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   d1   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   r0   .   .   .   .   .   .   .   .   .   .   .   .   .   .   d2   .   .",
+        "f2   .   .   g2   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   d2   .   .   .   f1   .   .   .   .   .   .   .   f2   .   .   .   .   .   .   .   .   .",
+        ".   .   .   f3   f2   r1   .   .   .   .   .   .   d2   f0   .   .   .   .   .   .   .   .   .   .   .   g0   .   .   r1   .   .   .   .   .   .   .   .   .   .   .   .   .   r1   r2   .   .   .   f0   .   d1",
+        ".   .   .   d3   .   .   .   f3   .   .   .   r0   .   r2   .   g2   .   .   .   .   .   .   .   .   f2   .   .   r2   .   .   .   .   .   .   .   .   .   .   .   r1   .   .   r2   .   .   .   d3   d1   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   g3   .   .   .   .   .   .   .   .   .   .   .   .   r3   .   .   .   .   .   .   .   .   .",
+        ".   .   .   g0   .   .   .   .   .   g0   .   .   .   d3   .   .   .   f3   .   .   .   .   d0   .   .   d2   .   .   .   .   .   .   .   .   .   .   .   .   f1   g0   .   .   r3   r0   .   .   .   .   .   r2",
+        ".   .   f3   .   .   .   .   .   r1   .   .   .   .   r0   .   .   .   d3   .   .   .   .   .   .   .   .   d0   .   .   r2   .   .   .   .   .   .   .   .   .   .   .   .   .   .   g2   .   .   .   .   .",
+        ".   .   .   .   f0   .   .   .   .   .   .   d2   .   .   .   .   .   .   .   .   .   .   .   .   f0   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   d0   .   .   .   .",
+        ".   .   d2   .   .   d3   .   .   .   .   .   .   .   .   .   r0   .   .   .   .   .   .   r2   .   .   .   .   .   .   .   .   .   .   .   f3   .   .   .   .   f0   .   .   f3   f1   d3   .   r0   .   .   .",
+        ".   .   .   .   r0   f3   .   .   .   .   .   .   .   .   .   .   f3   .   .   .   .   f0   .   .   .   .   .   .   .   .   .   .   f1   .   g0   .   .   .   .   g2   .   .   .   .   .   .   .   .   g3   ."
       ]
     },
     "objects": {
       "grid": [
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   ."
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   ."
       ]
     },
     "ysort": {
       "grid": [
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   T1  .   .   .   .   .   .   .   .   .   .   T2  .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   Bu  .   .   .   .   .   .   .",
-        ".   T1  .   .   .   .   .   .   .   .   .   .   T2  .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   T1  .   .   .   .   .   Bu  .   .   .   .   T2  .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   .",
-        ".   .   .   .   .   .   .   .   .   .   .   .   .   ."
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   Bu   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   Bu   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   Bu   .   .   .   .   .   Bu   .   .   .   .   .   .   .   .   .   .   Bu   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   T1   .   .   .   .   Bu   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   Bu   .   .   .   .   Bu   .   .   .   .   .   .   .   .   .   .   .   .   .   .   T2   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   T1   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   T1   Bu   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   T1   .   .   .   Bu   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   T1   T2   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   Bu   .   .   Bu   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   T1   .   .   .   .   .   .   .   .   .   .   .   .   .   T1   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   T2   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   T2   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   T1   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   Bu   .   .   .   .   .   .   .   .   .   .   T2   .   .   T2   .   .   .   .   .   .   T1   .   .   .   .   T1   T1   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   T1   .   .   .   .   .   .   Bu   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   T2   .   Bu   .   Bu   .   .",
+        "Bu   .   .   .   .   .   .   .   T1   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   Bu   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   T2   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   T2   .   .   .   .   .   T2   .   .   .   .   .   T2   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   T2   .   .   .   .   .   .   .   .   .   .   .   .   T1   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   T2   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   T2   .   .   .   .   .   .   .   .   .   .   .   .   .   .   Bu   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   Bu   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .",
+        ".   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   Bu   .   .   .   .   .   .   .   .   ."
       ]
     }
   },
   "spawn_points": {
     "player_start": {
-      "x": 7,
-      "y": 10
+      "x": 3,
+      "y": 12
     },
     "enemies": [
-      {"x": 5, "y": 9, "type": "slime"},
-      {"x": 9, "y": 9, "type": "skeleton"},
-      {"x": 6, "y": 12, "type": "slime"},
-      {"x": 8, "y": 12, "type": "skeleton"}
+      {
+        "x": 8,
+        "y": 10,
+        "type": "slime"
+      },
+      {
+        "x": 12,
+        "y": 14,
+        "type": "skeleton"
+      },
+      {
+        "x": 6,
+        "y": 8,
+        "type": "slime"
+      },
+      {
+        "x": 10,
+        "y": 12,
+        "type": "skeleton"
+      }
     ]
   }
 }

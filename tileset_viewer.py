@@ -27,17 +27,20 @@ import pygame
 # Add project root to path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from config.settings import TILESETS_DIR
+from config.settings import TILESETS_DIR, SPRITES_DIR
 
 
 def get_available_tilesets():
     """Get list of available tileset files."""
     tilesets = []
-    for root, dirs, files in os.walk(TILESETS_DIR):
-        for file in files:
-            if file.endswith('.png'):
-                rel_path = os.path.relpath(os.path.join(root, file), TILESETS_DIR)
-                tilesets.append(rel_path)
+    # Search all subdirectories in sprites
+    if os.path.exists(SPRITES_DIR):
+        for root, dirs, files in os.walk(SPRITES_DIR):
+            for file in files:
+                if file.endswith('.png'):
+                    full_path = os.path.join(root, file)
+                    rel_path = os.path.relpath(full_path, SPRITES_DIR)
+                    tilesets.append(rel_path)
     return sorted(tilesets)
 
 
@@ -413,7 +416,7 @@ Examples:
     parser.add_argument(
         'tileset',
         nargs='?',
-        help='Tileset filename (e.g., plains.png, floors/flooring.png)'
+        help='Tileset filename (e.g., plains.png, characters/mage_guardian.png)'
     )
     parser.add_argument(
         '-s', '--size',
@@ -441,15 +444,28 @@ Examples:
     if os.path.isfile(args.tileset):
         tileset_path = args.tileset
     else:
-        # Check in tilesets directory
-        candidate = os.path.join(TILESETS_DIR, args.tileset)
+        # Check if it's a path relative to sprites directory (e.g., "characters/mage_guardian.png")
+        candidate = os.path.join(SPRITES_DIR, args.tileset)
         if os.path.isfile(candidate):
             tileset_path = candidate
+        elif os.path.isfile(candidate + '.png'):
+            tileset_path = candidate + '.png'
         else:
-            # Try adding .png extension
-            candidate = os.path.join(TILESETS_DIR, args.tileset + '.png')
-            if os.path.isfile(candidate):
-                tileset_path = candidate
+            # Search all subdirectories in sprites
+            for root, dirs, files in os.walk(SPRITES_DIR):
+                for file in files:
+                    if file.endswith('.png'):
+                        # Check exact match
+                        if file == args.tileset or file == args.tileset + '.png':
+                            tileset_path = os.path.join(root, file)
+                            break
+                        # Check basename match (without extension)
+                        basename = os.path.splitext(file)[0]
+                        if basename == args.tileset:
+                            tileset_path = os.path.join(root, file)
+                            break
+                if tileset_path:
+                    break
     
     if tileset_path is None:
         print(f"Error: Tileset '{args.tileset}' not found.")
