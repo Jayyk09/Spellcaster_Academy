@@ -21,6 +21,7 @@ from config.settings import (
     SPELL_DAMAGE, CAMERA_ENABLED, CAMERA_DEFAULT_SPELL,
     SPELL_TYPES, DEBUG_SHOW_HITBOXES
 )
+from core.sound_manager import sound_manager
 
 
 class WorldScene(Scene):
@@ -368,6 +369,8 @@ class WorldScene(Scene):
             undine._region_index = wave_index
 
         lich_count = enemies_config.get('lich', 0)
+        if lich_count > 0:
+            sound_manager.play_final_battle()
         for _ in range(lich_count):
             x, y = self._get_random_spawn_position(region_index=wave_index)
             letter = random.choice(letters)
@@ -665,8 +668,10 @@ class WorldScene(Scene):
                     if not self.show_victory_dialog:
                         self.show_victory_dialog = True
                         self.victory_panel.show_victory()
+                        sound_manager.play_victory()
                 else:
                     self.wave_cleared_timer = self.wave_cleared_duration
+                    sound_manager.play_after_battle()
                     # Barrier stays active until countdown finishes
         else:
             # Decrement wave cleared notification timer
@@ -680,6 +685,8 @@ class WorldScene(Scene):
                     # Advance to the next region and spawn the next wave automatically
                     if self.active_region_index < len(self.regions) - 1:
                         self.active_region_index += 1
+                        # Resume theme (will be overridden by final_battle if lich wave)
+                        sound_manager.play_theme()
                         self._start_next_wave()
 
         # Check barrier collision for player (only the current active barrier)
@@ -778,6 +785,7 @@ class WorldScene(Scene):
                         # Spell hits enemy
                         enemy.take_damage(spell.damage)
                         spell.destroy()
+                        sound_manager.play_spell_impact()
                         # Remove spell from groups
                         if spell in self.spells:
                             self.spells.remove(spell)
@@ -803,6 +811,7 @@ class WorldScene(Scene):
                         # Spell hits undine
                         undine.take_damage(spell.damage)
                         spell.destroy()
+                        sound_manager.play_spell_impact()
                         # Remove spell from groups
                         if spell in self.spells:
                             self.spells.remove(spell)
@@ -958,6 +967,7 @@ class WorldScene(Scene):
             self.spells.add(spell)
             self.all_sprites.add(spell)
             self.player.play_cast_toward(target.pos)
+            sound_manager.play_spell_sound(spell_type)
         elif target_undine:
             spell_type = self._next_spell_type()
             spell = SpellProjectile.create_targeted(
@@ -969,6 +979,7 @@ class WorldScene(Scene):
             self.spells.add(spell)
             self.all_sprites.add(spell)
             self.player.play_cast_toward(target_undine.pos)
+            sound_manager.play_spell_sound(spell_type)
         else:
             # No target found - show feedback
             self._no_target_timer = 1.5  # Show "No Target" for 1.5 seconds

@@ -18,6 +18,7 @@ from config.settings import (
     ENEMY_CHASE_SPEED,
     WORLD_WIDTH, WORLD_HEIGHT,
 )
+from core.sound_manager import sound_manager
 
 
 class LichLightning(AnimatedSprite):
@@ -368,6 +369,7 @@ class Lich(AnimatedSprite):
         
         bolt = LichLightning(self.pos.x + 60, self.pos.y, direction)
         self.lightning_bolts.append(bolt)
+        sound_manager.play_lich_lightning()
 
     def _summon_skeletons(self):
         """Summon 1-3 skeletons near the lich and queue them for world pickup."""

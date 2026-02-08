@@ -10,11 +10,12 @@ ASSETS_DIR = os.path.join(BASE_DIR, 'assets')
 SPRITES_DIR = os.path.join(ASSETS_DIR, 'sprites')
 TILESETS_DIR = os.path.join(SPRITES_DIR, 'tilesets')
 FONTS_DIR = os.path.join(ASSETS_DIR, 'fonts')
+SOUNDS_DIR = os.path.join(ASSETS_DIR, 'sounds')
 
 # Display settings
 SCREEN_WIDTH = 1125
 SCREEN_HEIGHT = 750
-SCALE = 5  # Pixel art scaling
+SCALE = 3  # Pixel art scaling
 FPS = 60
 
 # World/Tilemap settings (matching world_map.json dimensions)

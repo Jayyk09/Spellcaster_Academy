@@ -6,6 +6,7 @@ from config.settings import (
     SCREEN_WIDTH, SCREEN_HEIGHT, FPS,
     CAMERA_ENABLED, CAMERA_HOLD_TIME, CAMERA_CONFIDENCE, CAMERA_SHOW_PREVIEW
 )
+from core.sound_manager import sound_manager
 
 
 class Game:
@@ -29,6 +30,9 @@ class Game:
         self.scene_manager = SceneManager()
         self._register_scenes()
         
+        # Start theme music
+        sound_manager.play_theme()
+
         # Start at main menu
         self.scene_manager.change_scene('menu', self)
     
