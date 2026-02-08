@@ -63,10 +63,13 @@ PLAYER_SPRITE_CONFIG = {
     'frame_width': 48,
     'frame_height': 48,
     'animations': {
-        'idle_down': {'row': 0, 'frames': 1, 'fps': 5},
-        'idle_left': {'row': 1, 'frames': 1, 'fps': 5},
-        'idle_right': {'row': 2, 'frames': 1, 'fps': 5},
-        'idle_up': {'row': 3, 'frames': 1, 'fps': 5},
+        'idle_down': {
+            'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'walking_down.png'),
+            'frame_width': 270,
+            'frame_height': 540,
+            'row': 0, 'frames': 1, 'fps': 5,
+            'scale': 0.25
+        },
         'walk_down': {
             'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'walking_down.png'),
             'frame_width': 270,
@@ -126,8 +129,14 @@ PLAYER_SPRITE_CONFIG = {
             'row': 0, 'frames': 4, 'fps': 5,
             'scale': 0.25
         },
-        'shield': {'row': 8, 'frames': 4, 'fps': 10},
-        'death': {'row': 0, 'frames': 1, 'fps': 5, 'loop': False},
+        'death': {
+            'path': os.path.join(SPRITES_DIR, 'characters', 'player', 'walking_down.png'),
+            'frame_width': 270,
+            'frame_height': 540,
+            'row': 0, 'frames': 1, 'fps': 5,
+            'scale': 0.25,
+            'loop': False
+        },
     }
 }
 
@@ -182,7 +191,7 @@ SPELL_COOLDOWN = 0.5  # seconds between casts
 SPELL_LIFETIME = 2.0  # seconds before despawn
 
 SPELL_PROJECTILE_CONFIG = {
-    'path': os.path.join(SPRITES_DIR, 'Spell Projectiles Sprite Sheet.png'),
+    'path': os.path.join(SPRITES_DIR, 'spell_projectiles_sprite_sheet.png'),
     'frame_width': 32,
     'frame_height': 32,
     'animations': {
