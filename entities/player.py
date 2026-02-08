@@ -188,7 +188,7 @@ class Player(AnimatedSprite):
         # Update cast animation timer
         if self.cast_anim_timer > 0:
             self.cast_anim_timer -= dt
-            if self.cast_anim_timer <= 0:
+            if self.cast_anim_timer <= 0 and self.state != self.STATE_DEAD:
                 self.state = self.STATE_IDLE
         
         # Check if block animation finished

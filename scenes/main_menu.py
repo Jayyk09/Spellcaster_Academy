@@ -7,7 +7,7 @@ from config.settings import SCREEN_WIDTH, SCREEN_HEIGHT, SPRITES_DIR, FONTS_DIR
 
 
 class MainMenuScene(Scene):
-    """Main menu with New Game, Load Game, and Quit options."""
+    """Main menu with New Game and Quit options."""
     
     def __init__(self, game, **kwargs):
         super().__init__(game)
@@ -34,11 +34,8 @@ class MainMenuScene(Scene):
             self.menu_font = pygame.font.Font(None, 32)
         
         # Menu options
-        self.menu_items = ['New Game', 'Load Game', 'Quit']
+        self.menu_items = ['New Game', 'Quit']
         self.selected_index = 0
-        
-        # Check for save game
-        game_state.check_savegame_exists()
         
         # Colors
         self.color_normal = (200, 200, 200)
@@ -62,10 +59,6 @@ class MainMenuScene(Scene):
         if option == 'New Game':
             game_state.reset()
             self.next_scene = 'world'
-        elif option == 'Load Game':
-            if game_state.check_savegame_exists():
-                game_state.load_game()
-                self.next_scene = 'world'
         elif option == 'Quit':
             self.game.running = False
     
@@ -90,8 +83,6 @@ class MainMenuScene(Scene):
             # Determine color
             if i == self.selected_index:
                 color = self.color_selected
-            elif item == 'Load Game' and not game_state.game_has_savegame:
-                color = self.color_disabled
             else:
                 color = self.color_normal
             
