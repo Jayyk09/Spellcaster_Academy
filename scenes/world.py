@@ -6,7 +6,7 @@ import json
 import random
 from core.scene import Scene
 from core.game_state import game_state
-from core.ui import HUD, DeathPanel, HealthBar, CameraLetterDisplay, WaveDisplay, ASLPopup, SignReferencePanel
+from core.ui import HUD, DeathPanel, VictoryPanel, HealthBar, CameraLetterDisplay, WaveDisplay, ASLPopup, SignReferencePanel
 from core.camera import Camera
 from core.map_loader import load_map_data, create_tilemap_from_data, get_spawn_points
 from entities.player import Player
@@ -103,6 +103,8 @@ class WorldScene(Scene):
         self.hud = HUD()
         self.death_panel = DeathPanel()
         self.show_death_dialog = False
+        self.victory_panel = VictoryPanel()
+        self.show_victory_dialog = False
         
         # ASL Popup for learning new letters
         self.asl_popup = ASLPopup()
@@ -419,6 +421,16 @@ class WorldScene(Scene):
                     self._waiting_for_camera_ready = False
                 return
             
+            # Handle victory dialog input
+            if self.show_victory_dialog:
+                if event.key == pygame.K_n:
+                    # New game — reload world
+                    self.next_scene = 'world'
+                elif event.key == pygame.K_q:
+                    # Quit to menu
+                    self.next_scene = 'menu'
+                return
+
             # Handle death dialog input
             if self.show_death_dialog:
                 # Quit to menu
@@ -455,10 +467,13 @@ class WorldScene(Scene):
         self._waiting_for_camera_ready = CAMERA_ENABLED and not camera_already_running
     
     def update(self, dt: float):
-        # Don't update game while waiting for camera ready or ASL popup
+        # Don't update game while waiting for camera ready, ASL popup, or victory screen
         if self._waiting_for_camera_ready:
             return
         
+        if self.show_victory_dialog:
+            return
+
         # Check if ASL popup is showing - don't update game while learning
         if self._showing_asl_popup:
             if self.asl_popup.is_ready():
@@ -644,8 +659,15 @@ class WorldScene(Scene):
             if self._check_wave_completion():
                 # Mark region as cleared
                 self.region_cleared[self.active_region_index] = True
-                self.wave_cleared_timer = self.wave_cleared_duration
-                # Barrier stays active until countdown finishes
+                # Check if this was the final wave (last region)
+                if self.active_region_index >= len(self.regions) - 1:
+                    # Victory!
+                    if not self.show_victory_dialog:
+                        self.show_victory_dialog = True
+                        self.victory_panel.show_victory()
+                else:
+                    self.wave_cleared_timer = self.wave_cleared_duration
+                    # Barrier stays active until countdown finishes
         else:
             # Decrement wave cleared notification timer
             if self.wave_cleared_timer > 0:
@@ -1074,7 +1096,8 @@ class WorldScene(Scene):
         # Enemy count (including undines)
         enemy_count = len([e for e in self.enemies if e.is_alive])
         undine_count = self.undine_manager.get_alive_count()
-        count_text = self.font.render(f"Enemies: {enemy_count}", True, (200, 200, 200))
+        total_count = enemy_count + undine_count
+        count_text = self.font.render(f"Enemies: {total_count}", True, (200, 200, 200))
         screen.blit(count_text, (SCREEN_WIDTH - 100, SCREEN_HEIGHT - 25))
         
         # Camera letter display (ASL detection feedback)
@@ -1096,6 +1119,7 @@ class WorldScene(Scene):
         
         # Death panel
         self.death_panel.draw(screen)
+        self.victory_panel.draw(screen)
         
         # ASL Popup (shown over everything else)
         if self._showing_asl_popup:
