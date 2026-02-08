@@ -2,6 +2,7 @@
 	"waves": [
 		{
 			"wave_number": 1,
+			"region": {"min_y": 22, "max_y": 27, "min_x": 34, "max_x": 43},
 			"letters": [
 				"A"
 			],
@@ -14,6 +15,7 @@
 		},
 		{
 			"wave_number": 2,
+			"region": {"min_y": 17, "max_y": 22, "min_x": 27, "max_x": 36},
 			"letters": [
 				"A",
 				"C"
@@ -27,6 +29,7 @@
 		},
 		{
 			"wave_number": 3,
+			"region": {"min_y": 12, "max_y": 16, "min_x": 20, "max_x": 29},
 			"letters": [
 				"A",
 				"C",
@@ -41,6 +44,7 @@
 		},
 		{
 			"wave_number": 4,
+			"region": {"min_y": 7, "max_y": 11, "min_x": 14, "max_x": 22},
 			"letters": [
 				"A",
 				"C",
@@ -56,6 +60,7 @@
 		},
 		{
 			"wave_number": 5,
+			"region": {"min_y": 0, "max_y": 6, "min_x": 8, "max_x": 16},
 			"letters": [
 				"A",
 				"C",
@@ -70,5 +75,10 @@
 			}
 		}
 	],
-	"time_between_waves_seconds": 5
+	"barriers": [
+		{"y": 22, "min_x": 27, "max_x": 43},
+		{"y": 17, "min_x": 20, "max_x": 36},
+		{"y": 12, "min_x": 14, "max_x": 29},
+		{"y": 7, "min_x": 8, "max_x": 22}
+	]
 }

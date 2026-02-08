@@ -14,12 +14,12 @@ SCREEN_HEIGHT = 600
 SCALE = 4  # Pixel art scaling
 FPS = 60
 
-# World/Tilemap settings (matching die-insel tutorial dimensions)
+# World/Tilemap settings (matching world_map.json dimensions)
 TILE_SIZE = 16  # Base tile size in pixels
-WORLD_WIDTH_TILES = 50  # World width in tiles - wider for horizontal exploration
-WORLD_HEIGHT_TILES = 25  # World height in tiles (Y: 0-24 from Godot map)
-WORLD_WIDTH = WORLD_WIDTH_TILES * TILE_SIZE * SCALE  # 3200 pixels at 4x scale
-WORLD_HEIGHT = WORLD_HEIGHT_TILES * TILE_SIZE * SCALE  # 1600 pixels at 4x scale
+WORLD_WIDTH_TILES = 46  # World width in tiles (matches world_map.json width)
+WORLD_HEIGHT_TILES = 28  # World height in tiles (matches world_map.json height)
+WORLD_WIDTH = WORLD_WIDTH_TILES * TILE_SIZE * SCALE  # 2944 pixels at 4x scale
+WORLD_HEIGHT = WORLD_HEIGHT_TILES * TILE_SIZE * SCALE  # 1792 pixels at 4x scale
 
 # Camera settings
 CAMERA_DRAG_MARGIN = 0.0  # Camera always centered on player (no drag margin)

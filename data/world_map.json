@@ -186,37 +186,6 @@
     "player_start": {
       "x": 42,
       "y": 25
-    },
-    "npc_start": {
-      "x": 35,
-      "y": 23
-    },
-    "enemies": [
-      {
-        "x": 32,
-        "y": 19,
-        "type": "slime"
-      },
-      {
-        "x": 26,
-        "y": 14,
-        "type": "skeleton"
-      },
-      {
-        "x": 19,
-        "y": 10,
-        "type": "slime"
-      },
-      {
-        "x": 14,
-        "y": 7,
-        "type": "skeleton"
-      },
-      {
-        "x": 12,
-        "y": 5,
-        "type": "slime"
-      }
-    ]
+    }
   }
 }

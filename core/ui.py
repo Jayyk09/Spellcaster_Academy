@@ -538,54 +538,57 @@ class WaveDisplay:
             self.message_font = pygame.font.Font(None, 28)
             self.countdown_font = pygame.font.Font(None, 24)
     
-    def draw(self, screen: pygame.Surface, current_wave: int, 
-             in_transition: bool = False, countdown: float = 0.0):
+    def draw(self, screen: pygame.Surface, current_wave: int,
+             wave_cleared: bool = False):
         """
         Draw the wave display.
-        
+
         Args:
             screen: Surface to draw on
             current_wave: Current wave number (1-indexed)
-            in_transition: Whether we're between waves
-            countdown: Seconds remaining until next wave (if in transition)
+            wave_cleared: Whether to show "Wave Cleared!" notification
         """
         # Draw wave number
         wave_text = f"Wave {current_wave}"
         wave_surf = self.wave_font.render(wave_text, True, self.wave_color)
         wave_rect = wave_surf.get_rect(centerx=self.x, top=self.y)
-        
+
         # Background panel
         panel_width = wave_surf.get_width() + 30
         panel_height = wave_surf.get_height() + 10
-        
-        if in_transition:
-            # Larger panel for transition message
-            panel_height += 50
-        
+
+        if wave_cleared:
+            # Larger panel for cleared message
+            panel_height += 40
+            panel_width = max(panel_width, 280)
+
         panel_rect = pygame.Rect(
             self.x - panel_width // 2,
             self.y - 5,
             panel_width,
             panel_height
         )
-        
+
         # Draw semi-transparent background
         bg_surface = pygame.Surface((panel_rect.width, panel_rect.height), pygame.SRCALPHA)
         bg_surface.fill(self.bg_color)
         screen.blit(bg_surface, panel_rect.topleft)
-        
+
         # Draw border
         pygame.draw.rect(screen, (80, 80, 100), panel_rect, 2)
-        
+
         # Draw wave number
         screen.blit(wave_surf, wave_rect)
-        
-        # Draw transition message if between waves
-        if in_transition:
-            # "Wave Complete!" message
-            complete_surf = self.message_font.render("Wave Complete!", True, self.complete_color)
+
+        # Draw "Wave Cleared!" notification
+        if wave_cleared:
+            complete_surf = self.message_font.render("Wave Cleared!", True, self.complete_color)
             complete_rect = complete_surf.get_rect(centerx=self.x, top=wave_rect.bottom + 5)
             screen.blit(complete_surf, complete_rect)
+
+            path_surf = self.countdown_font.render("Path ahead is open!", True, self.countdown_color)
+            path_rect = path_surf.get_rect(centerx=self.x, top=complete_rect.bottom + 3)
+            screen.blit(path_surf, path_rect)
             
             # Countdown
             countdown_int = int(countdown) + 1  # Show ceiling value (5, 4, 3, 2, 1)
