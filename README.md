@@ -28,7 +28,7 @@ American Sign Language is essential to bridging the communication gap between de
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/Jayyk09/Spellcaster_Academy.git
 cd Spellcaster_Academy
 ```
 
@@ -109,4 +109,4 @@ Built with passion during a hackathon to make ASL learning accessible and fun fo
 
 ---
 
-**Ready to become an ASL Spellcaster?** Start your journey now! 🎮✨
+**Ready to become an ASL Spellcaster?** Start your journey now!
