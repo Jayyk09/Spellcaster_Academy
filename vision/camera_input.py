@@ -78,6 +78,10 @@ class CameraInput:
         # Model and detector (initialized in thread)
         self._model = None
         self._detector = None
+        
+        # Shared preview frame (BGR numpy array, updated by background thread)
+        self._preview_frame = None
+        self._preview_lock = threading.Lock()
     
     def start(self):
         """Start the background detection thread."""
@@ -134,6 +138,28 @@ class CameraInput:
         with self._lock:
             return self._state
     
+    def get_preview_surface(self):
+        """
+        Return the latest camera frame as a pygame.Surface, or None.
+        
+        Safe to call from the main game thread at any time.
+        """
+        with self._preview_lock:
+            frame = self._preview_frame
+        
+        if frame is None or cv2 is None:
+            return None
+        
+        try:
+            import pygame as _pygame
+            # Convert BGR (OpenCV) -> RGB (pygame)
+            rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            # pygame.surfarray expects axes (width, height, 3)
+            surface = _pygame.surfarray.make_surface(rgb_frame.swapaxes(0, 1))
+            return surface
+        except Exception:
+            return None
+    
     def _detection_loop(self):
         """Background thread that runs hand detection."""
         try:
@@ -171,21 +197,19 @@ class CameraInput:
                 # Update state machine
                 self._update_state(detected_letter)
                 
-                # Show preview window if enabled
+                # Draw preview overlay onto frame and share it with the game
                 if self.show_preview:
                     self._draw_preview(frame, hand_landmarks, detected_letter)
-                    cv2.imshow("ASL Camera Input", frame)
-                    if cv2.waitKey(1) == ord('q'):
-                        self._running = False
-                        break
+                    with self._preview_lock:
+                        self._preview_frame = frame.copy()
                 
                 # Small delay to avoid hogging CPU
-                time.sleep(0.01)  # ~60 FPS when showing preview
+                time.sleep(0.01)  # ~100 FPS cap
             
             # Cleanup
             cap.release()
-            if self.show_preview:
-                cv2.destroyAllWindows()
+            with self._preview_lock:
+                self._preview_frame = None
             
         except Exception as e:
             self._error_message = f"Camera error: {str(e)}"
@@ -348,11 +372,6 @@ class CameraInput:
                        cv2.FONT_HERSHEY_SIMPLEX, 1, (150, 150, 150), 2)
             cv2.putText(frame, "Show ASL letter A-E", (10, 65),
                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (150, 150, 150), 2)
-        
-        # Instructions at bottom
-        cv2.rectangle(frame, (0, h - 30), (w, h), (0, 0, 0), -1)
-        cv2.putText(frame, "Press 'Q' to close camera window", (10, h - 10),
-                   cv2.FONT_HERSHEY_SIMPLEX, 0.5, (150, 150, 150), 1)
     
     def _get_relative_coordinates(self, hand_landmarks) -> list[float]:
         """Extract relative coordinates from hand landmarks."""

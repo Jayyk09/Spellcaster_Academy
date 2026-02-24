@@ -19,7 +19,10 @@ from config.settings import (
     TILE_SIZE, SCALE, WORLD_WIDTH, WORLD_HEIGHT,
     WORLD_WIDTH_TILES, WORLD_HEIGHT_TILES, CAMERA_DRAG_MARGIN,
     SPELL_DAMAGE, CAMERA_ENABLED, CAMERA_DEFAULT_SPELL,
-    SPELL_TYPES, DEBUG_SHOW_HITBOXES
+    SPELL_TYPES, DEBUG_SHOW_HITBOXES,
+    CAMERA_SHOW_PREVIEW, CAMERA_PREVIEW_CORNER,
+    CAMERA_PREVIEW_WIDTH, CAMERA_PREVIEW_HEIGHT,
+    CAMERA_PREVIEW_MARGIN_X, CAMERA_PREVIEW_MARGIN_Y
 )
 from core.sound_manager import sound_manager
 
@@ -1171,6 +1174,10 @@ class WorldScene(Scene):
                 self._no_target_timer > 0
             )
         
+        # In-game camera preview (corner pip)
+        if CAMERA_SHOW_PREVIEW and self.camera_input is not None and not self._waiting_for_camera_ready:
+            self._draw_camera_preview(screen)
+        
         # Camera startup overlay
         if self._waiting_for_camera_ready:
             self._draw_camera_startup_overlay(screen)
@@ -1281,6 +1288,33 @@ class WorldScene(Scene):
                 pygame.draw.rect(screen, (0, 100, 255), 
                                 (screen_x, screen_y, spell_hitbox.width, spell_hitbox.height), 2)
     
+    def _draw_camera_preview(self, screen: pygame.Surface):
+        """Draw a small camera preview picture-in-picture in the configured corner."""
+        frame_surface = self.camera_input.get_preview_surface()
+        if frame_surface is None:
+            return
+        
+        # Scale to target size
+        preview = pygame.transform.scale(frame_surface, (CAMERA_PREVIEW_WIDTH, CAMERA_PREVIEW_HEIGHT))
+        
+        mx, my = CAMERA_PREVIEW_MARGIN_X, CAMERA_PREVIEW_MARGIN_Y
+        pw, ph = CAMERA_PREVIEW_WIDTH, CAMERA_PREVIEW_HEIGHT
+        
+        corner = CAMERA_PREVIEW_CORNER
+        if corner == 'top_left':
+            x, y = mx, my
+        elif corner == 'top_right':
+            x, y = SCREEN_WIDTH - pw - mx, my
+        elif corner == 'bottom_left':
+            x, y = mx, SCREEN_HEIGHT - ph - my
+        else:  # bottom_right (default)
+            x, y = SCREEN_WIDTH - pw - mx, SCREEN_HEIGHT - ph - my
+        
+        # Thin border around the preview
+        border = 2
+        pygame.draw.rect(screen, (30, 30, 30), (x - border, y - border, pw + border * 2, ph + border * 2))
+        screen.blit(preview, (x, y))
+    
     def _draw_camera_startup_overlay(self, screen: pygame.Surface):
         """Draw overlay while waiting for camera to be ready."""
         # Semi-transparent dark overlay
@@ -1300,7 +1334,7 @@ class WorldScene(Scene):
         if camera_ready:
             status_color = (100, 255, 100)
             status_msg = "Camera is ready!"
-            instruction_msg = "Position your camera window, then press ENTER to start"
+            instruction_msg = "Press ENTER to start"
         else:
             status_color = (255, 200, 100)
             if self.camera_input is None:
@@ -1328,7 +1362,7 @@ class WorldScene(Scene):
         # Tips
         tips = [
             "Tips:",
-            "- Position the camera window where you can see it",
+            "- The camera preview will appear in the corner of the game window",
             "- Make sure your hand is visible in the camera",
             "- Good lighting helps with detection"
         ]
