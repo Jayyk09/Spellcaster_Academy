@@ -316,7 +316,15 @@ CAMERA_ENABLED = True           # Toggle camera integration on/off
 CAMERA_HOLD_TIME = 0.5          # Seconds to hold a letter before it fires
 CAMERA_CONFIDENCE = 0.8         # Minimum confidence for hand detection
 CAMERA_DEFAULT_SPELL = 'arcane' # Spell type used for camera-triggered spells
-CAMERA_SHOW_PREVIEW = True      # Show camera preview window for debugging
+CAMERA_SHOW_PREVIEW = True      # Show camera preview inside the game window
+
+# Camera preview display settings
+# Corner options: 'top_left', 'top_right', 'bottom_left', 'bottom_right'
+CAMERA_PREVIEW_CORNER = 'bottom_left'
+CAMERA_PREVIEW_WIDTH = 240      # Width of the in-game camera preview (pixels)
+CAMERA_PREVIEW_HEIGHT = 180     # Height of the in-game camera preview (pixels)
+CAMERA_PREVIEW_MARGIN_X = 20    # Horizontal gap between preview and screen edge (pixels)
+CAMERA_PREVIEW_MARGIN_Y = 40    # Vertical gap between preview and screen edge (pixels)
 
 # NPC settings
 NPC_INTERACTION_RADIUS = 80     # pixels - auto-show panel when player is within this distance
