@@ -2,7 +2,7 @@
 import os
 
 # Debug settings
-DEBUG_SHOW_HITBOXES = False# Draw hitboxes for debugging
+DEBUG_SHOW_HITBOXES = False # Draw hitboxes for debugging
 
 # Paths
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -13,8 +13,8 @@ FONTS_DIR = os.path.join(ASSETS_DIR, 'fonts')
 SOUNDS_DIR = os.path.join(ASSETS_DIR, 'sounds')
 
 # Display settings
-SCREEN_WIDTH = 1125
-SCREEN_HEIGHT = 750
+SCREEN_WIDTH = 1920
+SCREEN_HEIGHT = 1080
 SCALE = 3  # Pixel art scaling
 FPS = 60
 
@@ -57,7 +57,7 @@ ENEMY_LETTER_FONT_SIZE = 16
 ENEMY_LETTER_OFFSET_Y = 35  # pixels above enemy center
 ENEMY_LETTER_BACKDROP_PATH = os.path.join(SPRITES_DIR, 'ui', 'Rahmen - klein.png')
 
-SCALE_MULTIPLIER = 1.25  # Multiplier for scaling up sprites (e.g. 1.25 = 125% size)
+SCALE_MULTIPLIER = 1.5  # Multiplier for scaling up sprites (e.g. 1.25 = 125% size)
 
 # Animation settings
 ANIMATION_FPS = 5
@@ -321,9 +321,9 @@ CAMERA_SHOW_PREVIEW = True      # Show camera preview inside the game window
 # Camera preview display settings
 # Corner options: 'top_left', 'top_right', 'bottom_left', 'bottom_right'
 CAMERA_PREVIEW_CORNER = 'bottom_left'
-CAMERA_PREVIEW_WIDTH = 240      # Width of the in-game camera preview (pixels)
-CAMERA_PREVIEW_HEIGHT = 180     # Height of the in-game camera preview (pixels)
-CAMERA_PREVIEW_MARGIN_X = 20    # Horizontal gap between preview and screen edge (pixels)
+CAMERA_PREVIEW_WIDTH = 360      # Width of the in-game camera preview (pixels)
+CAMERA_PREVIEW_HEIGHT = 240     # Height of the in-game camera preview (pixels)
+CAMERA_PREVIEW_MARGIN_X = 15    # Horizontal gap between preview and screen edge (pixels)
 CAMERA_PREVIEW_MARGIN_Y = 40    # Vertical gap between preview and screen edge (pixels)
 
 # NPC settings

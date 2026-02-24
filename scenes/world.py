@@ -424,7 +424,12 @@ class WorldScene(Scene):
             # Handle camera startup pause
             if self._waiting_for_camera_ready:
                 if event.key == pygame.K_RETURN:
-                    self._waiting_for_camera_ready = False
+                    # Only allow dismissal when camera is ready or has definitively failed
+                    camera_ready = self.camera_input is not None and self.camera_input.is_available()
+                    camera_failed = (self.camera_input is None or
+                                     self.camera_input.get_error_message() is not None)
+                    if camera_ready or camera_failed:
+                        self._waiting_for_camera_ready = False
                 return
             
             # Handle victory dialog input
