@@ -1,0 +1,227 @@
+{
+  "name": "survival_arena",
+  "width": 33,
+  "height": 33,
+  "tile_size": 16,
+  "tile_defs": {
+    "Dtl": [
+      "plains",
+      1,
+      0
+    ],
+    "Dt": [
+      "plains",
+      2,
+      0
+    ],
+    "Dtr": [
+      "plains",
+      3,
+      0
+    ],
+    "Dl": [
+      "plains",
+      1,
+      1
+    ],
+    "Dc": [
+      "plains",
+      2,
+      1
+    ],
+    "Dr": [
+      "plains",
+      3,
+      1
+    ],
+    "Dbl": [
+      "plains",
+      1,
+      2
+    ],
+    "Db": [
+      "plains",
+      2,
+      2
+    ],
+    "Dbr": [
+      "plains",
+      3,
+      2
+    ],
+    "G": [
+      "grass",
+      0,
+      0
+    ],
+    "W": [
+      "walls",
+      0,
+      4
+    ]
+  },
+  "layers": {
+    "ground": {
+      "grid": [
+        "G G G G G G G G G G G G G G G Dc Dc Dc G G G G G G G G G G G G G G G",
+        "G G G G G G G G G G G G G G G Dc Dc Dc G G G G G G G G G G G G G G G",
+        "G G G G G G G G G G G G G G G Dc Dc Dc G G G G G G G G G G G G G G G",
+        "G G G G G G G G G G G G G G G Dc Dc Dc G G G G G G G G G G G G G G G",
+        "G G G G G G G G G G G G G G G Dc Dc Dc G G G G G G G G G G G G G G G",
+        "G G G G G Dtl Dt Dt Dt Dt Dt Dt Dt Dt Dt Dt Dt Dt Dt Dt Dt Dt Dt Dt Dt Dt Dt Dtr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "Dc Dc Dc Dc Dc Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr Dc Dc Dc Dc Dc",
+        "Dc Dc Dc Dc Dc Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr Dc Dc Dc Dc Dc",
+        "Dc Dc Dc Dc Dc Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr Dc Dc Dc Dc Dc",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dl Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dc Dr G G G G G",
+        "G G G G G Dbl Db Db Db Db Db Db Db Db Db Db Db Db Db Db Db Db Db Db Db Db Db Dbr G G G G G",
+        "G G G G G G G G G G G G G G G Dc Dc Dc G G G G G G G G G G G G G G G",
+        "G G G G G G G G G G G G G G G Dc Dc Dc G G G G G G G G G G G G G G G",
+        "G G G G G G G G G G G G G G G Dc Dc Dc G G G G G G G G G G G G G G G",
+        "G G G G G G G G G G G G G G G Dc Dc Dc G G G G G G G G G G G G G G G",
+        "G G G G G G G G G G G G G G G Dc Dc Dc G G G G G G G G G G G G G G G"
+      ]
+    },
+    "objects": {
+      "grid": [
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+        ". . . . . W W W W W W W W W W . . . W W W W W W W W W W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W . . . . . . . . . . . . . . . . . . . . . W . . . . .",
+        ". . . . . W W W W W W W W W W . . . W W W W W W W W W W . . . . .",
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."
+      ]
+    },
+    "ysort": {
+      "tiles": [
+        {
+          "x": 11,
+          "y": 11,
+          "tileset": "objects",
+          "col": 0,
+          "row": 1
+        },
+        {
+          "x": 21,
+          "y": 11,
+          "tileset": "objects",
+          "col": 0,
+          "row": 1
+        },
+        {
+          "x": 11,
+          "y": 21,
+          "tileset": "objects",
+          "col": 0,
+          "row": 1
+        },
+        {
+          "x": 21,
+          "y": 21,
+          "tileset": "objects",
+          "col": 0,
+          "row": 1
+        }
+      ]
+    }
+  },
+  "spawn_points": {
+    "player_start": {
+      "x": 16,
+      "y": 16
+    },
+    "enemy_spawns": [
+      {
+        "x": 16,
+        "y": 3
+      },
+      {
+        "x": 15,
+        "y": 3
+      },
+      {
+        "x": 17,
+        "y": 3
+      },
+      {
+        "x": 16,
+        "y": 29
+      },
+      {
+        "x": 15,
+        "y": 29
+      },
+      {
+        "x": 17,
+        "y": 29
+      },
+      {
+        "x": 3,
+        "y": 16
+      },
+      {
+        "x": 3,
+        "y": 15
+      },
+      {
+        "x": 3,
+        "y": 17
+      },
+      {
+        "x": 29,
+        "y": 16
+      },
+      {
+        "x": 29,
+        "y": 15
+      },
+      {
+        "x": 29,
+        "y": 17
+      }
+    ]
+  }
+}

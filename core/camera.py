@@ -123,15 +123,18 @@ class Camera:
     
     def _clamp_to_bounds(self):
         """Ensure camera stays within world boundaries."""
-        # Left/Top bounds
-        self.x = max(0, self.x)
-        self.y = max(0, self.y)
-        
-        # Right/Bottom bounds
-        max_x = max(0, self.world_width - self.viewport_width)
-        max_y = max(0, self.world_height - self.viewport_height)
-        self.x = min(max_x, self.x)
-        self.y = min(max_y, self.y)
+        # If the world is smaller than the viewport, center it.
+        if self.world_width <= self.viewport_width:
+            self.x = (self.world_width - self.viewport_width) / 2
+        else:
+            max_x = self.world_width - self.viewport_width
+            self.x = max(0, min(max_x, self.x))
+
+        if self.world_height <= self.viewport_height:
+            self.y = (self.world_height - self.viewport_height) / 2
+        else:
+            max_y = self.world_height - self.viewport_height
+            self.y = max(0, min(max_y, self.y))
     
     def center_on(self, x: float, y: float):
         """

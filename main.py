@@ -1,7 +1,7 @@
 """Main game entry point with scene management."""
 import pygame
 from core.scene import SceneManager
-from scenes import MainMenuScene, WorldScene
+from scenes import MainMenuScene, WorldScene, SurvivalScene
 from config.settings import (
     SCREEN_WIDTH, SCREEN_HEIGHT, FPS,
     CAMERA_ENABLED, CAMERA_HOLD_TIME, CAMERA_CONFIDENCE, CAMERA_SHOW_PREVIEW
@@ -61,6 +61,7 @@ class Game:
         """Register all game scenes."""
         self.scene_manager.register_scene('menu', MainMenuScene)
         self.scene_manager.register_scene('world', WorldScene)
+        self.scene_manager.register_scene('survival', SurvivalScene)
     
     def run(self):
         """Main game loop."""
