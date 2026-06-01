@@ -41,7 +41,7 @@ class MainMenuScene(Scene):
             self.menu_font = pygame.font.Font(None, 32)
         
         # Menu options
-        self.menu_items = ['New Game', 'Quit']
+        self.menu_items = ['New Game', 'Survival', 'Quit']
         self.selected_index = 0
         
         # Colors
@@ -70,6 +70,9 @@ class MainMenuScene(Scene):
         if option == 'New Game':
             game_state.reset()
             self.next_scene = 'world'
+        elif option == 'Survival':
+            game_state.reset()
+            self.next_scene = 'survival'
         elif option == 'Quit':
             self.game.running = False
     

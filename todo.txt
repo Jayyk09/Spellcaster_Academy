@@ -1,0 +1,5 @@
+- fix loading screen wording for survival mode
+- bump up enemy AI's player detection distance for survival mode
+- add sprites for all 26 letters
+- fix model to consider more frames so complex letters and words can be added
+- fix training data based off new model architecture
